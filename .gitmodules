@@ -1,0 +1,3 @@
+[submodule "CaelumRex/vendor/spdlog"]
+	path = CaelumRex/vendor/spdlog
+	url = https://github.com/gabime/spdlog

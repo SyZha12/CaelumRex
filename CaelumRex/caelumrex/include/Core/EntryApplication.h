@@ -7,6 +7,9 @@ extern CaelumRex::Application* CaelumRex::CreateApplication();
 
 int main(int argc, char ** argv)
 {
+    CaelumRex::Log::Init();
+    CR_CORE_INFO("Logger initialized");
+
     // STEP 1: Instantiate the application class
     // By creating the starting class in the client application and returning a pointer; the engine will take care of starting up the whole system
     auto* application = CaelumRex::CreateApplication();

@@ -1,4 +1,7 @@
-set(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Application.cpp)
+set(FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/Application.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Log.cpp
+)
 set(SUBDIRECTORIES "")
 set(RELATIVE_PATH "src")
 

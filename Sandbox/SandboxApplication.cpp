@@ -6,7 +6,7 @@ class Sandbox : public CaelumRex::Application
 public:
     Sandbox()
     {
-        std::cout << "It works!";
+
     }
 
     ~Sandbox()

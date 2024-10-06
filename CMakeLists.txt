@@ -23,6 +23,10 @@ option(BUILD_SHARED_LIBS "This evaluates to true when it is a shared library" Fa
 #======================GO TO SUBDIRECTORIES======================
 #[Go to subdirectories when the next CMakeLists.txt will be executed]
 add_subdirectory(CaelumRex/caelumrex)
+
+#[Go to the vendors subdirectory]
+add_subdirectory(CaelumRex/vendor/spdlog)
+
 #[Example subdirectory]
 add_subdirectory(Sandbox)
 
@@ -30,4 +34,11 @@ add_subdirectory(Sandbox)
 target_include_directories(
     ${PROJECT_NAME} PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/caelumrex
+        ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/vendor/spdlog/include
+)
+
+#[Set precompiled header]
+target_precompile_headers(
+        ${PROJECT_NAME} PRIVATE
+        CaelumRex/caelumrex/CRPrecompiled.h
 )

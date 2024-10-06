@@ -1,7 +1,7 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include "caelumrex_export.h"
+#include "CRPrecompiled.h"
 
 namespace CaelumRex
 {
