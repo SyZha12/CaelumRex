@@ -12,6 +12,7 @@ set(CMAKE_CXX_STANDARD 20)
 #[Set default visibility to hidden for all targets]
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
+
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -23,8 +24,9 @@ option(BUILD_SHARED_LIBS "This evaluates to true when it is a shared library" Fa
 #[Go to subdirectories when the next CMakeLists.txt will be executed]
 add_subdirectory(CaelumRex/caelumrex)
 #[Example subdirectory]
-add_subdirectory(Examples)
+add_subdirectory(Sandbox)
 
+#[This subdirectory is added for including the CaelumRex.h header file; More main files could be added to this directory]
 target_include_directories(
     ${PROJECT_NAME} PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/caelumrex

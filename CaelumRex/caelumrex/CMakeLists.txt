@@ -1,3 +1,5 @@
+#[Main entry point for the CaelumRex engine files (vendor/third-party will be in a different directory)]
+
 #======================CREATE LIBRARY===================
 #[Create an initial library with zero parameters]
 add_library(${PROJECT_NAME} ""
@@ -7,6 +9,7 @@ add_library(${PROJECT_NAME} ""
 #[Give the library the alias CaelumRex::CaelumRex for the target_link_libraries]
 add_library(CaelumRex::CaelumRex ALIAS ${PROJECT_NAME})
 
+#[This code is used for the include and src directories of the CaelumRex files]
 target_include_directories(
     ${PROJECT_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -31,6 +34,7 @@ set_target_properties(
         RELWITHDEBINFO "${STATIC_POSTFIX}-rd"
 )
 
+#[Creates an export file to (un)hide certain code from outside the project]
 include(GenerateExportHeader)
 generate_export_header(${PROJECT_NAME})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/caelumrex_export.h DESTINATION include)

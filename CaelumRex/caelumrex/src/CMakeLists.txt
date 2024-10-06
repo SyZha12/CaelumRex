@@ -1,3 +1,5 @@
+#[This file will go through every src directory under the CaelumRex project]
+
 set(FILES "")
 set(SUBDIRECTORIES "Core")
 set(RELATIVE_PATH "src")
