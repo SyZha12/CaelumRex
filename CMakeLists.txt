@@ -24,6 +24,9 @@ option(BUILD_SHARED_LIBS "This evaluates to true when it is a shared library" Fa
 #[Go to subdirectories when the next CMakeLists.txt will be executed]
 add_subdirectory(CaelumRex/caelumrex)
 
+#[Add git submodules to the project]
+add_subdirectory(CaelumRex/vendor)
+
 #[Go to the vendors subdirectory]
 add_subdirectory(CaelumRex/vendor/spdlog)
 
