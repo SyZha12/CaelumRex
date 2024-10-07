@@ -1,7 +1,7 @@
 #[This file will go through every src directory under the CaelumRex project]
 
 set(FILES "")
-set(SUBDIRECTORIES "Core")
+set(SUBDIRECTORIES Core ImGui)
 set(RELATIVE_PATH "src")
 
 #[Add all subdirectories]

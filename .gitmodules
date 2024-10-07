@@ -4,3 +4,6 @@
 [submodule "CaelumRex/vendor/glfw"]
 	path = CaelumRex/vendor/glfw
 	url = https://github.com/glfw/glfw
+[submodule "CaelumRex/vendor/imgui"]
+	path = CaelumRex/vendor/imgui
+	url = https://github.com/SyZha12/imgui

@@ -18,7 +18,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 #[Set global cache variables]
-option(BUILD_SHARED_LIBS "This evaluates to true when it is a shared library" False)
+#[Default is ON for shared library; users can overwrite this with cmake -D to choose static or shared library]
+option(BUILD_SHARED_LIBS "This evaluates to true when it is a shared library" OFF)
 
 #======================GO TO SUBDIRECTORIES======================
 #[Go to subdirectories when the next CMakeLists.txt will be executed]
@@ -31,6 +32,7 @@ add_subdirectory(CaelumRex/vendor)
 add_subdirectory(CaelumRex/vendor/spdlog)
 add_subdirectory(CaelumRex/vendor/glfw)
 add_subdirectory(CaelumRex/vendor/glad)
+add_subdirectory(CaelumRex/vendor/imgui)
 
 #[Example subdirectory]
 add_subdirectory(Sandbox)
@@ -41,6 +43,7 @@ target_link_libraries(
     ${PROJECT_NAME} PRIVATE
         glfw
         GLAD::GLAD
+        IMGUI::IMGUI
 )
 
 #[This subdirectory is added for including the CaelumRex.h header file; More main files could be added to this directory]
@@ -51,6 +54,7 @@ target_include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/vendor/spdlog/include
         ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/vendor/glfw/include
         ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/vendor/glad/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/vendor/imgui
 )
 
 #======================INCLUDE PRECOMPILED HEADER======================

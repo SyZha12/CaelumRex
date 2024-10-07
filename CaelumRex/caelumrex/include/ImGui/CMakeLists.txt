@@ -1,8 +1,8 @@
-#[This file will go through every header directory under the CaelumRex project]
-
-set(FILES "")
-set(SUBDIRECTORIES Linux OpenGL)
-set(RELATIVE_PATH "src")
+set(FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/ImGuiLayer.h
+)
+set(SUBDIRECTORIES "")
+set(RELATIVE_PATH "include")
 
 #[Add all subdirectories]
 foreach(VAR ${SUBDIRECTORIES})
