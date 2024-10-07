@@ -30,6 +30,7 @@ add_subdirectory(CaelumRex/vendor)
 #[Go to the vendors subdirectory]
 add_subdirectory(CaelumRex/vendor/spdlog)
 add_subdirectory(CaelumRex/vendor/glfw)
+add_subdirectory(CaelumRex/vendor/glad)
 
 #[Example subdirectory]
 add_subdirectory(Sandbox)
@@ -39,6 +40,7 @@ add_subdirectory(Sandbox)
 target_link_libraries(
     ${PROJECT_NAME} PRIVATE
         glfw
+        GLAD::GLAD
 )
 
 #[This subdirectory is added for including the CaelumRex.h header file; More main files could be added to this directory]
@@ -48,6 +50,7 @@ target_include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/platform
         ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/vendor/spdlog/include
         ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/vendor/glfw/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/vendor/glad/include
 )
 
 #======================INCLUDE PRECOMPILED HEADER======================

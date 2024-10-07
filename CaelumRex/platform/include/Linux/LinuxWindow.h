@@ -1,10 +1,10 @@
 #ifndef LINUXWINDOW_H
 #define LINUXWINDOW_H
 
-#include "CRPrecompiled.h"
 #include "Core/Window.h"
-#include "Core/Log.h"
-#include "GLFW/glfw3.h"
+#include "Events/ApplicationEvent.h"
+#include "Events/KeyEvent.h"
+#include "Events/MouseEvent.h"
 
 namespace CaelumRex
 {
@@ -20,13 +20,14 @@ namespace CaelumRex
         unsigned int GetHeight() const override { return m_WindowData.Height; }
 
         // Attributes
-        // void SetCallBacks() const;
+        void SetCallBacks() const;
         void SetEventCallBack(const EventCallBackFn& callback) override {m_WindowData.EventCallBack = callback; }
         void SetVSync(bool enabled) override;
         bool IsVSync() const override;
 
         virtual void* GetNativeWindow() const { return m_Window; }
     private:
+        // Not in the Window class and is used from this point
         virtual void Init(const WindowProperties& props);
         virtual void ShutDown();
 

@@ -1,8 +1,8 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "CRPrecompiled.h"
 #include "Events/Event.h"
+#include "Core/Log.h"
 
 namespace CaelumRex
 {
@@ -27,6 +27,7 @@ namespace CaelumRex
     {
     public:
         // Type alias to a function with the Event class as parameter with no return type
+        // Is used in the SetEventCallBack function
         using EventCallBackFn = std::function<void(Event&)>;
 
         // default means use the compiler-generated version of this function (= delete means don't generate this function automatically)
@@ -43,6 +44,7 @@ namespace CaelumRex
         virtual void SetVSync(bool enabled) = 0;
         virtual bool IsVSync() const = 0;
 
+        // Used to instantiate a new window; window is created from this class and not LinuxWindow class for example
         static Window* Create(const WindowProperties& props = WindowProperties());
     };
 }
