@@ -1,8 +1,8 @@
-#[This file will go through every header directory under the CaelumRex project]
-
-set(FILES "")
-set(SUBDIRECTORIES Core Events)
-set(RELATIVE_PATH "include")
+set(FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/LinuxWindow.cpp
+)
+set(SUBDIRECTORIES "")
+set(RELATIVE_PATH "src")
 
 #[Add all subdirectories]
 foreach(VAR ${SUBDIRECTORIES})

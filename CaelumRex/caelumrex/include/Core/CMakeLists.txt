@@ -2,6 +2,8 @@ set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/Application.h
         ${CMAKE_CURRENT_SOURCE_DIR}/EntryApplication.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Log.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Core.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Window.h
 )
 set(SUBDIRECTORIES "")
 set(RELATIVE_PATH "include")

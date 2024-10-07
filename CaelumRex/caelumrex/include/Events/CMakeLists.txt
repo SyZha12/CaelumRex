@@ -1,7 +1,10 @@
-#[This file will go through every header directory under the CaelumRex project]
-
-set(FILES "")
-set(SUBDIRECTORIES Core Events)
+set(FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/ApplicationEvent.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Event.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/KeyEvent.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/MouseEvent.h
+)
+set(SUBDIRECTORIES "")
 set(RELATIVE_PATH "include")
 
 #[Add all subdirectories]

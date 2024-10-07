@@ -1,7 +1,7 @@
 #[This file will go through every header directory under the CaelumRex project]
 
 set(FILES "")
-set(SUBDIRECTORIES Core Events)
+set(SUBDIRECTORIES Linux)
 set(RELATIVE_PATH "include")
 
 #[Add all subdirectories]

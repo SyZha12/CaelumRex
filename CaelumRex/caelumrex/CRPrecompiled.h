@@ -5,6 +5,7 @@
 // This quickens the build time as well
 
 #include "caelumrex_export.h"
+#include "Core/Core.h"
 
 #include <iostream>
 #include <stdio.h>
@@ -13,5 +14,7 @@
 
 #include <string>
 #include <sstream>
+
+#include <GLFW/glfw3.h>
 
 #endif //CRPRECOMPILED_H

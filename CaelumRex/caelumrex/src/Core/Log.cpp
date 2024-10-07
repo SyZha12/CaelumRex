@@ -7,7 +7,7 @@ namespace CaelumRex
 
     void Log::Init()
     {
-        spdlog::set_pattern("%^[%T] %8l[%n]: %v%$");
+        spdlog::set_pattern("%^[%T] %-6l[%n]: %v%$");
         s_CoreLogger = spdlog::stdout_color_mt("CaelumRex");
         s_CoreLogger->set_level(spdlog::level::trace);
         s_ClientLogger = spdlog::stdout_color_mt("Application");
