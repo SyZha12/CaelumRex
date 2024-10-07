@@ -5,6 +5,9 @@ It provides insights into the C++ programming language, and uses different kinds
 
 My focus here is creating a game engine from scratch using OpenGL as the graphics API where I will learn to render all kinds of stuff.
 First I have to create a window; GLFW will be used during this time, because of its simplicity, but might convert to SDL3 in the future.
+This engine is built up with an example of a series from TheCherno (https://www.youtube.com/playlist?list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT)
+where I learn how a game engine could be designed.
+I will try to add my own ideas into this, so it's not a complete copy/paste project, but will use lots of implementation ideas from his project.
 
 ## What am I learning?
 ### Programming Languages and Libraries/APIs
