@@ -6,5 +6,4 @@ add_executable(
 target_link_libraries(
     Example PRIVATE
         CaelumRex::CaelumRex
-        spdlog::spdlog
 )

@@ -7,6 +7,7 @@
 // ---Header(s) used for other applications using this engine
 #include "Core/Application.h"
 #include "Core/Log.h"
+#include "Core/Layer.h"
 // ----------------------------------------------------------
 
 

@@ -24,12 +24,6 @@ set_target_properties(
         RELWITHDEBINFO "${STATIC_POSTFIX}-rd"
 )
 
-#[[
-#[Creates an export file to (un)hide certain code from outside the project]
-include(GenerateExportHeader)
-generate_export_header(${PROJECT_NAME})
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/caelumrex_export.h DESTINATION include)
-]]
 #======================GO TO SUBDIRECTORIES======================
 #[Go to subdirectories when the next CMakeLists.txt will be executed]
 add_subdirectory(caelumrex)

@@ -10,6 +10,7 @@ target_include_directories(
 )
 
 #[Creates an export file to (un)hide certain code from outside the project]
+#[This is generated under the caelumrex directory for the project itself]
 include(GenerateExportHeader)
 generate_export_header(${PROJECT_NAME})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/caelumrex_export.h DESTINATION include)

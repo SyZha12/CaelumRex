@@ -8,6 +8,7 @@
 #include "Core/Log.h"
 #include "Core/Window.h"
 #include "Events/ApplicationEvent.h"
+#include "Core/LayerStack.h"
 
 namespace CaelumRex
 {
@@ -21,11 +22,16 @@ namespace CaelumRex
 
         // Used for window events
         void OnEvent(Event& e);
+
+        // Layers
+        void PushLayer(Layer* layer);
+        void PushOverlay(Layer* layer);
     private:
         bool OnWindowClose(WindowCloseEvent& e);
 
         std::unique_ptr<Window> m_Window;
         bool m_Running = true;
+        LayerStack m_LayerStack;
     };
 
     Application* CreateApplication();
