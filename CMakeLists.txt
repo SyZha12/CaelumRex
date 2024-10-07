@@ -25,15 +25,6 @@ option(BUILD_SHARED_LIBS "This evaluates to true when it is a shared library" OF
 #[Go to subdirectories when the next CMakeLists.txt will be executed]
 add_subdirectory(CaelumRex)
 
-#[Add git submodules to the project]
-add_subdirectory(CaelumRex/vendor)
-
-#[Go to the vendors subdirectory]
-add_subdirectory(CaelumRex/vendor/spdlog)
-add_subdirectory(CaelumRex/vendor/glfw)
-add_subdirectory(CaelumRex/vendor/glad)
-add_subdirectory(CaelumRex/vendor/imgui)
-
 #[Example subdirectory]
 add_subdirectory(Sandbox)
 
@@ -51,10 +42,6 @@ target_include_directories(
     ${PROJECT_NAME} PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/caelumrex
         ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/platform
-        ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/vendor/spdlog/include
-        ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/vendor/glfw/include
-        ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/vendor/glad/include
-        ${CMAKE_CURRENT_SOURCE_DIR}/CaelumRex/vendor/imgui
 )
 
 #======================INCLUDE PRECOMPILED HEADER======================

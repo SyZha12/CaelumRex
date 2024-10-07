@@ -1,8 +1,9 @@
 set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/ImGuiLayer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ImGuiLayer.h
 )
 set(SUBDIRECTORIES "")
-set(RELATIVE_PATH "src")
+set(RELATIVE_PATH caelumrex)
 
 #[Add all subdirectories]
 foreach(VAR ${SUBDIRECTORIES})

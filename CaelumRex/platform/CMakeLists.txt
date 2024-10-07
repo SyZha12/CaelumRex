@@ -1,15 +1,23 @@
 #[Main entry point for the CaelumRex engine files (vendor/third-party will be in a different directory)]
 #[PLATFORM]
 
-#[This code is used for the include and src directories of the CaelumRex files]
-target_include_directories(
-    ${PROJECT_NAME} PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-        $<INSTALL_INTERFACE:include>
-)
+set(FILES "")
+set(SUBDIRECTORIES Linux OpenGL)
+set(RELATIVE_PATH platform)
 
-#======================GO TO SUBDIRECTORIES======================
-#[Go to subdirectories when the next CMakeLists.txt will be executed]
-add_subdirectory(include)
-add_subdirectory(src)
+#[Add all subdirectories]
+foreach(VAR ${SUBDIRECTORIES})
+    target_include_directories(
+            ${PROJECT_NAME} PUBLIC
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${VAR}>
+            $<INSTALL_INTERFACE:${VAR}>
+    )
+    add_subdirectory(${VAR})
+endforeach()
+
+if(FILES)
+    #[Add source files to target]
+    target_sources(${PROJECT_NAME} PRIVATE ${FILES})
+    #[Install source files]
+    install(FILES ${FILES} DESTINATION ${RELATIVE_PATH})
+endif()

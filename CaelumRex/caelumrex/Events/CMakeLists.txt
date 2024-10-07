@@ -1,10 +1,11 @@
-#[This file will go through every header directory under the CaelumRex project]
-
 set(FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/imgui_impl_opengl3.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ApplicationEvent.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Event.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/KeyEvent.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/MouseEvent.h
 )
 set(SUBDIRECTORIES "")
-set(RELATIVE_PATH "src")
+set(RELATIVE_PATH caelumrex)
 
 #[Add all subdirectories]
 foreach(VAR ${SUBDIRECTORIES})

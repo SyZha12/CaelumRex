@@ -28,3 +28,4 @@ set_target_properties(
 #[Go to subdirectories when the next CMakeLists.txt will be executed]
 add_subdirectory(caelumrex)
 add_subdirectory(platform)
+add_subdirectory(vendor)

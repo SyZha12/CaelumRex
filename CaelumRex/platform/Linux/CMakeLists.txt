@@ -1,8 +1,9 @@
-#[This file will go through every src directory under the CaelumRex project]
-
-set(FILES "")
-set(SUBDIRECTORIES Core ImGui)
-set(RELATIVE_PATH "src")
+set(FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/LinuxWindow.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/LinuxWindow.cpp
+)
+set(SUBDIRECTORIES "")
+set(RELATIVE_PATH platform)
 
 #[Add all subdirectories]
 foreach(VAR ${SUBDIRECTORIES})
