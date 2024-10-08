@@ -4,10 +4,12 @@ namespace CaelumRex
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
+    // Static members need to be defined in the source file as well; this is for the application instance
     Application* Application::s_Instance = nullptr;
 
     Application::Application()
     {
+        // Creates an Application pointer
         CR_CORE_ASSERT(!s_Instance, "Application already exists!")
         s_Instance = this;
 
@@ -18,7 +20,6 @@ namespace CaelumRex
 
     Application::~Application()
     {
-
     }
 
     void Application::Run()

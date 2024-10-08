@@ -44,7 +44,7 @@ namespace CaelumRex
         virtual void SetVSync(bool enabled) = 0;
         virtual bool IsVSync() const = 0;
 
-        // Used to instantiate a new window; window is created from this class and not LinuxWindow class for example
+        // Used to instantiate a new window; window is created from this class
         static Window* Create(const WindowProperties& props = WindowProperties());
     };
 }
