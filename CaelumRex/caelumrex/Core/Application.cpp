@@ -7,6 +7,7 @@ namespace CaelumRex
     // Static members need to be defined in the source file as well; this is for the application instance
     Application* Application::s_Instance = nullptr;
 
+
     Application::Application()
     {
         // Creates an Application pointer
@@ -16,6 +17,7 @@ namespace CaelumRex
         // Create a window
         m_Window = std::unique_ptr<Window>(Window::Create());
         m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
+
     }
 
     Application::~Application()

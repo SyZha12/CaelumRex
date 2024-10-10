@@ -12,7 +12,7 @@ public:
 
     void OnUpdate() override
     {
-        CR_INFO("ExampleLayer::Update");
+        // CR_INFO("ExampleLayer::Update");
     }
 
     void OnEvent(CaelumRex::Event& event) override
@@ -26,7 +26,7 @@ class Sandbox : public CaelumRex::Application
 public:
     Sandbox()
     {
-        PushLayer(new ExampleLayer());
+        // PushLayer(new ExampleLayer());
         PushOverlay(new CaelumRex::ImGuiLayer());
     }
 

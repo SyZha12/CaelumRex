@@ -11,6 +11,7 @@
 // For window closed event (for now)
 #include "Events/ApplicationEvent.h"
 #include "Core/LayerStack.h"
+#include "Linux/LinuxWindow.h"
 
 namespace CaelumRex
 {
@@ -24,6 +25,7 @@ namespace CaelumRex
         void Run();
 
         // Used for window events
+        // This way Application isn't directly linked to the Window class
         void OnEvent(Event& e);
 
         // Layers
@@ -34,6 +36,7 @@ namespace CaelumRex
 
         // Returns the instance of the application for another class to execute its functions
         static Application& Get() { return *s_Instance; }
+
     private:
         bool OnWindowClose(WindowCloseEvent& e);
 
@@ -43,6 +46,7 @@ namespace CaelumRex
 
         // TODO s_Instance is infinite loop
         static Application* s_Instance;
+
     };
 
     Application* CreateApplication();

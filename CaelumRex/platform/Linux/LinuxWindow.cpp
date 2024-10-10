@@ -126,6 +126,14 @@ namespace CaelumRex
             }
         });
 
+        glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
+        {
+            WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+
+            KeyTypedEvent event(keycode);
+            data.EventCallBack(event);
+        });
+
         glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
         {
             WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
@@ -139,7 +147,7 @@ namespace CaelumRex
                     }
                 case GLFW_RELEASE:
                     {
-                        MouseButtonPressedEvent event(button);
+                        MouseButtonReleasedEvent event(button);
                         data.EventCallBack(event);
                         break;
                     }
@@ -151,7 +159,7 @@ namespace CaelumRex
         glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
         {
             WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
-            MouseScrolledEvent event(static_cast<float>(xOffset), static_cast<float>(xOffset));
+            MouseScrolledEvent event(static_cast<float>(xOffset), static_cast<float>(yOffset));
             data.EventCallBack(event);
         });
 

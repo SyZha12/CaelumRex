@@ -52,7 +52,8 @@ namespace CaelumRex
     class MouseButtonEvent : public Event
     {
     public:
-        inline int GetMouseButton() const { return m_Button; }
+        // Used in events to retrieve the key
+        int GetMouseButton() const { return m_Button; }
 
         EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
     protected:
@@ -71,7 +72,7 @@ namespace CaelumRex
         std::string ToString() const override
         {
             std::stringstream ss;
-            ss << "MouseButtonPressenEvent: " << m_Button;
+            ss << "MouseButtonPressedEvent: " << m_Button;
             return ss.str();
         }
 
@@ -87,7 +88,7 @@ namespace CaelumRex
         std::string ToString() const override
         {
             std::stringstream ss;
-            ss << "MouseButtonPressenEvent: " << m_Button;
+            ss << "MouseButtonReleasedEvent: " << m_Button;
             return ss.str();
         }
 
