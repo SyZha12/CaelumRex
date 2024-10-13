@@ -6,6 +6,9 @@
 
 // ---Header(s) used for other applications using this engine
 #include "Core/Application.h"
+#include "Core/Input.h"
+#include "Core/KeyCodes.h"
+#include "Core/MouseButtonCodes.h"
 #include "Core/Log.h"
 #include "Core/Layer.h"
 #include "ImGui/ImGuiLayer.h"

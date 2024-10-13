@@ -5,13 +5,11 @@
 // This class must be exported (visible) for the external project to inherit and use its functionalities
 
 #include "CRPrecompiled.h"
-#include "Core/Log.h"
-// Used to send window object
+// #include "Core/Log.h"   // Used to send window object
 #include "Core/Window.h"
-// For window closed event (for now)
-#include "Events/ApplicationEvent.h"
+#include "Events/ApplicationEvent.h"    // For window closed event (for now)
 #include "Core/LayerStack.h"
-#include "Linux/LinuxWindow.h"
+#include "Core/Input.h"
 
 namespace CaelumRex
 {
@@ -33,7 +31,6 @@ namespace CaelumRex
         void PushOverlay(Layer* layer);
 
         Window& GetWindow() const { return *m_Window; }
-
         // Returns the instance of the application for another class to execute its functions
         static Application& Get() { return *s_Instance; }
 
@@ -44,12 +41,12 @@ namespace CaelumRex
         bool m_Running = true;
         LayerStack m_LayerStack;
 
-        // TODO s_Instance is infinite loop
         static Application* s_Instance;
 
     };
 
-    Application* CreateApplication();
+    // Called in Sandbox/Application
+    extern Application* CreateApplication();
 }
 
 #endif //APPLICATION_H

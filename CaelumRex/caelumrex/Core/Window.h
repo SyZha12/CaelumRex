@@ -6,11 +6,14 @@
 
 namespace CaelumRex
 {
+    // Used for each created window with their own properties
+    // Used with Window::Create()
     struct WindowProperties
     {
         std::string Title;
         unsigned int Width, Height;
 
+        // Struct callable
         WindowProperties(
             const std::string& title = "CaelumRex Engine",
             unsigned int width = 1600,
@@ -26,6 +29,9 @@ namespace CaelumRex
     class Window
     {
     public:
+        // Used to instantiate a new window; window is created from this class
+        static Window* Create(const WindowProperties& props = WindowProperties());
+
         // Type alias to a function with the Event class as parameter with no return type
         // Is used in the SetEventCallBack function
         using EventCallBackFn = std::function<void(Event&)>;
@@ -44,8 +50,7 @@ namespace CaelumRex
         virtual void SetVSync(bool enabled) = 0;
         virtual bool IsVSync() const = 0;
 
-        // Used to instantiate a new window; window is created from this class
-        static Window* Create(const WindowProperties& props = WindowProperties());
+        virtual void* GetNativeWindow() const = 0;
     };
 }
 

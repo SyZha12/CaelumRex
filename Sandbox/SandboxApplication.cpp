@@ -13,11 +13,13 @@ public:
     void OnUpdate() override
     {
         // CR_INFO("ExampleLayer::Update");
+        if(CaelumRex::Input::IsKeyPressed(CR_KEY_RIGHT_SHIFT))
+            CR_TRACE("Right shift key has been pressed!");
     }
 
     void OnEvent(CaelumRex::Event& event) override
     {
-        CR_TRACE("{0}", event);
+        // CR_TRACE("{0}", event);
     }
 };
 
@@ -26,8 +28,8 @@ class Sandbox : public CaelumRex::Application
 public:
     Sandbox()
     {
-        // PushLayer(new ExampleLayer());
-        PushOverlay(new CaelumRex::ImGuiLayer());
+        PushLayer(new ExampleLayer());
+        // PushOverlay(new CaelumRex::ImGuiLayer());
     }
 
     ~Sandbox()

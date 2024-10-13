@@ -2,20 +2,6 @@
 
 namespace CaelumRex
 {
-    // Flag if GLFW is initialized or not
-    static bool s_GLFWInitialized = false;
-
-    static void GLFWErrorCallBack(int error, const char* description)
-    {
-        CR_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
-    }
-
-    // This is platform specific, where we use the LinuxWindow creation
-    Window* Window::Create(const WindowProperties& props)
-    {
-        return new LinuxWindow(props);
-    }
-
     LinuxWindow::LinuxWindow(const WindowProperties& props)
         : m_Window(nullptr)
     {
@@ -25,6 +11,12 @@ namespace CaelumRex
     LinuxWindow::~LinuxWindow()
     {
         ShutDown();
+    }
+
+    // This is platform specific, where we use the LinuxWindow creation
+    Window* Window::Create(const WindowProperties& props)
+    {
+        return new LinuxWindow(props);
     }
 
     void LinuxWindow::Init(const WindowProperties& props)
@@ -107,12 +99,14 @@ namespace CaelumRex
                     {
                         KeyPressedEvent event(key, 0);
                         data.EventCallBack(event);
+                        // CR_CORE_INFO("{0}", event.ToString());
                         break;
                     }
                 case GLFW_RELEASE:
                     {
                        KeyReleasedEvent event(key);
                        data.EventCallBack(event);
+                        // CR_CORE_INFO("{0}", event.ToString());
                        break;
                     }
                 case GLFW_REPEAT:

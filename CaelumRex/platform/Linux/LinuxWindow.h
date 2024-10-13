@@ -8,6 +8,10 @@
 
 namespace CaelumRex
 {
+    // Flag if GLFW is initialized or not
+    static bool s_GLFWInitialized = false;
+    static void GLFWErrorCallBack(int error, const char* description) { CR_CORE_ERROR("GLFW Error ({0}): {1}", error, description); }
+
     class LinuxWindow : public Window
     {
     public:
@@ -25,7 +29,7 @@ namespace CaelumRex
         void SetVSync(bool enabled) override;
         bool IsVSync() const override;
 
-        virtual void* GetNativeWindow() const { return m_Window; }
+        void* GetNativeWindow() const { return m_Window; }
     private:
         // Not in the Window class and is used from this point
         virtual void Init(const WindowProperties& props);

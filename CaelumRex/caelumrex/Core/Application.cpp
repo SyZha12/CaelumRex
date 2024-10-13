@@ -17,7 +17,6 @@ namespace CaelumRex
         // Create a window
         m_Window = std::unique_ptr<Window>(Window::Create());
         m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
-
     }
 
     Application::~Application()
@@ -34,6 +33,9 @@ namespace CaelumRex
             for(Layer* layer : m_LayerStack)
                 layer->OnUpdate();
 
+            // auto[x, y] = Input::GetMousePosition();
+            // CR_CORE_TRACE("{0}, {1}", x, y);
+
             m_Window->OnUpdate();
         }
     }
@@ -43,7 +45,7 @@ namespace CaelumRex
         // EventDispatcher is used to determine when certain events occur like WindowCloseEvent
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-
+        // CR_CORE_INFO("{0}", e.IsInCategory(EventCategoryApplication));
         // Use this to see events happening in the log
         // CR_CORE_TRACE("{0}", e);
 
@@ -74,5 +76,5 @@ namespace CaelumRex
     }
 
 
-    Application* CreateApplication();
+    // Application* CreateApplication();
 }

@@ -10,6 +10,9 @@ set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/Log.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Layer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/LayerStack.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Input.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/KeyCodes.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/MouseButtonCodes.h
 )
 set(SUBDIRECTORIES "")
 set(RELATIVE_PATH caelumrex)

@@ -3,7 +3,7 @@
 
 // By using this header; main entry point stays separate from the other applications that use this engine
 // Thus, main starts executing from here
-extern CaelumRex::Application* CaelumRex::CreateApplication();
+// extern CaelumRex::Application* CaelumRex::CreateApplication();
 
 int main(int argc, char ** argv)
 {
