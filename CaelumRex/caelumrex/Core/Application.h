@@ -10,6 +10,7 @@
 #include "Events/ApplicationEvent.h"    // For window closed event (for now)
 #include "Core/LayerStack.h"
 #include "Core/Input.h"
+#include "glm/glm.hpp"
 
 namespace CaelumRex
 {

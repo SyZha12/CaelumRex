@@ -3,8 +3,7 @@
 
 #======================CREATE LIBRARY===================
 #[Create an initial library with zero parameters]
-add_library(${PROJECT_NAME} ""
-        caelumrex/Core/KeyCodes.h)
+add_library(${PROJECT_NAME} "")
 #[Give the library the alias CaelumRex::CaelumRex for the target_link_libraries]
 add_library(CaelumRex::CaelumRex ALIAS ${PROJECT_NAME})
 

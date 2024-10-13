@@ -7,3 +7,6 @@
 [submodule "CaelumRex/vendor/imgui"]
 	path = CaelumRex/vendor/imgui
 	url = https://github.com/SyZha12/imgui
+[submodule "CaelumRex/vendor/glm"]
+	path = CaelumRex/vendor/glm
+	url = https://github.com/g-truc/glm
