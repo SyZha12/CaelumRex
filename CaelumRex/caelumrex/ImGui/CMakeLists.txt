@@ -1,6 +1,7 @@
 set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/ImGuiLayer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ImGuiLayer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/ImGuiBuild.cpp
 )
 set(SUBDIRECTORIES "")
 set(RELATIVE_PATH caelumrex)

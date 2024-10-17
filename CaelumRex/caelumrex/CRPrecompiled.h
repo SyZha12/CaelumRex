@@ -17,7 +17,7 @@
 
 #include <vector>
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+// #include <glad/glad.h>
+// #include <GLFW/glfw3.h>
 
 #endif //CRPRECOMPILED_H

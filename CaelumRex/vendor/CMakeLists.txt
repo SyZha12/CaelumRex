@@ -1,7 +1,8 @@
 add_subdirectory(spdlog)
 add_subdirectory(glfw)
 add_subdirectory(glad)
-add_subdirectory(imgui)
+#add_subdirectory(imgui)
+add_subdirectory(imgui-docking/imgui-docking)
 add_subdirectory(glm)
 
 find_package(Git QUIET)
@@ -27,7 +28,11 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/CaelumRex/vendor/spdlog/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
-if(NOT EXISTS "${PROJECT_SOURCE_DIR}/CaelumRex/vendor/imgui/CMakeLists.txt")
+#if(NOT EXISTS "${PROJECT_SOURCE_DIR}/CaelumRex/vendor/imgui/CMakeLists.txt")
+#    message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
+#endif()
+
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/CaelumRex/vendor/imgui-docking/imgui-docking/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
@@ -41,6 +46,7 @@ target_include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/spdlog/include
         ${CMAKE_CURRENT_SOURCE_DIR}/glfw/include
         ${CMAKE_CURRENT_SOURCE_DIR}/glad/include
-        ${CMAKE_CURRENT_SOURCE_DIR}/imgui
+#        ${CMAKE_CURRENT_SOURCE_DIR}/imgui
+        ${CMAKE_CURRENT_SOURCE_DIR}/imgui-docking
         ${CMAKE_CURRENT_SOURCE_DIR}/glm/
 )

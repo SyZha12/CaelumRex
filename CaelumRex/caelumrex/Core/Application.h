@@ -5,12 +5,15 @@
 // This class must be exported (visible) for the external project to inherit and use its functionalities
 
 #include "CRPrecompiled.h"
-// #include "Core/Log.h"   // Used to send window object
+
 #include "Core/Window.h"
-#include "Events/ApplicationEvent.h"    // For window closed event (for now)
 #include "Core/LayerStack.h"
-#include "Core/Input.h"
-#include "glm/glm.hpp"
+#include "Events/Event.h"
+#include "Events/ApplicationEvent.h"    // For window closed event (for now)
+#include "ImGui/ImGuiLayer.h"
+
+// #include "Core/Input.h"
+// #include "glm/glm.hpp"
 
 namespace CaelumRex
 {
@@ -39,6 +42,7 @@ namespace CaelumRex
         bool OnWindowClose(WindowCloseEvent& e);
 
         std::unique_ptr<Window> m_Window;
+        ImGuiLayer* m_ImGuiLayer;
         bool m_Running = true;
         LayerStack m_LayerStack;
 

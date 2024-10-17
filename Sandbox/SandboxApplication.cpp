@@ -28,8 +28,7 @@ class Sandbox : public CaelumRex::Application
 public:
     Sandbox()
     {
-        PushLayer(new ExampleLayer());
-        // PushOverlay(new CaelumRex::ImGuiLayer());
+        // PushLayer(new ExampleLayer());
     }
 
     ~Sandbox()

@@ -6,6 +6,7 @@
 #include "Events/KeyEvent.h"
 #include "Events/MouseEvent.h"
 
+
 namespace CaelumRex
 {
     // Flag if GLFW is initialized or not

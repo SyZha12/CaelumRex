@@ -8,10 +8,4 @@ namespace CaelumRex
 
     }
 
-    Layer::~Layer()
-    {
-
-    }
-
-
 }

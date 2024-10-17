@@ -1,7 +1,6 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-// #include "CRPrecompiled.h"
 #include "Application.h"
 
 namespace CaelumRex

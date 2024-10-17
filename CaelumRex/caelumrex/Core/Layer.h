@@ -3,18 +3,21 @@
 
 #include "CRPrecompiled.h"
 #include "Events/Event.h"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 namespace CaelumRex
 {
-    class CAELUMREX_EXPORT Layer
+    class Layer
     {
     public:
         Layer(const std::string& name = "Layer");
-        virtual ~Layer();
+        virtual ~Layer() = default;
 
         virtual void OnAttach() {}
         virtual void OnDetach() {}
         virtual void OnUpdate() {}
+        virtual void OnImGuiRender() {}
         virtual void OnEvent(Event& event) {}
 
         // Only for debug purposes

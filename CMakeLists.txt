@@ -34,7 +34,8 @@ target_link_libraries(
     ${PROJECT_NAME} PRIVATE
         glfw
         GLAD::GLAD
-        IMGUI::IMGUI
+#        IMGUI::IMGUI
+        IMGUIDOCK::IMGUIDOCK
 )
 
 #[This subdirectory is added for including the CaelumRex.h header file; More main files could be added to this directory]
