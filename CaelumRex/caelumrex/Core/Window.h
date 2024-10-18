@@ -4,8 +4,8 @@
 #include "CRPrecompiled.h"
 #include "Events/Event.h"
 #include "Core/Log.h"
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
 
 namespace CaelumRex
 {

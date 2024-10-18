@@ -6,6 +6,9 @@
 #include "Events/KeyEvent.h"
 #include "Events/MouseEvent.h"
 
+#include "OpenGL/OpenGLContext.h"
+#include "Renderer/RendererContext.h"
+
 
 namespace CaelumRex
 {
@@ -37,6 +40,7 @@ namespace CaelumRex
         virtual void ShutDown();
 
         GLFWwindow* m_Window;
+        RendererContext* m_Context;
 
         struct WindowData
         {

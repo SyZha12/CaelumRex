@@ -1,9 +1,8 @@
 set(FILES
-        ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLContext.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLContext.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/RendererContext.h
 )
 set(SUBDIRECTORIES "")
-set(RELATIVE_PATH platform)
+set(RELATIVE_PATH caelumrex)
 
 #[Add all subdirectories]
 foreach(VAR ${SUBDIRECTORIES})

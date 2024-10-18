@@ -44,12 +44,9 @@ namespace CaelumRex
             nullptr,
             nullptr
             );
-        // Make current GLFW context current
-        glfwMakeContextCurrent(m_Window);
 
-        // Load GL (glad)
-        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-        CR_CORE_ASSERT(status, "Failed to initialize Glad")
+        m_Context = new OpenGLContext(m_Window);
+        m_Context->Init();
 
         // Sets the user-defined pointer of the specified window. The current value is retained until the window is destroyed
         // What this means is on that GLFWwindow is a struct that has a place for any data we want and set it to the m_WindowData struct
@@ -67,7 +64,7 @@ namespace CaelumRex
     void LinuxWindow::OnUpdate()
     {
         glfwPollEvents();
-        glfwSwapBuffers(m_Window);
+        m_Context->SwapBuffers();
     }
 
     void LinuxWindow::SetCallBacks() const
