@@ -5,6 +5,7 @@
 #include "Events/ApplicationEvent.h"
 #include "Events/KeyEvent.h"
 #include "Events/MouseEvent.h"
+#include <GLFW/glfw3.h>
 
 #include "OpenGL/OpenGLContext.h"
 #include "Renderer/RendererContext.h"
@@ -29,7 +30,7 @@ namespace CaelumRex
 
         // Attributes
         void SetCallBacks() const;
-        void SetEventCallBack(const EventCallBackFn& callback) override {m_WindowData.EventCallBack = callback; }
+        void SetEventCallBack(const EventCallBackFn& callback) override { m_WindowData.EventCallBack = callback; }
         void SetVSync(bool enabled) override;
         bool IsVSync() const override;
 

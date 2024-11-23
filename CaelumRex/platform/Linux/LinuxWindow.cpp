@@ -45,6 +45,7 @@ namespace CaelumRex
             nullptr
             );
 
+        // Create new OpenGL context
         m_Context = new OpenGLContext(m_Window);
         m_Context->Init();
 
@@ -78,6 +79,7 @@ namespace CaelumRex
             data.Height = height;
             WindowResizeEvent event(width, height);
             data.EventCallBack(event);
+            // CR_CORE_TRACE("{0}", event.ToString());
         });
 
         glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)

@@ -3,17 +3,14 @@
 
 // This is the main starting class of the engine
 // This class must be exported (visible) for the external project to inherit and use its functionalities
-
-#include "CRPrecompiled.h"
+#include "caelumrex_export.h"
 
 #include "Core/Window.h"
 #include "Core/LayerStack.h"
-#include "Events/Event.h"
 #include "Events/ApplicationEvent.h"    // For window closed event (for now)
 #include "ImGui/ImGuiLayer.h"
 #include "OpenGL/OpenGLContext.h"
-// #include "Core/Input.h"
-// #include "glm/glm.hpp"
+#include "Renderer/Shader.h"
 
 namespace CaelumRex
 {
@@ -45,6 +42,9 @@ namespace CaelumRex
         ImGuiLayer* m_ImGuiLayer;
         bool m_Running = true;
         LayerStack m_LayerStack;
+
+        unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+        std::unique_ptr<Shader> m_Shader;
 
         static Application* s_Instance;
 

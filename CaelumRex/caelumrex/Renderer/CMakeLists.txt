@@ -1,5 +1,7 @@
 set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/RendererContext.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Shader.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Shader.cpp
 )
 set(SUBDIRECTORIES "")
 set(RELATIVE_PATH caelumrex)

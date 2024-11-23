@@ -1,6 +1,12 @@
 #ifndef LOG_H
 #define LOG_H
 
+/**
+ *  Log class: uses spdlog and is very fast and header-only (compiled is also possible)
+ *  Spdlog uses the feature-rich formatting of the fmt library
+ */
+
+#include "caelumrex_export.h"
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 

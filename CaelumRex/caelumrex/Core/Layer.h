@@ -1,15 +1,14 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "CRPrecompiled.h"
+#include <string>
+
+#include "caelumrex_export.h"
 #include "Events/Event.h"
-#define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
-// #include <glad/glad.h>
 
 namespace CaelumRex
 {
-    class Layer
+    class CAELUMREX_EXPORT Layer
     {
     public:
         Layer(const std::string& name = "Layer");

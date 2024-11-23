@@ -28,7 +28,7 @@ class Sandbox : public CaelumRex::Application
 public:
     Sandbox()
     {
-        // PushLayer(new ExampleLayer());
+        PushLayer(new ExampleLayer());
     }
 
     ~Sandbox()
@@ -39,5 +39,6 @@ public:
 
 CaelumRex::Application* CaelumRex::CreateApplication()
 {
+    CR_INFO("Creating Application...");
     return new Sandbox();
 }

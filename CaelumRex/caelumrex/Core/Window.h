@@ -1,11 +1,8 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "CRPrecompiled.h"
 #include "Events/Event.h"
 #include "Core/Log.h"
-#include <GLFW/glfw3.h>
-
 
 namespace CaelumRex
 {
@@ -18,7 +15,7 @@ namespace CaelumRex
 
         // Struct callable
         WindowProperties(
-            const std::string& title = "CaelumRex Engine",
+            const std::string& title = "CaelumRex",
             unsigned int width = 1600,
             unsigned int height = 900
         )

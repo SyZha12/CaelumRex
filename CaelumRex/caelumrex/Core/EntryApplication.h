@@ -7,8 +7,10 @@
 
 int main(int argc, char ** argv)
 {
+    // Initialise log of the core application
     CaelumRex::Log::Init();
-    CR_CORE_INFO("Logger initialized");
+    CR_CORE_INFO("Core logger initialized");
+    CR_INFO("Client logger initialized");
 
     // STEP 1: Instantiate the application class
     // By creating the starting class in the client application and returning a pointer; the engine will take care of starting up the whole system

@@ -5,7 +5,7 @@
 
 namespace CaelumRex
 {
-    class Input
+    class CAELUMREX_EXPORT Input
     {
     public:
         static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImplemented(keycode); }

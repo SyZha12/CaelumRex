@@ -1,6 +1,10 @@
 #ifndef EVENT_H
 #define EVENT_H
 
+#include <functional>
+#include <string>
+#include "Core/Core.h"
+
 namespace CaelumRex
 {
     // Current events are blocking; meaning events are executed right away.
@@ -31,7 +35,6 @@ namespace CaelumRex
 
     // Why do we need them?
     // Event System | Game Engine series 18:27
-    //
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\
                                         virtual EventType GetEventType() const override { return GetStaticType(); }\
                                         virtual const char* GetName() const override { return #type; }
@@ -44,7 +47,7 @@ namespace CaelumRex
     class Event
     {
     public:
-        bool handled = false;
+        // bool handled = false;
         virtual EventType GetEventType() const = 0;
         virtual const char* GetName() const = 0;
         virtual std::string ToString() const { return GetName(); }
