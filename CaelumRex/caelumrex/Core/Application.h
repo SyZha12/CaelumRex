@@ -4,6 +4,7 @@
 // This is the main starting class of the engine
 // This class must be exported (visible) for the external project to inherit and use its functionalities
 #include "caelumrex_export.h"
+#include "VertexArray.h"
 
 #include "Core/Window.h"
 #include "Core/LayerStack.h"
@@ -11,6 +12,7 @@
 #include "ImGui/ImGuiLayer.h"
 #include "OpenGL/OpenGLContext.h"
 #include "Renderer/Shader.h"
+#include "Renderer/Buffer.h"
 
 namespace CaelumRex
 {
@@ -43,8 +45,10 @@ namespace CaelumRex
         bool m_Running = true;
         LayerStack m_LayerStack;
 
-        unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
         std::unique_ptr<Shader> m_Shader;
+        std::unique_ptr<VertexArray> m_VertexArray;
+        std::unique_ptr<VertexBuffer> m_VertexBuffer;
+        std::unique_ptr<IndexBuffer> m_IndexBuffer;
 
         static Application* s_Instance;
 
