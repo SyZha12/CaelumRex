@@ -7,7 +7,7 @@ namespace CaelumRex
 
     void Log::Init()
     {
-        spdlog::set_pattern("%^[%T] %-6l[%n]: %v%$");
+        spdlog::set_pattern("%^[%T] %-10l[%n]: %v%$");
         // Create and return a shared_ptr to a multithreaded console logger
         // std::cout << spdlog::get("CaelumRex") << std::endl;   : returns the shared_ptr and shows the address
         s_CoreLogger = spdlog::stdout_color_mt("CaelumRex");

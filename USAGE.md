@@ -1,5 +1,5 @@
 # CaelumRex
-## How is this engine built
+## How will this engine be built / How is this engine built
 All the (important) code is in the CaelumRex directory, and the Sandbox is used to imitate using the engine as an "external"
 source to try out the code.
 

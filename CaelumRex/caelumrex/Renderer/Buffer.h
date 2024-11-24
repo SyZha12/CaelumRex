@@ -87,7 +87,8 @@ namespace CaelumRex
 
         std::vector<BufferElements>::iterator begin() { return m_Elements.begin(); }
         std::vector<BufferElements>::iterator end() { return m_Elements.end(); }
-
+        std::vector<BufferElements>::const_iterator begin() const { return m_Elements.begin(); }
+        std::vector<BufferElements>::const_iterator end() const { return m_Elements.end(); }
     private:
         void CalculateOffsetAndStride()
         {

@@ -41,4 +41,3 @@ Basically, this is still the main starting point of the program and to describe 
 3. Executing starts with an extern function CreateApplication().
 4. The inherited function in the "Sandbox/Application" class in the external project instantiates a new class object and executes the code thereafter.
 
-
