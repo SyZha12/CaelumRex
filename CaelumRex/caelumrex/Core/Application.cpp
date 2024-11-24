@@ -13,9 +13,10 @@ namespace CaelumRex
         CR_CORE_INFO("Start CaelumRex Core Application...");
         {
             // Creates an Application pointer
-            if(!s_Instance)
-                CR_CORE_ERROR("Application already exists! {0}", s_Instance);
-            s_Instance = this;
+            if(s_Instance != NULL)
+                CR_CORE_ERROR("Application already exists! {0}");
+            else
+                s_Instance = this;
         }
 
         // Create the primary window
@@ -41,9 +42,9 @@ namespace CaelumRex
             { ShaderDataType::Float3, "a_Position" },
             { ShaderDataType::Float4, "a_Color" }
         };
-
-        m_VertexArray->AddVertexBuffer(vertexBuffer);
         vertexBuffer->SetLayout(layout);
+        m_VertexArray->AddVertexBuffer(vertexBuffer);
+
         uint32_t indices[3] = { 0, 1, 2 };
         std::shared_ptr<IndexBuffer> indexBuffer;
         indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
