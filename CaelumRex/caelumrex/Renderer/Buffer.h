@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "Core.h"
+#include "Log.h"
 
 namespace CaelumRex
 {
@@ -32,7 +33,7 @@ namespace CaelumRex
             case ShaderDataType::Bool:      return 1;
         }
 
-        CR_CORE_ASSERT(false, "Unknown ShaderDataType.");
+        CR_CORE_ERROR("ShaderDataTypeSize(): Unknown ShaderDataType.");
         return 0;
     }
 
@@ -66,7 +67,7 @@ namespace CaelumRex
             case ShaderDataType::Bool:      return 1;
             }
 
-            CR_CORE_ASSERT(false, "Unknown ShaderDataType.");
+            CR_CORE_ERROR("GetComponentCount(): Unknown ShaderDataType.");
             return 0;
         }
     };

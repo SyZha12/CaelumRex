@@ -29,8 +29,8 @@ namespace CaelumRex
         if(!s_GLFWInitialized)
         {
             // Initialize the glfw library
-            int success = glfwInit();
-            CR_CORE_ASSERT(success, "Could not initialize GLFW!");
+            if(glfwInit())
+                CR_CORE_ERROR("Could not initialize GLFW!");
             glfwSetErrorCallback(GLFWErrorCallBack);
 
             s_GLFWInitialized = true;

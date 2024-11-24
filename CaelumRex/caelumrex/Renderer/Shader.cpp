@@ -35,8 +35,7 @@ namespace CaelumRex
 			// We don't need the shader anymore.
 			glDeleteShader(vertexShader);
 
-			CR_CORE_ERROR("{0}", infoLog.data());
-			CR_CORE_ASSERT(false, "Vertex shader compilation failed!");
+			CR_CORE_ERROR("Vertex shader compilation failed! {0}", infoLog.data());
 			return;
 		}
 
@@ -66,8 +65,7 @@ namespace CaelumRex
 			// Either of them. Don't leak shaders.
 			glDeleteShader(vertexShader);
 
-			CR_CORE_ERROR("{0}", infoLog.data());
-			CR_CORE_ASSERT(false, "Fragment shader compilation failed!");
+			CR_CORE_ERROR("Fragment shader compilation failed! {0}", infoLog.data());
 			return;
 		}
 
@@ -101,8 +99,7 @@ namespace CaelumRex
 			glDeleteShader(vertexShader);
 			glDeleteShader(fragmentShader);
 
-			CR_CORE_ERROR("{0}", infoLog.data());
-			CR_CORE_ASSERT(false, "Shader linking failed!");
+			CR_CORE_ERROR("Shader linking failed! {0}", infoLog.data());
 			return;
 		}
 

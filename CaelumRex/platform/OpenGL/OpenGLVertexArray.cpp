@@ -22,7 +22,7 @@ namespace CaelumRex
         case ShaderDataType::Bool:          return GL_BOOL;
         }
 
-        CR_CORE_ASSERT(false, "Unknown ShaderDataType.");
+        CR_CORE_ERROR("ShaderDataTypeToOpenGLBaseType(): Unknown ShaderDataType.");
         return 0;
     }
 

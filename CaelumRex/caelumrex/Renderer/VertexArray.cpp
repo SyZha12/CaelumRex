@@ -11,12 +11,12 @@ namespace CaelumRex
         switch(Renderer::getCurrentAPI())
         {
         case RendererAPI::None:
-            CR_CORE_ASSERT(false, "RendererAPI::None is currently not supported."); return nullptr;
+            CR_CORE_ERROR("VertexArray: RendererAPI::None is currently not supported."); return nullptr;
         case RendererAPI::OpenGL:
             return new OpenGLVertexArray();
         }
 
-        CR_CORE_ASSERT(false, "Unknown RendererAPI.");
+        CR_CORE_ERROR("VertexArray: Unknown RendererAPI.");
         return nullptr;
     }
 }

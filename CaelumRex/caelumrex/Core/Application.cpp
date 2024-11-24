@@ -13,7 +13,8 @@ namespace CaelumRex
         CR_CORE_INFO("Start CaelumRex Core Application...");
         {
             // Creates an Application pointer
-            CR_CORE_ASSERT(!s_Instance, "Application already exists!")
+            if(!s_Instance)
+                CR_CORE_ERROR("Application already exists! {0}", s_Instance);
             s_Instance = this;
         }
 
@@ -40,9 +41,9 @@ namespace CaelumRex
             { ShaderDataType::Float3, "a_Position" },
             { ShaderDataType::Float4, "a_Color" }
         };
-        vertexBuffer->SetLayout(layout);
-        m_VertexArray->AddVertexBuffer(vertexBuffer);
 
+        m_VertexArray->AddVertexBuffer(vertexBuffer);
+        vertexBuffer->SetLayout(layout);
         uint32_t indices[3] = { 0, 1, 2 };
         std::shared_ptr<IndexBuffer> indexBuffer;
         indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
@@ -134,9 +135,6 @@ namespace CaelumRex
     {
         while(m_Running)
         {
-            // glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
-            // glClear(GL_COLOR_BUFFER_BIT);
-
             m_SquareShader->Bind();
             m_SquareVertexArray->Bind();
             glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);

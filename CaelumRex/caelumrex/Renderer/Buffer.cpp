@@ -1,8 +1,10 @@
 #include "Buffer.h"
 
 #include "Core.h"
+#include "Log.h"
 #include "OpenGLBuffer.h"
 #include "Renderer/Renderer.h"
+#include "spdlog/fmt/bundled/chrono.h"
 
 namespace CaelumRex
 {
@@ -11,12 +13,12 @@ namespace CaelumRex
         switch(Renderer::getCurrentAPI())
         {
         case RendererAPI::None:
-            CR_CORE_ASSERT(false, "RendererAPI::None is currently not supported."); return nullptr;
+            CR_CORE_ERROR("VertexBuffer: RendererAPI::None is currently not supported."); return nullptr;
         case RendererAPI::OpenGL:
             return new OpenGLVertexBuffer(vertices, size);
         }
 
-        CR_CORE_ASSERT(false, "Unknown RendererAPI.");
+        CR_CORE_ERROR("VertexBuffer: Unknown RendererAPI.");
         return nullptr;
     }
 
@@ -25,12 +27,12 @@ namespace CaelumRex
         switch(Renderer::getCurrentAPI())
         {
         case RendererAPI::None:
-            CR_CORE_ASSERT(false, "RendererAPI::None is currently not supported."); return nullptr;
+            CR_CORE_ERROR("IndexBuffer: RendererAPI::None is currently not supported."); return nullptr;
         case RendererAPI::OpenGL:
             return new OpenGLIndexBuffer(indices, size);
         }
 
-        CR_CORE_ASSERT(false, "Unknown RendererAPI.");
+        CR_CORE_ERROR("IndexBuffer: Unknown RendererAPI.");
         return nullptr;
     }
 

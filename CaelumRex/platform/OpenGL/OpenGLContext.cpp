@@ -11,7 +11,8 @@ namespace CaelumRex
     OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
         : m_WindowHandle(windowHandle)
     {
-        CR_CORE_ASSERT(windowHandle, "Window handle is null.")
+        if(windowHandle)
+            CR_CORE_ERROR("Window handle is null.");
     }
 
     void OpenGLContext::Init()
@@ -19,8 +20,8 @@ namespace CaelumRex
         // Make current GLFW context current
         glfwMakeContextCurrent(m_WindowHandle);
         // Load GL (glad)
-        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-        CR_CORE_ASSERT(status, "Failed to initialize Glad");
+        if(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+            CR_CORE_ERROR("Failed to initialize Glad");
         CR_CORE_INFO("GLAD initialized");
 
         CR_CORE_INFO("OpenGL Info:");
