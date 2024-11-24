@@ -1,5 +1,6 @@
 #include "Core/Application.h"
-#include <glad/glad.h>
+
+#include "Renderer/Renderer.h"
 
 namespace CaelumRex
 {
@@ -136,14 +137,18 @@ namespace CaelumRex
     {
         while(m_Running)
         {
-            m_SquareShader->Bind();
-            m_SquareVertexArray->Bind();
-            glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+            RenderCommand::SetClearColor( {0.1f, 0.1f, 0.1f, 1.0f} );
+            RenderCommand::Clear();
 
+            Renderer::Begin();
+
+            m_SquareShader->Bind();
+            Renderer::Dispatch(m_SquareVertexArray);
 
             m_Shader->Bind();
-            m_VertexArray->Bind();
-            glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+            Renderer::Dispatch(m_VertexArray);
+
+            Renderer::End();
 
             for(Layer* layer : m_LayerStack)
                 layer->OnUpdate();
@@ -196,6 +201,4 @@ namespace CaelumRex
         return true;
     }
 
-
-    // Application* CreateApplication();
 }

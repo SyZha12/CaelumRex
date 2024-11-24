@@ -10,9 +10,9 @@ namespace CaelumRex
     {
         switch(Renderer::getCurrentAPI())
         {
-        case RendererAPI::None:
+        case RendererAPI::API::None:
             CR_CORE_ERROR("VertexArray: RendererAPI::None is currently not supported."); return nullptr;
-        case RendererAPI::OpenGL:
+        case RendererAPI::API::OpenGL:
             return new OpenGLVertexArray();
         }
 

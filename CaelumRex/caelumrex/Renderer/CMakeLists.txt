@@ -8,6 +8,10 @@ set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/VertexArray.h
         ${CMAKE_CURRENT_SOURCE_DIR}/VertexArray.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RendererAPI.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/RendererAPI.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RenderCommand.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/RenderCommand.cpp
 )
 set(SUBDIRECTORIES "")
 set(RELATIVE_PATH caelumrex)

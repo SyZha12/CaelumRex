@@ -12,9 +12,9 @@ namespace CaelumRex
     {
         switch(Renderer::getCurrentAPI())
         {
-        case RendererAPI::None:
+        case RendererAPI::API::None:
             CR_CORE_ERROR("VertexBuffer: RendererAPI::None is currently not supported."); return nullptr;
-        case RendererAPI::OpenGL:
+        case RendererAPI::API::OpenGL:
             return new OpenGLVertexBuffer(vertices, size);
         }
 
@@ -26,9 +26,9 @@ namespace CaelumRex
     {
         switch(Renderer::getCurrentAPI())
         {
-        case RendererAPI::None:
+        case RendererAPI::API::None:
             CR_CORE_ERROR("IndexBuffer: RendererAPI::None is currently not supported."); return nullptr;
-        case RendererAPI::OpenGL:
+        case RendererAPI::API::OpenGL:
             return new OpenGLIndexBuffer(indices, size);
         }
 
