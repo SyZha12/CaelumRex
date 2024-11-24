@@ -6,7 +6,7 @@
 
 namespace CaelumRex
 {
-    VertexBuffer* VertexBuffer::Create(float* vertices, u_int32_t size)
+    VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
     {
         switch(Renderer::getCurrentAPI())
         {
@@ -20,7 +20,7 @@ namespace CaelumRex
         return nullptr;
     }
 
-    IndexBuffer* IndexBuffer::Create(u_int32_t* indices, u_int32_t size)
+    IndexBuffer* IndexBuffer::Create(uint32_t* indices, const uint32_t size)
     {
         switch(Renderer::getCurrentAPI())
         {

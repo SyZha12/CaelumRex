@@ -1,6 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#include <cstdint>
 #include <string>
 
 namespace CaelumRex
@@ -14,7 +15,7 @@ namespace CaelumRex
         void Bind() const;
         void Unbind() const;
     private:
-        u_int32_t m_ProgramID;
+        uint32_t m_ProgramID;
     };
 }
 

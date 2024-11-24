@@ -8,28 +8,32 @@ namespace CaelumRex
     class OpenGLVertexBuffer : public VertexBuffer
     {
     public:
-        OpenGLVertexBuffer(float* vertices, u_int32_t size);
+        OpenGLVertexBuffer(const float* vertices, uint32_t size);
         ~OpenGLVertexBuffer() override;
 
         void Bind() override;
         void Unbind() override;
+
+        void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+        const BufferLayout& GetLayout() const override { return m_Layout; }
     private:
-        u_int32_t m_RendererID;
+        uint32_t m_RendererID;
+        BufferLayout m_Layout;
     };
 
     class OpenGLIndexBuffer : public IndexBuffer
     {
     public:
-        OpenGLIndexBuffer(u_int32_t* indices, u_int32_t count);
+        OpenGLIndexBuffer(const uint32_t* indices, uint32_t count);
         ~OpenGLIndexBuffer() override;
 
         void Bind() override;
         void Unbind() override;
 
-        u_int32_t GetCount() { return m_Count; }
+        uint32_t GetCount() override { return m_Count; }
     private:
-        u_int32_t m_RendererID;
-        u_int32_t m_Count;
+        uint32_t m_RendererID;
+        uint32_t m_Count;
     };
 }
 

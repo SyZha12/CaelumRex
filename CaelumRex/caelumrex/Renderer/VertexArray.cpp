@@ -1,8 +1,8 @@
 #include "VertexArray.h"
 
-#include "Core.h"
+#include "Core/Core.h"
 #include "OpenGLVertexArray.h"
-#include "Renderer.h"
+#include "Renderer/Renderer.h"
 
 namespace CaelumRex
 {

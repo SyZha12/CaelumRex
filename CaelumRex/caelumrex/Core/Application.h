@@ -4,15 +4,14 @@
 // This is the main starting class of the engine
 // This class must be exported (visible) for the external project to inherit and use its functionalities
 #include "caelumrex_export.h"
-#include "VertexArray.h"
 
 #include "Core/Window.h"
 #include "Core/LayerStack.h"
 #include "Events/ApplicationEvent.h"    // For window closed event (for now)
 #include "ImGui/ImGuiLayer.h"
-#include "OpenGL/OpenGLContext.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
+#include "VertexArray.h"
 
 namespace CaelumRex
 {
