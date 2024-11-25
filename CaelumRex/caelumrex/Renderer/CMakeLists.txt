@@ -12,6 +12,8 @@ set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/RendererAPI.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/RenderCommand.h
         ${CMAKE_CURRENT_SOURCE_DIR}/RenderCommand.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Camera.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Camera.cpp
 )
 set(SUBDIRECTORIES "")
 set(RELATIVE_PATH caelumrex)

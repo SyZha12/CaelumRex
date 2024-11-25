@@ -4,6 +4,7 @@
 #include <string>
 
 #include "caelumrex_export.h"
+#include "Timestep.h"
 #include "Events/Event.h"
 
 namespace CaelumRex
@@ -16,7 +17,7 @@ namespace CaelumRex
 
         virtual void OnAttach() {}
         virtual void OnDetach() {}
-        virtual void OnUpdate() {}
+        virtual void OnUpdate(Timestep ts) {}
         virtual void OnImGuiRender() {}
         virtual void OnEvent(Event& event) {}
 

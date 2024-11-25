@@ -1,6 +1,8 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include "Camera.h"
+#include "Shader.h"
 #include "Renderer/RenderCommand.h"
 
 /**
@@ -11,12 +13,19 @@ namespace CaelumRex
     class Renderer
     {
     public:
-        static void Begin();
+        static void Begin(OrthographicCamera& camera);
         static void End();
 
-        static void Dispatch(const std::shared_ptr<VertexArray>& vertexArray);
+        static void Dispatch(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
 
         static RendererAPI::API getCurrentAPI() { return RendererAPI::GetAPI(); }
+    private:
+        struct SceneData
+        {
+            glm::mat4 ViewProjectionMatrix;
+        };
+
+        static SceneData* m_SceneData;
     };
 }
 

@@ -13,6 +13,7 @@ set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/Input.h
         ${CMAKE_CURRENT_SOURCE_DIR}/KeyCodes.h
         ${CMAKE_CURRENT_SOURCE_DIR}/MouseButtonCodes.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Timestep.h
 )
 set(SUBDIRECTORIES "")
 set(RELATIVE_PATH caelumrex)

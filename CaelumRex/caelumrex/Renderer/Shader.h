@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <string>
+#include <glm/glm.hpp>
 
 namespace CaelumRex
 {
@@ -14,6 +15,8 @@ namespace CaelumRex
 
         void Bind() const;
         void Unbind() const;
+
+        void SetUniformMat4(const std::string& name, const glm::mat4& matrix);
     private:
         uint32_t m_ProgramID;
     };
