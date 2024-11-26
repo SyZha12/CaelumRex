@@ -1,5 +1,10 @@
 #include "Linux/LinuxWindow.h"
 
+#include "Events/ApplicationEvent.h"
+#include "Events/KeyEvent.h"
+#include "Events/MouseEvent.h"
+#include "OpenGL/OpenGLContext.h"
+
 namespace CaelumRex
 {
     LinuxWindow::LinuxWindow(const WindowProperties& props)

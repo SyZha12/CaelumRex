@@ -16,7 +16,7 @@ namespace CaelumRex
         static void Begin(OrthographicCamera& camera);
         static void End();
 
-        static void Dispatch(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
+        static void Dispatch(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
 
         static RendererAPI::API getCurrentAPI() { return RendererAPI::GetAPI(); }
     private:

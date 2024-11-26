@@ -2,7 +2,6 @@
 #define LINUXINPUT_H
 
 #include "Core/Input.h"
-#include <GLFW/glfw3.h>
 
 namespace CaelumRex
 {

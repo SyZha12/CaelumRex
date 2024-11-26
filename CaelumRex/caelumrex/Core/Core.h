@@ -1,6 +1,12 @@
 #ifndef CORE_H
 #define CORE_H
 
+//====================== DEFINITIONS ======================//
+// Bind for Application functions
+#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
+
+// #define CR_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
 #define BIT(x) (1 << x)
 
 #if __SIZEOF_POINTER__ > 4
@@ -8,7 +14,6 @@
 #else
 #define EMBED_BREAKPOINT_PTR ".long"
 #endif
-
 
 // TODO In Core.h; how to set breakpoint during debugging?
 #define EMBED_BREAKPOINT \
@@ -25,6 +30,5 @@ EMBED_BREAKPOINT_PTR " 0b;"       \
     #define CR_CORE_ASSERT(x, ...)
 #endif
 
-#define CR_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 
 #endif //CORE_H

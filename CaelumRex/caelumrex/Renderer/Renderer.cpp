@@ -1,5 +1,7 @@
 #include "Renderer.h"
 
+#include "OpenGLShader.h"
+
 namespace CaelumRex
 {
     Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
@@ -13,10 +15,11 @@ namespace CaelumRex
     {
     }
 
-    void Renderer::Dispatch(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
+    void Renderer::Dispatch(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform)
     {
         shader->Bind();
-        shader->SetUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+        std::dynamic_pointer_cast<OpenGLShader>(shader)->SetUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+        std::dynamic_pointer_cast<OpenGLShader>(shader)->SetUniformMat4("u_Transform", transform);
 
         vertexArray->Bind();
         RenderCommand::DrawIndexed(vertexArray);

@@ -9,7 +9,6 @@
 #include "Core/LayerStack.h"
 #include "Events/ApplicationEvent.h"    // For window closed event (for now)
 #include "ImGui/ImGuiLayer.h"
-#include "Core/Timestep.h"
 
 namespace CaelumRex
 {

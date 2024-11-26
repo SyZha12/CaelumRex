@@ -7,6 +7,8 @@ set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLVertexArray.h
         ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRendererAPI.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRendererAPI.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLShader.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLShader.h
 )
 set(SUBDIRECTORIES "")
 set(RELATIVE_PATH platform)

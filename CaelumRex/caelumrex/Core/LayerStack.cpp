@@ -9,7 +9,6 @@ namespace CaelumRex
             layer->OnDetach();
             delete layer;
         }
-
     }
 
     void LayerStack::PushLayer(Layer* layer)
@@ -32,12 +31,6 @@ namespace CaelumRex
             m_Layers.erase(it);
             m_LayerInsertIndex--;
         }
-        // if(const auto it = std::ranges::find(m_Layers, layer); it != m_Layers.end())
-        // {
-        //     layer->OnDetach();
-        //     m_Layers.erase(it);
-        //     m_LayerInsertIndex--;
-        // }
     }
 
     void LayerStack::PopOverlay(Layer* overlay)
@@ -48,12 +41,6 @@ namespace CaelumRex
             overlay->OnDetach();
             m_Layers.erase(it);
         }
-
-        // if(const auto it = std::ranges::find(m_Layers, overlay); it != m_Layers.end())
-        // {
-        //     overlay->OnDetach();
-        //     m_Layers.erase(it);
-        // }
     }
 
 }

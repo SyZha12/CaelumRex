@@ -2,14 +2,9 @@
 #define LINUXWINDOW_H
 
 #include "Core/Window.h"
-#include "Events/ApplicationEvent.h"
-#include "Events/KeyEvent.h"
-#include "Events/MouseEvent.h"
-#include <GLFW/glfw3.h>
-
-#include "OpenGL/OpenGLContext.h"
 #include "Renderer/RendererContext.h"
 
+#include <GLFW/glfw3.h>
 
 namespace CaelumRex
 {

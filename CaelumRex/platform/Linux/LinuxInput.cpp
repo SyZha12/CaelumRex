@@ -1,5 +1,7 @@
 #include "LinuxInput.h"
 
+#include <GLFW/glfw3.h>
+
 namespace CaelumRex
 {
     bool LinuxInput::IsKeyPressedImplemented(int keycode)

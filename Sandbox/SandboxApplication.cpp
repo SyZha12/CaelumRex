@@ -1,11 +1,17 @@
 #include <CaelumRex.h>
 #include <iostream>
 
+#include <glm/gtc/matrix_transform.hpp>
+
+#include "OpenGLShader.h"
+#include "glm/gtc/type_ptr.inl"
+#include "imgui-docking/imgui.h"
+
 class ExampleLayer : public CaelumRex::Layer
 {
 public:
     ExampleLayer()
-        : Layer("Example"), m_Camera(-1.9f, 1.9f, -1.1f, 1.1f)
+        : Layer("Example"), m_Camera(-1.9f, 1.9f, -1.1f, 1.1f), m_SquarePosition(0.0f)
     {
         // Start of first shape
         m_VertexArray.reset(CaelumRex::VertexArray::Create());
@@ -60,13 +66,14 @@ public:
             layout(location = 1) in vec4 a_Color;
 
             uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
 
             out vec4 v_Color;
 
             void main()
             {
                 v_Color = a_Color;
-                gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+                gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
             }
         )";
 
@@ -83,7 +90,7 @@ public:
             }
         )";
 
-        m_Shader.reset(new CaelumRex::Shader(vertexSrc, fragmentSrc));
+        m_Shader.reset(CaelumRex::Shader::Create(vertexSrc, fragmentSrc));
 
         std::string squareVertexSrc = R"(
             #version 460 core
@@ -91,10 +98,11 @@ public:
             layout(location = 0) in vec3 a_Position;
 
             uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
 
             void main()
             {
-                gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+                gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
             }
         )";
 
@@ -103,13 +111,15 @@ public:
 
             layout(location = 0) out vec4 color;
 
+            uniform vec3 u_Color;
+
             void main()
             {
-                color = vec4(0.8, 0.4, 0.3, 1.0);
+                color = vec4(u_Color, 1.0);
             }
         )";
 
-        m_SquareShader.reset(new CaelumRex::Shader(squareVertexSrc, squareFragmentSrc));
+        m_DynamicShader.reset(CaelumRex::Shader::Create(squareVertexSrc, squareFragmentSrc));
     }
 
     void OnUpdate(CaelumRex::Timestep ts) override
@@ -131,6 +141,16 @@ public:
         if(CaelumRex::Input::IsKeyPressed(CR_KEY_E))
             m_CameraRotation -= m_CameraRotationSpeed * ts;
 
+        if(CaelumRex::Input::IsKeyPressed(CR_KEY_J))
+            m_SquarePosition.x -= m_SquareSpeed * ts;
+        else if(CaelumRex::Input::IsKeyPressed(CR_KEY_L))
+            m_SquarePosition.x += m_SquareSpeed * ts;
+
+        if(CaelumRex::Input::IsKeyPressed(CR_KEY_I))
+            m_SquarePosition.y -= m_SquareSpeed * ts;
+        else if(CaelumRex::Input::IsKeyPressed(CR_KEY_K))
+            m_SquarePosition.y += m_SquareSpeed * ts;
+
         CaelumRex::RenderCommand::SetClearColor( {0.1f, 0.1f, 0.1f, 1.0f} );
         CaelumRex::RenderCommand::Clear();
 
@@ -139,7 +159,21 @@ public:
 
         CaelumRex::Renderer::Begin(m_Camera);
 
-        CaelumRex::Renderer::Dispatch(m_SquareShader, m_SquareVertexArray);
+        glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1));
+
+        std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_DynamicShader)->Bind();
+        std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_DynamicShader)->SetUniformFloat3("u_Color", m_SquareColor);
+
+        for(int y = 0; y < 10; y++)
+        {
+            for(int x = 0; x  < 10; x++)
+            {
+                glm::vec3 pos(x * 0.20f, y * 0.20f, 0.0f);
+                glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+                CaelumRex::Renderer::Dispatch(m_DynamicShader, m_SquareVertexArray, transform);
+            }
+        }
+
         CaelumRex::Renderer::Dispatch(m_Shader, m_VertexArray);
 
         CaelumRex::Renderer::End();
@@ -147,7 +181,9 @@ public:
 
     void OnImGuiRender() override
     {
-
+        ImGui::Begin("Setting");
+            ImGui::ColorEdit3("Color", glm::value_ptr(m_SquareColor));
+        ImGui::End();
     }
 
     void OnEvent(CaelumRex::Event& event) override
@@ -159,7 +195,7 @@ private:
     std::shared_ptr<CaelumRex::Shader> m_Shader;
     std::shared_ptr<CaelumRex::VertexArray> m_VertexArray;
 
-    std::shared_ptr<CaelumRex::Shader> m_SquareShader;
+    std::shared_ptr<CaelumRex::Shader> m_DynamicShader;
     std::shared_ptr<CaelumRex::VertexArray> m_SquareVertexArray;
 
     CaelumRex::OrthographicCamera m_Camera;
@@ -168,6 +204,10 @@ private:
 
     float m_CameraRotation = 0.0f;
     float m_CameraRotationSpeed = 45.0f;
+
+    glm::vec3 m_SquarePosition;
+    float m_SquareSpeed = 1.0f;
+    glm::vec3 m_SquareColor = { 0.4f, 0.2f, 0.6f };
 };
 
 class Sandbox : public CaelumRex::Application
