@@ -1,10 +1,10 @@
-#include "Renderer.h"
+#include "Renderer/Renderer.h"
 
 #include "OpenGLShader.h"
 
 namespace CaelumRex
 {
-    Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
+    Renderer::SceneData* Renderer::m_SceneData = new SceneData;
 
     void Renderer::Begin(OrthographicCamera& camera)
     {
@@ -15,7 +15,7 @@ namespace CaelumRex
     {
     }
 
-    void Renderer::Dispatch(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform)
+    void Renderer::Dispatch(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
     {
         shader->Bind();
         std::dynamic_pointer_cast<OpenGLShader>(shader)->SetUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);

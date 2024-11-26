@@ -20,7 +20,7 @@ namespace CaelumRex
         }
 
         // Create the primary window
-        m_Window = std::unique_ptr<Window>(Window::Create());
+        m_Window = Scope<Window>(Window::Create());
         m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
 
         // Create the ImGui Layer

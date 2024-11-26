@@ -1,5 +1,4 @@
 #include <CaelumRex.h>
-#include <iostream>
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -22,7 +21,7 @@ public:
              0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
              0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f
         };
-        std::shared_ptr<CaelumRex::VertexBuffer> vertexBuffer;
+        CaelumRex::Ref<CaelumRex::VertexBuffer> vertexBuffer;
         vertexBuffer.reset(CaelumRex::VertexBuffer::Create(vertices, sizeof(vertices)));
         CaelumRex::BufferLayout layout = {
             {CaelumRex::ShaderDataType::Float3, "a_Position" },
@@ -32,7 +31,7 @@ public:
         m_VertexArray->AddVertexBuffer(vertexBuffer);
 
         uint32_t indices[3] = { 0, 1, 2 };
-        std::shared_ptr<CaelumRex::IndexBuffer> indexBuffer;
+        CaelumRex::Ref<CaelumRex::IndexBuffer> indexBuffer;
         indexBuffer.reset(CaelumRex::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
         m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -46,7 +45,7 @@ public:
              0.75f,  0.75f, 0.0f,
             -0.75f,  0.75f, 0.0f
         };
-        std::shared_ptr<CaelumRex::VertexBuffer> squareVertexBuffer;
+        CaelumRex::Ref<CaelumRex::VertexBuffer> squareVertexBuffer;
         squareVertexBuffer.reset(CaelumRex::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
         CaelumRex::BufferLayout squareLayout = {
             {CaelumRex::ShaderDataType::Float3, "a_Position" }
@@ -55,7 +54,7 @@ public:
         m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
 
         uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-        std::shared_ptr<CaelumRex::IndexBuffer> squareIndexBuffer;
+        CaelumRex::Ref<CaelumRex::IndexBuffer> squareIndexBuffer;
         squareIndexBuffer.reset(CaelumRex::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
         m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
 
@@ -192,11 +191,11 @@ public:
     }
 
 private:
-    std::shared_ptr<CaelumRex::Shader> m_Shader;
-    std::shared_ptr<CaelumRex::VertexArray> m_VertexArray;
+    CaelumRex::Ref<CaelumRex::Shader> m_Shader;
+    CaelumRex::Ref<CaelumRex::VertexArray> m_VertexArray;
 
-    std::shared_ptr<CaelumRex::Shader> m_DynamicShader;
-    std::shared_ptr<CaelumRex::VertexArray> m_SquareVertexArray;
+    CaelumRex::Ref<CaelumRex::Shader> m_DynamicShader;
+    CaelumRex::Ref<CaelumRex::VertexArray> m_SquareVertexArray;
 
     CaelumRex::OrthographicCamera m_Camera;
     glm::vec3 m_CameraPosition;

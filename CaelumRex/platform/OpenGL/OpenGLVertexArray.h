@@ -16,15 +16,15 @@ namespace CaelumRex
             void Bind() override;
             void Unbind() override;
 
-            void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;
-            void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) override;
+            void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
+            void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
 
-            const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() override { return m_VertexBuffers; }
-            const std::shared_ptr<IndexBuffer>& GetIndexBuffer() override { return m_IndexBuffer; }
+            const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() override { return m_VertexBuffers; }
+            const Ref<IndexBuffer>& GetIndexBuffer() override { return m_IndexBuffer; }
         private:
             uint32_t m_RendererID;
-            std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;
-            std::shared_ptr<IndexBuffer> m_IndexBuffer;
+            std::vector<Ref<VertexBuffer>> m_VertexBuffers;
+            Ref<IndexBuffer> m_IndexBuffer;
     };
 }
 
