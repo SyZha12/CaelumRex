@@ -4,6 +4,7 @@ add_subdirectory(glad)
 #add_subdirectory(imgui)
 add_subdirectory(imgui-docking/imgui-docking)
 add_subdirectory(glm)
+add_subdirectory(stb_image)
 
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
@@ -49,4 +50,5 @@ target_include_directories(
 #        ${CMAKE_CURRENT_SOURCE_DIR}/imgui
         ${CMAKE_CURRENT_SOURCE_DIR}/imgui-docking
         ${CMAKE_CURRENT_SOURCE_DIR}/glm/
+        ${CMAKE_CURRENT_SOURCE_DIR}/stb_image/
 )

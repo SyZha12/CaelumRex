@@ -9,6 +9,8 @@ set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRendererAPI.h
         ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLShader.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLShader.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLTexture.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLTexture.h
 )
 set(SUBDIRECTORIES "")
 set(RELATIVE_PATH platform)

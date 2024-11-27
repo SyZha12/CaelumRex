@@ -38,17 +38,18 @@ public:
         //start of second shape
         m_SquareVertexArray.reset(CaelumRex::VertexArray::Create());
 
-        float squareVertices[3 * 4] =
+        float squareVertices[5 * 4] =
         {
-            -0.75f, -0.75f, 0.0f,
-             0.75f, -0.75f, 0.0f,
-             0.75f,  0.75f, 0.0f,
-            -0.75f,  0.75f, 0.0f
+            -0.75f, -0.75f, 0.0f, 0.0f, 0.0f,
+             0.75f, -0.75f, 0.0f, 1.0f, 0.0f,
+             0.75f,  0.75f, 0.0f, 1.0f, 1.0f,
+            -0.75f,  0.75f, 0.0f, 0.0f, 1.0f
         };
         CaelumRex::Ref<CaelumRex::VertexBuffer> squareVertexBuffer;
         squareVertexBuffer.reset(CaelumRex::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
         CaelumRex::BufferLayout squareLayout = {
-            {CaelumRex::ShaderDataType::Float3, "a_Position" }
+            { CaelumRex::ShaderDataType::Float3, "a_Position" },
+            { CaelumRex::ShaderDataType::Float2, "in_TextureCoord" }
         };
         squareVertexBuffer->SetLayout(squareLayout);
         m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
@@ -118,7 +119,47 @@ public:
             }
         )";
 
-        m_DynamicShader.reset(CaelumRex::Shader::Create(squareVertexSrc, squareFragmentSrc));
+        m_ColorShader.reset(CaelumRex::Shader::Create(squareVertexSrc, squareFragmentSrc));
+
+        std::string textureVertexSrc = R"(
+            #version 460 core
+
+            layout(location = 0) in vec3 a_Position;
+            layout(location = 1) in vec2 a_TextureCoord;
+
+            uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
+
+            out vec2 v_TextureCoord;
+
+            void main()
+            {
+                v_TextureCoord = a_TextureCoord;
+                gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+            }
+        )";
+
+        std::string textureFragmentSrc = R"(
+            #version 460 core
+
+            layout(location = 0) out vec4 color;
+
+            in vec2 v_TextureCoord;
+
+            uniform sampler2D u_Texture;
+
+            void main()
+            {
+                color = texture(u_Texture, v_TextureCoord);
+            }
+        )";
+
+        m_TextureShader.reset(CaelumRex::Shader::Create(textureVertexSrc, textureFragmentSrc));
+
+        m_Texture = CaelumRex::Texture2D::Create("assets/textures/Checkerboard.png");
+
+        std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_TextureShader)->Bind();
+        std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_TextureShader)->SetUniformInt("u_Texture", 0);
     }
 
     void OnUpdate(CaelumRex::Timestep ts) override
@@ -160,8 +201,8 @@ public:
 
         glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1));
 
-        std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_DynamicShader)->Bind();
-        std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_DynamicShader)->SetUniformFloat3("u_Color", m_SquareColor);
+        std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_ColorShader)->Bind();
+        std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_ColorShader)->SetUniformFloat3("u_Color", m_SquareColor);
 
         for(int y = 0; y < 10; y++)
         {
@@ -169,11 +210,14 @@ public:
             {
                 glm::vec3 pos(x * 0.20f, y * 0.20f, 0.0f);
                 glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-                CaelumRex::Renderer::Dispatch(m_DynamicShader, m_SquareVertexArray, transform);
+                CaelumRex::Renderer::Dispatch(m_ColorShader, m_SquareVertexArray, transform);
             }
         }
 
-        CaelumRex::Renderer::Dispatch(m_Shader, m_VertexArray);
+        m_Texture->Bind();
+        CaelumRex::Renderer::Dispatch(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.0f)));
+
+        // CaelumRex::Renderer::Dispatch(m_Shader, m_VertexArray);
 
         CaelumRex::Renderer::End();
     }
@@ -194,8 +238,10 @@ private:
     CaelumRex::Ref<CaelumRex::Shader> m_Shader;
     CaelumRex::Ref<CaelumRex::VertexArray> m_VertexArray;
 
-    CaelumRex::Ref<CaelumRex::Shader> m_DynamicShader;
+    CaelumRex::Ref<CaelumRex::Shader> m_ColorShader, m_TextureShader;
     CaelumRex::Ref<CaelumRex::VertexArray> m_SquareVertexArray;
+
+    CaelumRex::Ref<CaelumRex::Texture2D> m_Texture;
 
     CaelumRex::OrthographicCamera m_Camera;
     glm::vec3 m_CameraPosition;
