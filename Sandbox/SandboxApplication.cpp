@@ -57,7 +57,7 @@ public:
 		m_SquareVertexArray->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(
-			#version 330 core
+			#version 460 core
 			
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
@@ -77,7 +77,7 @@ public:
 		)";
 
 		std::string fragmentSrc = R"(
-			#version 330 core
+			#version 460 core
 			
 			layout(location = 0) out vec4 color;
 
@@ -94,7 +94,7 @@ public:
 		m_Shader.reset(CaelumRex::Shader::Create(vertexSrc, fragmentSrc));
 
 		std::string flatColorShaderVertexSrc = R"(
-			#version 330 core
+			#version 460 core
 			
 			layout(location = 0) in vec3 a_Position;
 
@@ -111,7 +111,7 @@ public:
 		)";
 
 		std::string flatColorShaderFragmentSrc = R"(
-			#version 330 core
+			#version 460 core
 			
 			layout(location = 0) out vec4 color;
 
@@ -128,7 +128,7 @@ public:
 		m_ColorShader.reset(CaelumRex::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
 
 		std::string textureShaderVertexSrc = R"(
-			#version 330 core
+			#version 460 core
 			
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec2 a_TexCoord;
@@ -146,7 +146,7 @@ public:
 		)";
 
 		std::string textureShaderFragmentSrc = R"(
-			#version 330 core
+			#version 460 core
 			
 			layout(location = 0) out vec4 color;
 
@@ -160,7 +160,7 @@ public:
 			}
 		)";
 
-		m_TextureShader.reset(CaelumRex::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+		m_TextureShader.reset(CaelumRex::Shader::Create("assets/shaders/Texture.glsl"));
 
 		m_Texture = CaelumRex::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoLogoTexture = CaelumRex::Texture2D::Create("assets/textures/ChernoLogo.png");
@@ -224,7 +224,7 @@ public:
         m_Texture->Bind();
         CaelumRex::Renderer::Dispatch(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
         m_ChernoLogoTexture->Bind();
-        CaelumRex::Renderer::Dispatch(m_TextureShader, m_SquareVertexArray, /*glm::translate(glm::mat4(1.0f),glm::vec3(0.25f, -0.25f,0.0f)) */ glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
+        CaelumRex::Renderer::Dispatch(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
 
         // CaelumRex::Renderer::Dispatch(m_Shader, m_VertexArray);
 

@@ -31,6 +31,9 @@ namespace CaelumRex
             dataFormat = GL_RGB;
         }
 
+        if(internalFormat == 0 && dataFormat == 0)
+            CR_CORE_ERROR("Texture format not supported");
+
         glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
         glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
         glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
