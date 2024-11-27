@@ -13,6 +13,8 @@ namespace CaelumRex
     class Renderer
     {
     public:
+        static void Init();
+
         static void Begin(OrthographicCamera& camera);
         static void End();
 

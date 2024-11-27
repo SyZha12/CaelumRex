@@ -23,6 +23,8 @@ namespace CaelumRex
         m_Window = Scope<Window>(Window::Create());
         m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
 
+        Renderer::Init();
+
         // Create the ImGui Layer
         m_ImGuiLayer = new ImGuiLayer();
         PushLayer(m_ImGuiLayer);

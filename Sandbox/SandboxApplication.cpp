@@ -10,157 +10,164 @@ class ExampleLayer : public CaelumRex::Layer
 {
 public:
     ExampleLayer()
-        : Layer("Example"), m_Camera(-1.9f, 1.9f, -1.1f, 1.1f), m_SquarePosition(0.0f)
-    {
-        // Start of first shape
-        m_VertexArray.reset(CaelumRex::VertexArray::Create());
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+	{
+		m_VertexArray.reset(CaelumRex::VertexArray::Create());
 
-        float vertices[3 * 7] =
-        {
-            -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-             0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-             0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f
-        };
-        CaelumRex::Ref<CaelumRex::VertexBuffer> vertexBuffer;
-        vertexBuffer.reset(CaelumRex::VertexBuffer::Create(vertices, sizeof(vertices)));
-        CaelumRex::BufferLayout layout = {
-            {CaelumRex::ShaderDataType::Float3, "a_Position" },
-            {CaelumRex::ShaderDataType::Float4, "a_Color" }
-        };
-        vertexBuffer->SetLayout(layout);
-        m_VertexArray->AddVertexBuffer(vertexBuffer);
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+		};
 
-        uint32_t indices[3] = { 0, 1, 2 };
-        CaelumRex::Ref<CaelumRex::IndexBuffer> indexBuffer;
-        indexBuffer.reset(CaelumRex::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-        m_VertexArray->SetIndexBuffer(indexBuffer);
+		CaelumRex::Ref<CaelumRex::VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(CaelumRex::VertexBuffer::Create(vertices, sizeof(vertices)));
+		CaelumRex::BufferLayout layout = {
+			{ CaelumRex::ShaderDataType::Float3, "a_Position" },
+			{ CaelumRex::ShaderDataType::Float4, "a_Color" }
+		};
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
-        //start of second shape
-        m_SquareVertexArray.reset(CaelumRex::VertexArray::Create());
+		uint32_t indices[3] = { 0, 1, 2 };
+		CaelumRex::Ref<CaelumRex::IndexBuffer> indexBuffer;
+		indexBuffer.reset(CaelumRex::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-        float squareVertices[5 * 4] =
-        {
-            -0.75f, -0.75f, 0.0f, 0.0f, 0.0f,
-             0.75f, -0.75f, 0.0f, 1.0f, 0.0f,
-             0.75f,  0.75f, 0.0f, 1.0f, 1.0f,
-            -0.75f,  0.75f, 0.0f, 0.0f, 1.0f
-        };
-        CaelumRex::Ref<CaelumRex::VertexBuffer> squareVertexBuffer;
-        squareVertexBuffer.reset(CaelumRex::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
-        CaelumRex::BufferLayout squareLayout = {
-            { CaelumRex::ShaderDataType::Float3, "a_Position" },
-            { CaelumRex::ShaderDataType::Float2, "in_TextureCoord" }
-        };
-        squareVertexBuffer->SetLayout(squareLayout);
-        m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
+		m_SquareVertexArray.reset(CaelumRex::VertexArray::Create());
 
-        uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-        CaelumRex::Ref<CaelumRex::IndexBuffer> squareIndexBuffer;
-        squareIndexBuffer.reset(CaelumRex::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
-        m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
+		float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
+		};
 
-        std::string vertexSrc = R"(
-            #version 460 core
+		CaelumRex::Ref<CaelumRex::VertexBuffer> squareVB;
+		squareVB.reset(CaelumRex::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVB->SetLayout({
+			{ CaelumRex::ShaderDataType::Float3, "a_Position" },
+			{ CaelumRex::ShaderDataType::Float2, "a_TexCoord" }
+		});
+		m_SquareVertexArray->AddVertexBuffer(squareVB);
 
-            layout(location = 0) in vec3 a_Position;
-            layout(location = 1) in vec4 a_Color;
+		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		CaelumRex::Ref<CaelumRex::IndexBuffer> squareIB;
+		squareIB.reset(CaelumRex::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		m_SquareVertexArray->SetIndexBuffer(squareIB);
 
-            uniform mat4 u_ViewProjection;
-            uniform mat4 u_Transform;
+		std::string vertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
 
-            out vec4 v_Color;
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
-            void main()
-            {
-                v_Color = a_Color;
-                gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-            }
-        )";
+			out vec3 v_Position;
+			out vec4 v_Color;
 
-        std::string fragmentSrc = R"(
-            #version 460 core
+			void main()
+			{
+				v_Position = a_Position;
+				v_Color = a_Color;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
 
-            layout(location = 0) out vec4 color;
+		std::string fragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
 
-            in vec4 v_Color;
+			in vec3 v_Position;
+			in vec4 v_Color;
 
-            void main()
-            {
-                color = v_Color;
-            }
-        )";
+			void main()
+			{
+				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = v_Color;
+			}
+		)";
 
-        m_Shader.reset(CaelumRex::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader.reset(CaelumRex::Shader::Create(vertexSrc, fragmentSrc));
 
-        std::string squareVertexSrc = R"(
-            #version 460 core
+		std::string flatColorShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
 
-            layout(location = 0) in vec3 a_Position;
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
-            uniform mat4 u_ViewProjection;
-            uniform mat4 u_Transform;
+			out vec3 v_Position;
 
-            void main()
-            {
-                gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-            }
-        )";
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
 
-        std::string squareFragmentSrc = R"(
-            #version 460 core
+		std::string flatColorShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
 
-            layout(location = 0) out vec4 color;
+			in vec3 v_Position;
+			
+			uniform vec3 u_Color;
 
-            uniform vec3 u_Color;
+			void main()
+			{
+				color = vec4(u_Color, 1.0);
+			}
+		)";
 
-            void main()
-            {
-                color = vec4(u_Color, 1.0);
-            }
-        )";
+		m_ColorShader.reset(CaelumRex::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
 
-        m_ColorShader.reset(CaelumRex::Shader::Create(squareVertexSrc, squareFragmentSrc));
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
 
-        std::string textureVertexSrc = R"(
-            #version 460 core
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
-            layout(location = 0) in vec3 a_Position;
-            layout(location = 1) in vec2 a_TextureCoord;
+			out vec2 v_TexCoord;
 
-            uniform mat4 u_ViewProjection;
-            uniform mat4 u_Transform;
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
 
-            out vec2 v_TextureCoord;
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
 
-            void main()
-            {
-                v_TextureCoord = a_TextureCoord;
-                gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-            }
-        )";
+			in vec2 v_TexCoord;
+			
+			uniform sampler2D u_Texture;
 
-        std::string textureFragmentSrc = R"(
-            #version 460 core
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
 
-            layout(location = 0) out vec4 color;
+		m_TextureShader.reset(CaelumRex::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
 
-            in vec2 v_TextureCoord;
+		m_Texture = CaelumRex::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_ChernoLogoTexture = CaelumRex::Texture2D::Create("assets/textures/ChernoLogo.png");
 
-            uniform sampler2D u_Texture;
-
-            void main()
-            {
-                color = texture(u_Texture, v_TextureCoord);
-            }
-        )";
-
-        m_TextureShader.reset(CaelumRex::Shader::Create(textureVertexSrc, textureFragmentSrc));
-
-        m_Texture = CaelumRex::Texture2D::Create("assets/textures/Checkerboard.png");
-
-        std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_TextureShader)->Bind();
-        std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_TextureShader)->SetUniformInt("u_Texture", 0);
-    }
+		std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_TextureShader)->SetUniformInt("u_Texture", 0);
+	}
 
     void OnUpdate(CaelumRex::Timestep ts) override
     {
@@ -215,11 +222,14 @@ public:
         }
 
         m_Texture->Bind();
-        CaelumRex::Renderer::Dispatch(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.0f)));
+        CaelumRex::Renderer::Dispatch(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
+        m_ChernoLogoTexture->Bind();
+        CaelumRex::Renderer::Dispatch(m_TextureShader, m_SquareVertexArray, /*glm::translate(glm::mat4(1.0f),glm::vec3(0.25f, -0.25f,0.0f)) */ glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
 
         // CaelumRex::Renderer::Dispatch(m_Shader, m_VertexArray);
 
         CaelumRex::Renderer::End();
+
     }
 
     void OnImGuiRender() override
@@ -234,6 +244,8 @@ public:
 
     }
 
+
+
 private:
     CaelumRex::Ref<CaelumRex::Shader> m_Shader;
     CaelumRex::Ref<CaelumRex::VertexArray> m_VertexArray;
@@ -241,7 +253,7 @@ private:
     CaelumRex::Ref<CaelumRex::Shader> m_ColorShader, m_TextureShader;
     CaelumRex::Ref<CaelumRex::VertexArray> m_SquareVertexArray;
 
-    CaelumRex::Ref<CaelumRex::Texture2D> m_Texture;
+    CaelumRex::Ref<CaelumRex::Texture2D> m_Texture, m_ChernoLogoTexture;
 
     CaelumRex::OrthographicCamera m_Camera;
     glm::vec3 m_CameraPosition;
