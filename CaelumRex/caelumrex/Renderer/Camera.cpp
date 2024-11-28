@@ -1,5 +1,7 @@
-#include "Camera.h"
+/** CaelumRex libraries **/
+#include <Renderer/Camera.h>
 
+/** Third-Party Libraries & Co **/
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace CaelumRex

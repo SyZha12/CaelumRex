@@ -1,7 +1,14 @@
 #ifndef LAYERSTACK_H
 #define LAYERSTACK_H
 
-#include "Core/Layer.h"
+/**
+ * @author Symen Zhang
+ * @brief The LayerStack class is used in conjunction with the Layer class. Each new layer is stacked on the LayerStack
+ *        and will be updated on events etc. for each layer that is on the LayerStack.
+ */
+
+/** CaelumRex libraries **/
+#include <Core/Layer.h>
 
 namespace CaelumRex
 {

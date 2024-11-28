@@ -1,11 +1,13 @@
 #ifndef RENDERCOMMAND_H
 #define RENDERCOMMAND_H
 
-#include "Renderer/RendererAPI.h"
-
 /**
- * RenderCommands should only do one thing at a time and draws from the Renderer class itself
+ *  @brief RenderCommands should only do one thing at a time and draws from the Renderer class itself
  */
+
+/** CaelumRex libraries **/
+#include <Renderer/RendererAPI.h>
+
 namespace CaelumRex
 {
     // RenderCommands should only do one thing

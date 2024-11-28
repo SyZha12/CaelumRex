@@ -1,10 +1,12 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+/** CaelumRex libraries **/
+#include <Core/Core.h>
+
+/** Third-Party Libraries & Co **/
 #include <string>
 #include <unordered_map>
-
-#include "Core.h"
 
 namespace CaelumRex
 {

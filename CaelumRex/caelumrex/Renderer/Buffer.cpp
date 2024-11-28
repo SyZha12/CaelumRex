@@ -1,10 +1,8 @@
-#include "Buffer.h"
-
-#include "Core.h"
-#include "Log.h"
-#include "OpenGLBuffer.h"
-#include "Renderer/Renderer.h"
-#include "spdlog/fmt/bundled/chrono.h"
+/** CaelumRex libraries **/
+#include <Renderer/Buffer.h>
+#include <Core/Log.h>
+#include <OpenGL/OpenGLBuffer.h>
+#include <Renderer/Renderer.h>
 
 namespace CaelumRex
 {

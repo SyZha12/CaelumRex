@@ -1,14 +1,14 @@
 #ifndef APPLICATIONEVENT_H
 #define APPLICATIONEVENT_H
 
-#include "Events/Event.h"
+#include <Events/Event.h>
 
 namespace CaelumRex
 {
     class WindowResizeEvent : public Event
     {
     public:
-        WindowResizeEvent(unsigned int width, unsigned int height)
+        WindowResizeEvent(const unsigned int width, const unsigned int height)
             : m_Width(width), m_Height(height) {}
 
         unsigned int GetWidth() const { return m_Width; }
@@ -30,7 +30,7 @@ namespace CaelumRex
     class WindowMinimizedEvent : public Event
     {
     public:
-        WindowMinimizedEvent(bool minimized)
+        WindowMinimizedEvent(const bool minimized)
             : m_Minimized(minimized) {}
         bool IsMinimized() const { return m_Minimized; }
 

@@ -1,11 +1,11 @@
-// #include "CRPrecompiled.h"
-#include "ImGui/ImGuiLayer.h"
+/** CaelumRex libraries **/
+#include <Core/Application.h>
+
+/** Third-Party Libraries & Co **/
+#include <ImGui/ImGuiLayer.h>
 #include <GLFW/glfw3.h>
-// #include "imgui-docking/imgui.h"
-// #include "imgui-docking/imgui_internal.h"
-#include "imgui-docking/backends/imgui_impl_glfw.h"
-#include "imgui-docking/backends/imgui_impl_opengl3.h"
-#include "Core/Application.h"
+#include <imgui-docking/backends/imgui_impl_glfw.h>
+#include <imgui-docking/backends/imgui_impl_opengl3.h>
 
 namespace CaelumRex
 {
@@ -14,12 +14,6 @@ namespace CaelumRex
     {
 
     }
-
-    // ImGuiLayer::~ImGuiLayer()
-    // {
-    //     // ImGui_ImplOpenGL3_Shutdown();
-    //     // ImGui::DestroyContext();
-    // }
 
     void ImGuiLayer::OnAttach()
     {

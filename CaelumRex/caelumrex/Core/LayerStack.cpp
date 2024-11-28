@@ -1,4 +1,5 @@
-#include "Core/LayerStack.h"
+/** CaelumRex libraries **/
+#include <Core/LayerStack.h>
 
 namespace CaelumRex
 {
@@ -24,8 +25,7 @@ namespace CaelumRex
 
     void LayerStack::PopLayer(Layer* layer)
     {
-        auto it = std::find(m_Layers.begin(), m_Layers.begin() + m_LayerInsertIndex, layer);
-        if (it != m_Layers.begin() + m_LayerInsertIndex)
+        if (const auto it = std::find(m_Layers.begin(), m_Layers.begin() + m_LayerInsertIndex, layer); it != m_Layers.begin() + m_LayerInsertIndex)
         {
             layer->OnDetach();
             m_Layers.erase(it);
@@ -35,8 +35,7 @@ namespace CaelumRex
 
     void LayerStack::PopOverlay(Layer* overlay)
     {
-        auto it = std::find(m_Layers.begin() + m_LayerInsertIndex, m_Layers.end(), overlay);
-        if (it != m_Layers.end())
+        if (const auto it = std::find(m_Layers.begin() + m_LayerInsertIndex, m_Layers.end(), overlay); it != m_Layers.end())
         {
             overlay->OnDetach();
             m_Layers.erase(it);

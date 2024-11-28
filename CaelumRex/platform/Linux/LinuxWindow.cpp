@@ -1,5 +1,6 @@
 #include "Linux/LinuxWindow.h"
 
+#include "Renderer.h"
 #include "Events/ApplicationEvent.h"
 #include "Events/KeyEvent.h"
 #include "Events/MouseEvent.h"
@@ -16,12 +17,6 @@ namespace CaelumRex
     LinuxWindow::~LinuxWindow()
     {
         ShutDown();
-    }
-
-    // This is platform specific, where we use the LinuxWindow creation
-    Window* Window::Create(const WindowProperties& props)
-    {
-        return new LinuxWindow(props);
     }
 
     void LinuxWindow::Init(const WindowProperties& props)
@@ -51,7 +46,7 @@ namespace CaelumRex
             );
 
         // Create new OpenGL context
-        m_Context = new OpenGLContext(m_Window);
+        m_Context = GraphicsContext::Create(m_Window);
         m_Context->Init();
 
         // Sets the user-defined pointer of the specified window. The current value is retained until the window is destroyed

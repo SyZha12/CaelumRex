@@ -1,5 +1,7 @@
-#include "Core/Log.h"
+/** CaelumRex libraries **/
+#include <Core/Log.h>
 
+/** Third-Party Libraries & Co **/
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace CaelumRex
@@ -16,6 +18,9 @@ namespace CaelumRex
         s_CoreLogger->set_level(spdlog::level::trace);
         s_ClientLogger = spdlog::stdout_color_mt("Application");
         s_ClientLogger->set_level(spdlog::level::trace);
+
+        CR_CORE_INFO("Core logger initialized");
+        CR_INFO("Client logger initialized");
     }
 
 }

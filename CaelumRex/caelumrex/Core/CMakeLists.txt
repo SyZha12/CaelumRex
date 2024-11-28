@@ -4,6 +4,7 @@ set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/Log.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Core.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Window.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Window.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Layer.h
         ${CMAKE_CURRENT_SOURCE_DIR}/LayerStack.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Application.cpp
@@ -14,6 +15,7 @@ set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/KeyCodes.h
         ${CMAKE_CURRENT_SOURCE_DIR}/MouseButtonCodes.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Timestep.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/PlatformDetection.h
 )
 set(SUBDIRECTORIES "")
 set(RELATIVE_PATH caelumrex)

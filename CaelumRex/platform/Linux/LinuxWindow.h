@@ -2,7 +2,7 @@
 #define LINUXWINDOW_H
 
 #include "Core/Window.h"
-#include "Renderer/RendererContext.h"
+#include "Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -37,7 +37,7 @@ namespace CaelumRex
         void* window_iconify_callback(GLFWwindow* window, int iconified);
 
         GLFWwindow* m_Window;
-        RendererContext* m_Context;
+        Scope<GraphicsContext> m_Context;
 
         struct WindowData
         {

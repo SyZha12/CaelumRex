@@ -2,16 +2,17 @@
 #define LOG_H
 
 /**
- *  Log class: uses spdlog and is very fast and header-only (compiled is also possible)
- *  Spdlog uses the feature-rich formatting of the fmt library
+ *  @author Symen Zhang
+ *  @brief This class uses spdlog and is very fast and header-only (compiled is also possible). Spdlog uses the
+ *         feature-rich formatting of the fmt library.
  */
 
-#include "caelumrex_export.h"
+/** Third-Party Libraries & Co **/
 #include <spdlog/spdlog.h>
 
 namespace CaelumRex
 {
-    class CAELUMREX_EXPORT Log
+    class Log
     {
     public:
         static void Init();

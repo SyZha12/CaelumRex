@@ -1,13 +1,16 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "Camera.h"
-#include "Shader.h"
-#include "Renderer/RenderCommand.h"
-
 /**
- * Renderer class is used as the most top level class for rendering the environment, camera, light, objects, etc.
+ *  @brief Renderer class is used as the most top level class for rendering the environment, camera, light, objects, etc.
  */
+
+/** CaelumRex libraries **/
+#include <Renderer/Camera.h>
+#include <Renderer/Shader.h>
+#include <Renderer/RenderCommand.h>
+
+
 namespace CaelumRex
 {
     class Renderer

@@ -1,7 +1,13 @@
 #ifndef IMGUILAYER_H
 #define IMGUILAYER_H
 
-#include "Core/Layer.h"
+/**
+ *  @author Symen Zhang
+ *  @brief Layer creation specifically for ImGui; Initializes and creates the context of ImGui.
+ */
+
+/** CaelumRex libraries **/
+#include <Core/Layer.h>
 
 namespace CaelumRex
 {

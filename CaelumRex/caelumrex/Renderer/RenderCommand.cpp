@@ -1,6 +1,6 @@
-#include "RenderCommand.h"
-
-#include "OpenGL/OpenGLRendererAPI.h"
+/** CaelumRex libraries **/
+#include <Renderer/RenderCommand.h>
+#include <OpenGL/OpenGLRendererAPI.h>
 
 namespace CaelumRex
 {

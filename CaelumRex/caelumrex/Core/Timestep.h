@@ -6,7 +6,7 @@ namespace CaelumRex
     class Timestep
     {
     public:
-        Timestep(float time = 0.0f)
+        Timestep(const float time = 0.0f)
             : m_Time(time)
         {
 

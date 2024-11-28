@@ -1,11 +1,11 @@
 #ifndef ORTHOGRAPHICCAMERACONTROLLER_H
 #define ORTHOGRAPHICCAMERACONTROLLER_H
 
-#include "ApplicationEvent.h"
-#include "Camera.h"
-#include "Event.h"
-#include "MouseEvent.h"
-#include "Timestep.h"
+/** CaelumRex libraries **/
+#include <Events/ApplicationEvent.h>
+#include <Renderer/Camera.h>
+#include <Events/MouseEvent.h>
+#include <Core/Timestep.h>
 
 namespace CaelumRex
 {

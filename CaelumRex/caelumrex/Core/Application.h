@@ -1,14 +1,20 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-// This is the main starting class of the engine
-// This class must be exported (visible) for the external project to inherit and use its functionalities
-#include "caelumrex_export.h"
+/**
+ * @author Symen Zhang
+ * @brief Main application class of the engine. This class will be used for the external project to inherit, so the user
+ *        will be able to apply its functionalities. For use; start by calling the external CreateApplication function.
+ */
 
-#include "Core/Window.h"
-#include "Core/LayerStack.h"
-#include "Events/ApplicationEvent.h"    // For window closed event (for now)
-#include "ImGui/ImGuiLayer.h"
+/** CaelumRex libraries **/
+#include <caelumrex_export.h>
+#include <Core/LayerStack.h>
+#include <Core/Window.h>
+#include <Events/ApplicationEvent.h>    // For window closed event (for now)
+
+/** Third-Party Libraries & Co **/
+#include <ImGui/ImGuiLayer.h>
 
 namespace CaelumRex
 {
@@ -16,41 +22,37 @@ namespace CaelumRex
     {
     public:
         Application();
-        virtual ~Application();
+        virtual ~Application() = default;
 
-        // Main game loop
         void Run();
-
-        // Used for window events
-        // This way Application isn't directly linked to the Window class
         void OnEvent(Event& e);
 
-        // Layers
         void PushLayer(Layer* layer);
         void PushOverlay(Layer* layer);
 
+        [[nodiscard("Return value not used")]]
         Window& GetWindow() const { return *m_Window; }
-        // Returns the instance of the application for another class to execute its functions
+
+        [[nodiscard("Return value not used")]]
         static Application& Get() { return *s_Instance; }
 
     private:
+        // TODO Move these functions outside of Application
         bool OnWindowClose(WindowCloseEvent& e);
-        bool OnWindowResize(WindowResizeEvent& e);
-        bool OnWindowMinimized(WindowMinimizedEvent& e);
+        bool OnWindowResize(const WindowResizeEvent& e);
+        bool OnWindowMinimized(const WindowMinimizedEvent& e);
 
         Scope<Window> m_Window;
         ImGuiLayer* m_ImGuiLayer;
-        bool m_Running = true;
-        bool m_Minimized = false;
         LayerStack m_LayerStack;
 
-        float m_LastFrameTime;
+        bool m_Running = true;
+        bool m_Minimized = false;
+        float m_LastFrameTime = 0.0f;
 
         static Application* s_Instance;
-
     };
 
-    // Called in Sandbox/Application
     extern Application* CreateApplication();
 }
 

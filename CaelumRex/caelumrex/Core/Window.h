@@ -1,13 +1,19 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "Events/Event.h"
-#include "Core/Log.h"
+/**
+ *  @author Symen Zhang
+ *  @brief The window class is the base class for creating windows for the engine. This includes the specific platform
+ *         windows.
+ */
+
+/** CaelumRex Libraries **/
+#include <Events/Event.h>
+#include <Core/Log.h>
 
 namespace CaelumRex
 {
     // Used for each created window with their own properties
-    // Used with Window::Create()
     struct WindowProperties
     {
         std::string Title;
@@ -29,9 +35,6 @@ namespace CaelumRex
     class Window
     {
     public:
-        // Used to instantiate a new window; window is created from this class
-        static Window* Create(const WindowProperties& props = WindowProperties());
-
         // Type alias to a function with the Event class as parameter with no return type
         // Is used in the SetEventCallBack function
         using EventCallBackFn = std::function<void(Event&)>;
@@ -42,15 +45,18 @@ namespace CaelumRex
         // = 0 syntax declares a pure virtual function
         virtual void OnUpdate() = 0;
 
-        virtual unsigned int GetWidth() const = 0;
-        virtual unsigned int GetHeight() const = 0;
+        [[nodiscard]] virtual unsigned int GetWidth() const = 0;
+        [[nodiscard]] virtual unsigned int GetHeight() const = 0;
 
         // Attributes
         virtual void SetEventCallBack(const EventCallBackFn& callback) = 0;
         virtual void SetVSync(bool enabled) = 0;
-        virtual bool IsVSync() const = 0;
+        [[nodiscard]] virtual bool IsVSync() const = 0;
 
-        virtual void* GetNativeWindow() const = 0;
+        [[nodiscard]] virtual void* GetNativeWindow() const = 0;
+
+        // Used to instantiate a new window; window is created from this class
+        static Scope<Window> Create(const WindowProperties& props = WindowProperties());
     };
 }
 

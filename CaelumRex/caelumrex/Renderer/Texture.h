@@ -1,9 +1,10 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
+/** CaelumRex libraries **/
+#include <Core/Core.h>
+/** Third-Party Libraries & Co **/
 #include <cstdint>
-
-#include "Core.h"
 
 namespace CaelumRex
 {
@@ -23,11 +24,6 @@ namespace CaelumRex
     public:
         static Ref<Texture2D> Create(const std::string& path);
     };
-
-    // class Texture3D : public Texture
-    // {
-    //
-    // };
 
 }
 

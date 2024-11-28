@@ -1,13 +1,21 @@
 #ifndef BUFFER_H
 #define BUFFER_H
 
+/**
+ *  @author Symen Zhang
+ *  @brief Contains the VertexBuffer and IndexBuffer class, which are important for rendering graphics on the screen.
+ */
+
+/** CaelumRex libraries **/
+#include <Core/Core.h>
+#include <Core/Log.h>
+
+/** Third-Party Libraries & Co **/
 #include <cstdint>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "Core.h"
-#include "Log.h"
 
 namespace CaelumRex
 {
@@ -39,8 +47,8 @@ namespace CaelumRex
 
     struct BufferElements
     {
-        std::string Name;
         ShaderDataType Type;
+        std::string Name;
         uint32_t Offset{};
         uint32_t Size{};
         bool Normalized{};
@@ -48,9 +56,9 @@ namespace CaelumRex
         BufferElements() = default;
 
         BufferElements(const ShaderDataType type, std::string  name, const bool normalized = false)
-            : Name(std::move(name)), Type(type), Offset(0), Size(ShaderDataTypeSize(type)), Normalized(normalized) {}
+            :  Type(type), Name(std::move(name)), Offset(0), Size(ShaderDataTypeSize(type)), Normalized(normalized) {}
 
-        uint32_t GetComponentCount() const
+        [[nodiscard]] uint32_t GetComponentCount() const
         {
             switch(Type)
             {
@@ -65,10 +73,10 @@ namespace CaelumRex
             case ShaderDataType::Int3:      return 3;
             case ShaderDataType::Int4:      return 4;
             case ShaderDataType::Bool:      return 1;
+            default:
+                CR_CORE_ERROR("GetComponentCount(): Unknown ShaderDataType.");
+                return 0;
             }
-
-            CR_CORE_ERROR("GetComponentCount(): Unknown ShaderDataType.");
-            return 0;
         }
     };
 

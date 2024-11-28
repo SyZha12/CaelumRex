@@ -1,58 +1,58 @@
-#include "Core/Application.h"
+/** CaelumRex libraries **/
+#include <Core/Application.h>
+#include <Renderer/Renderer.h>
 
-#include "GLFW/glfw3.h"
-#include "Renderer/Renderer.h"
+/** Third-Party Libraries & Co **/
+#include <GLFW/glfw3.h>
 
 namespace CaelumRex
 {
-    // Static members need to be defined in the source file as well; this is for the application instance
     Application* Application::s_Instance = nullptr;
 
     Application::Application()
     {
+        // Creates an Application pointer
         CR_CORE_INFO("Start CaelumRex Core Application...");
-        {
-            // Creates an Application pointer
-            if(s_Instance != NULL)
-                CR_CORE_ERROR("Application already exists! {0}");
-            else
-                s_Instance = this;
-        }
+        if(s_Instance != nullptr)
+            CR_CORE_ERROR("Application already exists");
+        else
+            s_Instance = this;
 
-        // Create the primary window
-        m_Window = Scope<Window>(Window::Create());
-        m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
+        // Create render window
+        m_Window = Window::Create();
+        m_Window->SetEventCallBack(BIND_EVENTS(OnEvent));
 
+        // Initialize rendering properties
         Renderer::Init();
 
-        // Create the ImGui Layer
+        // Initialize ImGui context (initial properties) and attach new layer
         m_ImGuiLayer = new ImGuiLayer();
-        PushLayer(m_ImGuiLayer);
-    }
-
-    Application::~Application()
-    {
+        PushOverlay(m_ImGuiLayer);
     }
 
     void Application::Run()
     {
         while(m_Running)
         {
-            float time = static_cast<float>(glfwGetTime());
-            Timestep timestep = time - m_LastFrameTime;
+            // TODO This is for consistent frames; move to another class
+            auto const time = static_cast<float>(glfwGetTime());
+            Timestep const timestep = time - m_LastFrameTime;
             m_LastFrameTime = time;
 
+            // Updates every layer (core window layer as well)
             if(!m_Minimized)
             {
                 for(Layer* layer : m_LayerStack)
                     layer->OnUpdate(timestep);
             }
 
+            // Updates every ImGui layer
             m_ImGuiLayer->Begin();
             for(Layer* layer : m_LayerStack)
                 layer->OnImGuiRender();
             m_ImGuiLayer->End();
 
+            // Updates and swaps window buffers
             m_Window->OnUpdate();
         }
     }
@@ -61,10 +61,11 @@ namespace CaelumRex
     {
         // EventDispatcher is used to determine when certain events occur like WindowCloseEvent
         EventDispatcher dispatcher(e);
-        dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-        dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
-        dispatcher.Dispatch<WindowMinimizedEvent>(BIND_EVENT_FN(OnWindowMinimized));
+        dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENTS_DISPATCH(OnWindowClose));
+        dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENTS_DISPATCH(OnWindowResize));
+        dispatcher.Dispatch<WindowMinimizedEvent>(BIND_EVENTS_DISPATCH(OnWindowMinimized));
 
+        // Call back each event that occurs on a layer
         for(auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
         {
             (*--it)->OnEvent(e);
@@ -91,19 +92,19 @@ namespace CaelumRex
         return true;
     }
 
-    bool Application::OnWindowResize(WindowResizeEvent& e)
+    bool Application::OnWindowResize(const WindowResizeEvent& e)
     {
         Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
 
         return false;
     }
 
-    bool Application::OnWindowMinimized(WindowMinimizedEvent& e)
+    bool Application::OnWindowMinimized(const WindowMinimizedEvent& e)
     {
         if(e.IsMinimized())
         {
             m_Minimized = true;
-            return false;
+            return true;
         }
         m_Minimized = false;
 

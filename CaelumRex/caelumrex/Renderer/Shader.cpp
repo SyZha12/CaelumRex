@@ -1,7 +1,7 @@
-#include "Shader.h"
-
-#include "Renderer/Renderer.h"
-#include "OpenGL/OpenGLShader.h"
+/** CaelumRex libraries **/
+#include <Renderer/Shader.h>
+#include <Renderer/Renderer.h>
+#include <OpenGL/OpenGLShader.h>
 
 namespace CaelumRex
 {

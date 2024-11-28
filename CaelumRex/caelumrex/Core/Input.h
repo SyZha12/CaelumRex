@@ -1,15 +1,24 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include "Application.h"
+/**
+ *  @author Symen Zhang
+ *  @brief Base input class
+ */
+
+/** Third-Party Libraries & Co **/
+#include <utility>
 
 namespace CaelumRex
 {
-    class CAELUMREX_EXPORT Input
+    class Input
     {
     public:
-        static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImplemented(keycode); }
-        static bool IsMouseButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImplemented(button); }
+        virtual ~Input() = default;
+
+        static bool IsKeyPressed(const int keycode) { return s_Instance->IsKeyPressedImplemented(keycode); }
+        static bool IsMouseButtonPressed(const int button) { return s_Instance->IsMouseButtonPressedImplemented(button); }
+
         static std::pair<float, float> GetMousePosition() { return s_Instance->GetMousePositionImplemented(); }
         static float GetMouseX() { return s_Instance->GetMouseXImplemented(); }
         static float GetMouseY() { return s_Instance->GetMouseYImplemented(); }

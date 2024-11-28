@@ -1,8 +1,9 @@
-#include "Core/Layer.h"
+/** CaelumRex libraries **/
+#include <Core/Layer.h>
 
 namespace CaelumRex
 {
-    Layer::Layer(const std::string& name)
+    Layer::Layer(const std::string_view name)
         : m_DebugName(name)
     {
 

@@ -1,18 +1,18 @@
 #ifndef KEYEVENT_H
 #define KEYEVENT_H
 
-#include "Events/Event.h"
+#include <Events/Event.h>
 
 namespace CaelumRex
 {
     class KeyEvent : public Event
     {
     public:
-        inline int GetKeyCode() const { return m_KeyCode; }
+        int GetKeyCode() const { return m_KeyCode; }
 
         EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
     protected:
-        KeyEvent(int keycode)
+        KeyEvent(const int keycode)
             : m_KeyCode(keycode) {}
 
         int m_KeyCode;
@@ -21,10 +21,10 @@ namespace CaelumRex
     class KeyPressedEvent : public KeyEvent
     {
     public:
-        KeyPressedEvent(int keycode, int repeatCount)
+        KeyPressedEvent(const int keycode, const int repeatCount)
             : KeyEvent(keycode), m_RepeatCount(repeatCount) {}
 
-        inline int GetRepeatCount() const { return m_RepeatCount; }
+        int GetRepeatCount() const { return m_RepeatCount; }
 
         std::string ToString() const override
         {
@@ -41,7 +41,7 @@ namespace CaelumRex
     class KeyReleasedEvent : public KeyEvent
     {
     public:
-        KeyReleasedEvent(int keycode)
+        KeyReleasedEvent(const int keycode)
             : KeyEvent(keycode) {}
 
         std::string ToString() const override
@@ -57,7 +57,7 @@ namespace CaelumRex
     class KeyTypedEvent : public KeyEvent
     {
     public:
-        KeyTypedEvent(int keycode)
+        KeyTypedEvent(const int keycode)
             : KeyEvent(keycode) {}
 
         std::string ToString() const override

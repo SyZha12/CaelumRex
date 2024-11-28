@@ -1,12 +1,12 @@
 #ifndef OPENGLCONTEXT_H
 #define OPENGLCONTEXT_H
 
-#include "Renderer/RendererContext.h"
+#include "Renderer/GraphicsContext.h"
 class GLFWwindow;
 
 namespace CaelumRex
 {
-    class OpenGLContext : public RendererContext
+    class OpenGLContext : public GraphicsContext
     {
     public:
         OpenGLContext(GLFWwindow* windowHandle);

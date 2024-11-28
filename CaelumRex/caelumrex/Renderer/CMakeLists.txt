@@ -1,5 +1,6 @@
 set(FILES
-        ${CMAKE_CURRENT_SOURCE_DIR}/RendererContext.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/GraphicsContext.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/GraphicsContext.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Shader.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Shader.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Buffer.h

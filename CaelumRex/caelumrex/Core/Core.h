@@ -4,16 +4,11 @@
 //====================== DEFINITIONS ======================//
 // Bind for Application functions
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
-
+#define BIND_EVENTS(x) [this](auto&& _PH) { x(std::forward<decltype(_PH)>(_PH)); }
+#define BIND_EVENTS_DISPATCH(x) [this](auto&& _PH) { return x(std::forward<decltype(_PH)>(_PH)); }
 #define CR_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
-
 #define BIT(x) (1 << x)
 
-#if __SIZEOF_POINTER__ > 4
-#define EMBED_BREAKPOINT_PTR ".quad"
-#else
-#define EMBED_BREAKPOINT_PTR ".long"
-#endif
 
 // TODO In Core.h; how to set breakpoint during debugging?
 #define EMBED_BREAKPOINT \
@@ -30,14 +25,26 @@ EMBED_BREAKPOINT_PTR " 0b;"       \
     #define CR_CORE_ASSERT(x, ...)
 #endif
 
+
+
 #include <memory>
 namespace CaelumRex
 {
     template<typename T>
     using Scope = std::unique_ptr<T>;
+    template<typename T, typename ... Args>
+    constexpr Scope<T> CreateScope(Args&& ... args)
+    {
+        return std::make_unique<T>(std::forward<Args>(args)...);
+    }
 
     template<typename T>
     using Ref = std::shared_ptr<T>;
+    template<typename T, typename ... Args>
+    constexpr Ref<T> CreateRef(Args&& ... args)
+    {
+        return std::make_shared<T>(std::forward<Args>(args)...);
+    }
 
 }
 

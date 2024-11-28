@@ -1,7 +1,12 @@
 #ifndef LINUXINPUT_H
 #define LINUXINPUT_H
 
-#include "Core/Input.h"
+/** CaelumRex Libraries **/
+#include <Core/Input.h>
+
+/** Third-Party Libraries & Co **/
+#include <utility>
+
 
 namespace CaelumRex
 {

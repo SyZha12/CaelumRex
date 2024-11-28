@@ -17,6 +17,7 @@ namespace CaelumRex
 			return GL_FRAGMENT_SHADER;
 
 		CR_CORE_ERROR("Unknown shader type");
+		return 0;
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& path)

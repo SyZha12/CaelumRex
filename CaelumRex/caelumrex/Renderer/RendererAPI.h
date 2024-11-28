@@ -1,15 +1,17 @@
 #ifndef RENDERERAPI_H
 #define RENDERERAPI_H
 
-#include <memory>
-#include <glm/glm.hpp>
-
-#include "VertexArray.h"
-
 /**
- * RendererAPI is a pure virtual class and should be overridden by the OpenGLRendererAPI (or in the future VulkanRendererAPI)
- * This decides after Renderer and RenderCommands which platform to use; i.e. OpenGL API or in the future Vulkan API
+ *  @brief RendererAPI is a pure virtual class and should be overridden by the OpenGLRendererAPI (or in the future
+ *         VulkanRendererAPI). This decides after Renderer and RenderCommands which platform to use; i.e. OpenGL API
+ *         or in the future Vulkan API
  */
+
+/** CaelumRex libraries **/
+#include <Renderer/VertexArray.h>
+
+/** Third-Party Libraries & Co **/
+#include <glm/glm.hpp>
 
 namespace CaelumRex
 {

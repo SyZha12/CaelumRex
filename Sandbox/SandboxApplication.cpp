@@ -3,7 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "OpenGLShader.h"
-#include "OrthographicCameraController.h"
+
 #include "glm/gtc/type_ptr.inl"
 #include "imgui-docking/imgui.h"
 
@@ -206,7 +206,6 @@ public:
         // CaelumRex::Renderer::Dispatch(m_Shader, m_VertexArray);
 
         CaelumRex::Renderer::End();
-
     }
 
     void OnImGuiRender() override
@@ -219,6 +218,11 @@ public:
     void OnEvent(CaelumRex::Event& event) override
     {
 		m_CameraController.OnEvent(event);
+
+    	if(event.GetEventType() == CaelumRex::EventType::WindowResize)
+    	{
+    		auto& re = static_cast<CaelumRex::WindowResizeEvent&>(event);
+    	}
     }
 
 private:

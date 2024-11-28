@@ -1,4 +1,5 @@
-#include "RendererAPI.h"
+/** CaelumRex libraries **/
+#include <Renderer/RendererAPI.h>
 
 namespace CaelumRex
 {

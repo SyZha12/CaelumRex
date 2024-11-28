@@ -1,18 +1,25 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include <string>
+/**
+ *  @author Symen Zhang
+ *  @brief Base class for layering; Base window is the default layer and each layer after can be stacked into the
+ *         LayerStack.
+ */
 
-#include "caelumrex_export.h"
-#include "Timestep.h"
-#include "Events/Event.h"
+/** CaelumRex libraries **/
+#include <Core/Timestep.h>
+#include <Events/Event.h>
+
+/** Third-Party Libraries & Co **/
+#include <string>
 
 namespace CaelumRex
 {
-    class CAELUMREX_EXPORT Layer
+    class Layer
     {
     public:
-        Layer(const std::string& name = "Layer");
+        explicit Layer(std::string_view name = "Layer");
         virtual ~Layer() = default;
 
         virtual void OnAttach() {}
@@ -22,6 +29,7 @@ namespace CaelumRex
         virtual void OnEvent(Event& event) {}
 
         // Only for debug purposes
+        [[nodiscard]]
         const std::string& GetName() const { return m_DebugName; }
     private:
         std::string m_DebugName;
