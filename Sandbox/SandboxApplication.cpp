@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "OpenGLShader.h"
+#include "OrthographicCameraController.h"
 #include "glm/gtc/type_ptr.inl"
 #include "imgui-docking/imgui.h"
 
@@ -10,7 +11,7 @@ class ExampleLayer : public CaelumRex::Layer
 {
 public:
     ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+		: Layer("Example"), m_CameraController(1920 / 1080, true)
 	{
 		m_VertexArray.reset(CaelumRex::VertexArray::Create());
 
@@ -91,7 +92,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(CaelumRex::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = (CaelumRex::Shader::Create("", vertexSrc, fragmentSrc));
 
 		std::string flatColorShaderVertexSrc = R"(
 			#version 460 core
@@ -125,7 +126,7 @@ public:
 			}
 		)";
 
-		m_ColorShader.reset(CaelumRex::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+		m_ColorShader = (CaelumRex::Shader::Create("ColorShader", flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
 
 		std::string textureShaderVertexSrc = R"(
 			#version 460 core
@@ -160,51 +161,25 @@ public:
 			}
 		)";
 
-		m_TextureShader.reset(CaelumRex::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = CaelumRex::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoLogoTexture = CaelumRex::Texture2D::Create("assets/textures/ChernoLogo.png");
 
-		std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(m_TextureShader)->SetUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(textureShader)->SetUniformInt("u_Texture", 0);
 	}
 
     void OnUpdate(CaelumRex::Timestep ts) override
     {
-        // CR_TRACE("Delta time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliseconds());
+    	// Update
+		m_CameraController.OnUpdate(ts);
 
-        if(CaelumRex::Input::IsKeyPressed(CR_KEY_A))
-            m_CameraPosition.x -= m_CameraSpeed * ts;
-        else if(CaelumRex::Input::IsKeyPressed(CR_KEY_D))
-            m_CameraPosition.x += m_CameraSpeed * ts;
-
-        if(CaelumRex::Input::IsKeyPressed(CR_KEY_W))
-            m_CameraPosition.y -= m_CameraSpeed * ts;
-        else if(CaelumRex::Input::IsKeyPressed(CR_KEY_S))
-            m_CameraPosition.y += m_CameraSpeed * ts;
-
-        if(CaelumRex::Input::IsKeyPressed(CR_KEY_Q))
-            m_CameraRotation += m_CameraRotationSpeed * ts;
-        if(CaelumRex::Input::IsKeyPressed(CR_KEY_E))
-            m_CameraRotation -= m_CameraRotationSpeed * ts;
-
-        if(CaelumRex::Input::IsKeyPressed(CR_KEY_J))
-            m_SquarePosition.x -= m_SquareSpeed * ts;
-        else if(CaelumRex::Input::IsKeyPressed(CR_KEY_L))
-            m_SquarePosition.x += m_SquareSpeed * ts;
-
-        if(CaelumRex::Input::IsKeyPressed(CR_KEY_I))
-            m_SquarePosition.y -= m_SquareSpeed * ts;
-        else if(CaelumRex::Input::IsKeyPressed(CR_KEY_K))
-            m_SquarePosition.y += m_SquareSpeed * ts;
-
+    	// Render
         CaelumRex::RenderCommand::SetClearColor( {0.1f, 0.1f, 0.1f, 1.0f} );
         CaelumRex::RenderCommand::Clear();
 
-        m_Camera.SetPosition(m_CameraPosition);
-        m_Camera.SetRotation(m_CameraRotation);
-
-        CaelumRex::Renderer::Begin(m_Camera);
+        CaelumRex::Renderer::Begin(m_CameraController.GetCamera());
 
         glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1));
 
@@ -221,10 +196,12 @@ public:
             }
         }
 
+    	auto textureShader = m_ShaderLibrary.Get("Texture");
+
         m_Texture->Bind();
-        CaelumRex::Renderer::Dispatch(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
+        CaelumRex::Renderer::Dispatch(textureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
         m_ChernoLogoTexture->Bind();
-        CaelumRex::Renderer::Dispatch(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
+        CaelumRex::Renderer::Dispatch(textureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
 
         // CaelumRex::Renderer::Dispatch(m_Shader, m_VertexArray);
 
@@ -241,29 +218,24 @@ public:
 
     void OnEvent(CaelumRex::Event& event) override
     {
-
+		m_CameraController.OnEvent(event);
     }
 
-
-
 private:
+	CaelumRex::ShaderLibrary m_ShaderLibrary;
+
     CaelumRex::Ref<CaelumRex::Shader> m_Shader;
     CaelumRex::Ref<CaelumRex::VertexArray> m_VertexArray;
 
-    CaelumRex::Ref<CaelumRex::Shader> m_ColorShader, m_TextureShader;
+    CaelumRex::Ref<CaelumRex::Shader> m_ColorShader;
     CaelumRex::Ref<CaelumRex::VertexArray> m_SquareVertexArray;
 
     CaelumRex::Ref<CaelumRex::Texture2D> m_Texture, m_ChernoLogoTexture;
 
-    CaelumRex::OrthographicCamera m_Camera;
-    glm::vec3 m_CameraPosition;
-    float m_CameraSpeed = 1.0f;
+    CaelumRex::OrthographicCameraController m_CameraController;
 
-    float m_CameraRotation = 0.0f;
-    float m_CameraRotationSpeed = 45.0f;
-
-    glm::vec3 m_SquarePosition;
-    float m_SquareSpeed = 1.0f;
+    // glm::vec3 m_SquarePosition;
+    // float m_SquareSpeed = 1.0f;
     glm::vec3 m_SquareColor = { 0.4f, 0.2f, 0.6f };
 };
 

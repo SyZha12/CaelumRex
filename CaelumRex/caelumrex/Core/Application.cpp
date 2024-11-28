@@ -42,8 +42,11 @@ namespace CaelumRex
             Timestep timestep = time - m_LastFrameTime;
             m_LastFrameTime = time;
 
-            for(Layer* layer : m_LayerStack)
-                layer->OnUpdate(timestep);
+            if(!m_Minimized)
+            {
+                for(Layer* layer : m_LayerStack)
+                    layer->OnUpdate(timestep);
+            }
 
             m_ImGuiLayer->Begin();
             for(Layer* layer : m_LayerStack)
@@ -59,6 +62,8 @@ namespace CaelumRex
         // EventDispatcher is used to determine when certain events occur like WindowCloseEvent
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+        dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+        dispatcher.Dispatch<WindowMinimizedEvent>(BIND_EVENT_FN(OnWindowMinimized));
 
         for(auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
         {
@@ -84,6 +89,25 @@ namespace CaelumRex
     {
         m_Running = false;
         return true;
+    }
+
+    bool Application::OnWindowResize(WindowResizeEvent& e)
+    {
+        Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+        return false;
+    }
+
+    bool Application::OnWindowMinimized(WindowMinimizedEvent& e)
+    {
+        if(e.IsMinimized())
+        {
+            m_Minimized = true;
+            return false;
+        }
+        m_Minimized = false;
+
+        return false;
     }
 
 }

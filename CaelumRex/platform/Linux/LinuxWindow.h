@@ -34,6 +34,7 @@ namespace CaelumRex
         // Not in the Window class and is used from this point
         virtual void Init(const WindowProperties& props);
         virtual void ShutDown();
+        void* window_iconify_callback(GLFWwindow* window, int iconified);
 
         GLFWwindow* m_Window;
         RendererContext* m_Context;
@@ -43,6 +44,7 @@ namespace CaelumRex
             std::string Title;
             unsigned int Width, Height;
             bool VSync;
+            bool Minimized;
 
             EventCallBackFn EventCallBack;
         };

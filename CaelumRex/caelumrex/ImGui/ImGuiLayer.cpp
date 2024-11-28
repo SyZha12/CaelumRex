@@ -32,7 +32,7 @@ namespace CaelumRex
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable keyboard controls
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;        // Enable gamepad controls
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable docking
-        // io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable multi-viewport (for Windows)
+        io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable multi-viewport (for Windows)
         // io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
         // io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 
@@ -42,8 +42,8 @@ namespace CaelumRex
         ImGuiStyle& style = ImGui::GetStyle();
         if(io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
         {
-            // style.WindowRounding = 0.0f;
-            // style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+            style.WindowRounding = 0.0f;
+            style.Colors[ImGuiCol_WindowBg].w = 1.0f;
         }
 
         const Application& app = Application::Get();
@@ -62,8 +62,8 @@ namespace CaelumRex
 
     void ImGuiLayer::OnImGuiRender()
     {
-        // static bool show = true;
-        // ImGui::ShowDemoWindow(&show);
+        static bool show = true;
+        ImGui::ShowDemoWindow(&show);
     }
 
     void ImGuiLayer::Begin()

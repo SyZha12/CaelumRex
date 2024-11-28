@@ -84,7 +84,23 @@ namespace CaelumRex
             data.Height = height;
             WindowResizeEvent event(width, height);
             data.EventCallBack(event);
-            // CR_CORE_TRACE("{0}", event.ToString());
+        });
+
+        glfwSetWindowIconifyCallback(m_Window, [](GLFWwindow* window, int iconified)
+        {
+            WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+            if(iconified)
+            {
+                WindowMinimizedEvent event(true);
+                data.EventCallBack(event);
+                data.Minimized = true;
+            }
+            else
+            {
+                WindowMinimizedEvent event(false);
+                data.EventCallBack(event);
+                data.Minimized = false;
+            }
         });
 
         glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)

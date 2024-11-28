@@ -1,9 +1,9 @@
 add_executable(
-    Example
+    Sandbox3D
         SandboxApplication.cpp
 )
 
 target_link_libraries(
-    Example PRIVATE
+    Sandbox3D PRIVATE
         CaelumRex::CaelumRex
 )

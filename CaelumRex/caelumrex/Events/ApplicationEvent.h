@@ -27,6 +27,26 @@ namespace CaelumRex
         unsigned int m_Width, m_Height;
     };
 
+    class WindowMinimizedEvent : public Event
+    {
+    public:
+        WindowMinimizedEvent(bool minimized)
+            : m_Minimized(minimized) {}
+        bool IsMinimized() const { return m_Minimized; }
+
+        std::string ToString() const override
+        {
+            std::stringstream ss;
+            ss << "Window iconification changed";
+            return ss.str();
+        }
+
+        EVENT_CLASS_TYPE(WindowMinimized)
+        EVENT_CLASS_CATEGORY(EventCategoryApplication)
+    private:
+        bool m_Minimized;
+    };
+
     class WindowCloseEvent : public Event
     {
     public:
