@@ -1,4 +1,4 @@
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Renderer/Renderer2D.h>
 #include <Renderer/Shader.h>
 #include <Renderer/VertexArray.h>

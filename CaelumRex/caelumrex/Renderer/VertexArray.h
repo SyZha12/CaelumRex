@@ -1,7 +1,7 @@
 #ifndef VERTEXARRAY_H
 #define VERTEXARRAY_H
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Renderer/Buffer.h>
 
 namespace CaelumRex

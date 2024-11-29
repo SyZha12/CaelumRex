@@ -2,6 +2,9 @@
 #define SANDBOX2D_H
 
 #include <CaelumRex.h>
+#include <iostream>
+#include <ImGui/ImGuiLayer.h>
+#include <imgui-docking/imgui.h>
 
 class Sandbox2D : public CaelumRex::Layer
 {
@@ -17,6 +20,9 @@ private:
     CaelumRex::OrthographicCameraController m_CameraController;
 
     CaelumRex::Ref<CaelumRex::Texture2D> m_Texture;
+
+    glm::vec4 m_Color = {0.0f, 0.0f, 0.0f, 1.0f};
+
 };
 
 #endif //SANDBOX2D_H

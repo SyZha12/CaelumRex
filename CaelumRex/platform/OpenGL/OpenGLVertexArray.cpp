@@ -1,7 +1,10 @@
-#include "OpenGLVertexArray.h"
+/* CaelumRex Libraries */
+#include <OpenGL/OpenGLVertexArray.h>
+#include <Debug/Instrumentor.h>
+#include <Core/Log.h>
 
-#include "Log.h"
-#include "glad/glad.h"
+/* Third-Party Libraries & Co*/
+#include <glad/glad.h>
 
 namespace CaelumRex
 {
@@ -48,6 +51,8 @@ namespace CaelumRex
 
     void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
     {
+        CR_PROFILE_FUNCTION();
+
         if(vertexBuffer->GetLayout().GetElements().size() == 0)
             CR_CORE_WARN("Vertex layout has not been set!");
 

@@ -1,9 +1,11 @@
 #ifndef OPENGLVERTEXARRAY_H
 #define OPENGLVERTEXARRAY_H
 
-#include <cstdint>
+/* CaelumRex Libraries */
+#include <Renderer/VertexArray.h>
 
-#include "Renderer/VertexArray.h"
+/* Third-Party Libraries & Co*/
+#include <cstdint>
 
 namespace CaelumRex
 {

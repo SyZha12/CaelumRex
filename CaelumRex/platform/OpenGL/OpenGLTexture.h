@@ -1,7 +1,10 @@
 #ifndef OPENGLTEXTURE_H
 #define OPENGLTEXTURE_H
 
-#include "Renderer/Texture.h"
+/* CaelumRex Libraries */
+#include <Renderer/Texture.h>
+
+/* Third-Party Libraries & Co*/
 #include <glad/glad.h>
 
 namespace CaelumRex

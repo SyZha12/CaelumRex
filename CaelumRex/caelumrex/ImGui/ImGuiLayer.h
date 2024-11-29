@@ -6,7 +6,7 @@
  *  @brief Layer creation specifically for ImGui; Initializes and creates the context of ImGui.
  */
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Core/Layer.h>
 
 namespace CaelumRex
@@ -19,7 +19,6 @@ namespace CaelumRex
 
         void OnAttach() override;
         void OnDetach() override;
-        void OnImGuiRender() override;
 
         void Begin();
         void End();

@@ -1,7 +1,8 @@
 #ifndef OPENGLBUFFER_H
 #define OPENGLBUFFER_H
 
-#include "Renderer/Buffer.h"
+/* CaelumRex Libraries */
+#include <Renderer/Buffer.h>
 
 namespace CaelumRex
 {

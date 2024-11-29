@@ -1,4 +1,4 @@
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Renderer/Buffer.h>
 #include <Core/Log.h>
 #include <OpenGL/OpenGLBuffer.h>

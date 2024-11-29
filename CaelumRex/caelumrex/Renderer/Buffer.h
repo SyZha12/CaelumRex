@@ -6,11 +6,11 @@
  *  @brief Contains the VertexBuffer and IndexBuffer class, which are important for rendering graphics on the screen.
  */
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Core/Core.h>
 #include <Core/Log.h>
 
-/** Third-Party Libraries & Co **/
+/* Third-Party Libraries & Co*/
 #include <cstdint>
 #include <string>
 #include <utility>

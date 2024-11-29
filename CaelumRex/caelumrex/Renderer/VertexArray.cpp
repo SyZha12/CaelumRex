@@ -1,4 +1,4 @@
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Renderer/VertexArray.h>
 #include <Core/Core.h>
 #include <OpenGL/OpenGLVertexArray.h>

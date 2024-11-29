@@ -1,10 +1,13 @@
-#include "OpenGLContext.h"
+/* CaelumRex Libraries */
+#include <OpenGL/OpenGLContext.h>
+#include <Debug/Instrumentor.h>
+#include <Core/Core.h>
+#include <Core/Log.h>
 
-#include "Core/Core.h"
-#include "Core/Log.h"
+/* Third-Party Libraries & Co*/
 #define GLFW_INCLUDE_NONE
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 namespace CaelumRex
 {
@@ -17,6 +20,8 @@ namespace CaelumRex
 
     void OpenGLContext::Init()
     {
+        CR_PROFILE_FUNCTION();
+
         // Make current GLFW context current
         glfwMakeContextCurrent(m_WindowHandle);
         // Load GL (glad)

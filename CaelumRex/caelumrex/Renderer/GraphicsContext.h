@@ -1,7 +1,7 @@
 #ifndef GraphicsCONTEXT_H
 #define GraphicsCONTEXT_H
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Core/Core.h>
 
 namespace CaelumRex

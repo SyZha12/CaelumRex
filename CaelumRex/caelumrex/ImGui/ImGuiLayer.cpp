@@ -1,7 +1,7 @@
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Core/Application.h>
 
-/** Third-Party Libraries & Co **/
+/* Third-Party Libraries & Co*/
 #include <ImGui/ImGuiLayer.h>
 #include <GLFW/glfw3.h>
 #include <imgui-docking/backends/imgui_impl_glfw.h>
@@ -52,12 +52,6 @@ namespace CaelumRex
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
-    }
-
-    void ImGuiLayer::OnImGuiRender()
-    {
-        // static bool show = true;
-        // ImGui::ShowDemoWindow(&show);
     }
 
     void ImGuiLayer::Begin()

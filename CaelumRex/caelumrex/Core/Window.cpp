@@ -1,4 +1,4 @@
-/** CaelumRex Libraries **/
+/* CaelumRex Libraries */
 #include <Core/Window.h>
 #include <Core/PlatformDetection.h>
 #include <Core/Core.h>

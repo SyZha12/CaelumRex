@@ -1,12 +1,14 @@
 #ifndef OPENGLSHADER_H
 #define OPENGLSHADER_H
 
+/* CaelumRex Libraries */
+#include <Renderer/Shader.h>
+
+/* Third-Party Libraries & Co*/
 #include <cstdint>
 #include <string>
 #include <glm/glm.hpp>
 #include <glad/glad.h>
-
-#include "Renderer/Shader.h"
 
 namespace CaelumRex
 {

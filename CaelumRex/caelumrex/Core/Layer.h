@@ -7,11 +7,11 @@
  *         LayerStack.
  */
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Core/Timestep.h>
 #include <Events/Event.h>
 
-/** Third-Party Libraries & Co **/
+/* Third-Party Libraries & Co*/
 #include <string>
 
 namespace CaelumRex

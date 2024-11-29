@@ -1,5 +1,8 @@
-#include "OpenGLBuffer.h"
+/* CaelumRex Libraries */
+#include <OpenGL/OpenGLBuffer.h>
+#include <Debug/Instrumentor.h>
 
+/* Third-Party Libraries & Co*/
 #include <glad/glad.h>
 
 namespace CaelumRex
@@ -7,6 +10,8 @@ namespace CaelumRex
     ///////////////////////////  VERTEX BUFFER  //////////////////////////
     OpenGLVertexBuffer::OpenGLVertexBuffer(const float* vertices, const uint32_t size)
     {
+        CR_PROFILE_FUNCTION();
+
         glCreateBuffers(1, &m_RendererID);
         glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
         glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
@@ -19,6 +24,8 @@ namespace CaelumRex
 
     void OpenGLVertexBuffer::Bind()
     {
+        CR_PROFILE_FUNCTION();
+
         glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
     }
 

@@ -1,7 +1,7 @@
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Core/Log.h>
 
-/** Third-Party Libraries & Co **/
+/* Third-Party Libraries & Co*/
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace CaelumRex

@@ -10,10 +10,10 @@
  *         TODO Create Buffer Events
  */
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Core/Core.h>
 
-/** Third-Party Libraries & Co **/
+/* Third-Party Libraries & Co*/
 #include <functional>
 #include <string>
 #include <sstream>

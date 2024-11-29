@@ -6,7 +6,7 @@
  *  @brief Base input class
  */
 
-/** Third-Party Libraries & Co **/
+/* Third-Party Libraries & Co*/
 #include <utility>
 
 namespace CaelumRex

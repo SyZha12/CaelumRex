@@ -1,11 +1,16 @@
-#include "OpenGLRendererAPI.h"
+/* CaelumRex Libraries */
+#include <OpenGL/OpenGLRendererAPI.h>
+#include <Debug/Instrumentor.h>
 
+/* Third-Party Libraries & Co*/
 #include <glad/glad.h>
 
 namespace CaelumRex
 {
     void OpenGLRendererAPI::Init()
     {
+        CR_PROFILE_FUNCTION();
+
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

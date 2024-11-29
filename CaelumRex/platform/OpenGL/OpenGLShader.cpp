@@ -1,10 +1,11 @@
-#include "OpenGLShader.h"
+/* CaelumRex Libraries */
+#include <OpenGL/OpenGLShader.h>
+#include <Core/Log.h>
 
+/* Third-Party Libraries & Co*/
 #include <vector>
 #include <fstream>
-
-#include "Log.h"
-#include "glm/gtc/type_ptr.hpp"
+#include <glm/gtc/type_ptr.hpp>
 
 namespace CaelumRex
 {

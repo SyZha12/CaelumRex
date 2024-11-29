@@ -1,7 +1,7 @@
 #ifndef RENDERER2D_H
 #define RENDERER2D_H
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Renderer/Camera.h>
 #include <Renderer/Texture.h>
 

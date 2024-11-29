@@ -1,8 +1,9 @@
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Core/Application.h>
 #include <Renderer/Renderer.h>
+#include <Debug/Instrumentor.h>
 
-/** Third-Party Libraries & Co **/
+/* Third-Party Libraries & Co*/
 #include <GLFW/glfw3.h>
 
 namespace CaelumRex
@@ -11,6 +12,8 @@ namespace CaelumRex
 
     Application::Application()
     {
+        CR_PROFILE_FUNCTION();
+
         // Creates an Application pointer
         CR_CORE_INFO("Start CaelumRex Core Application...");
         if(s_Instance != nullptr)
@@ -18,22 +21,33 @@ namespace CaelumRex
         else
             s_Instance = this;
 
-        // Create render window
-        m_Window = Window::Create();
-        m_Window->SetEventCallBack(BIND_EVENTS(OnEvent));
+        {
+            CR_PROFILE_SCOPE("Application - Window Create");
+            // Create render window
+            m_Window = Window::Create();
+            m_Window->SetEventCallBack(BIND_EVENTS(OnEvent));
+        }
 
-        // Initialize rendering properties
-        Renderer::Init();
+        {
+            CR_PROFILE_SCOPE("Application - Renderer Init");
+            // Initialize rendering properties
+            Renderer::Init();
+        }
 
-        // Initialize ImGui context (initial properties) and attach new layer
-        m_ImGuiLayer = new ImGuiLayer();
-        PushOverlay(m_ImGuiLayer);
+        {
+            CR_PROFILE_SCOPE("Application - ImGui Layer Init");
+            // Initialize ImGui context (initial properties) and attach new layer
+            m_ImGuiLayer = new ImGuiLayer();
+            PushOverlay(m_ImGuiLayer);
+        }
     }
 
     void Application::Run()
     {
         while(m_Running)
         {
+            CR_PROFILE_FUNCTION();
+
             // TODO This is for consistent frames; move to another class
             auto const time = static_cast<float>(glfwGetTime());
             Timestep const timestep = time - m_LastFrameTime;
@@ -42,8 +56,12 @@ namespace CaelumRex
             // Updates every layer (core window layer as well)
             if(!m_Minimized)
             {
-                for(Layer* layer : m_LayerStack)
-                    layer->OnUpdate(timestep);
+                {
+                    CR_PROFILE_SCOPE("Application - Minimized Layer");
+
+                    for(Layer* layer : m_LayerStack)
+                        layer->OnUpdate(timestep);
+                }
             }
 
             // Updates every ImGui layer
@@ -59,6 +77,8 @@ namespace CaelumRex
 
     void Application::OnEvent(Event& e)
     {
+        CR_PROFILE_FUNCTION();
+
         // EventDispatcher is used to determine when certain events occur like WindowCloseEvent
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENTS_DISPATCH(OnWindowClose));

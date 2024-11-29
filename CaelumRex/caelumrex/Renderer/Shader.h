@@ -1,10 +1,10 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Core/Core.h>
 
-/** Third-Party Libraries & Co **/
+/* Third-Party Libraries & Co*/
 #include <string>
 #include <unordered_map>
 #include <glm/glm.hpp>

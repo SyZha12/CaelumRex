@@ -7,7 +7,7 @@
  *         feature-rich formatting of the fmt library.
  */
 
-/** Third-Party Libraries & Co **/
+/* Third-Party Libraries & Co*/
 #include <spdlog/spdlog.h>
 
 namespace CaelumRex

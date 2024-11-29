@@ -1,15 +1,18 @@
-#include "OpenGLTexture.h"
+/* CaelumRex Libraries */
+#include <OpenGL/OpenGLTexture.h>
+#include <Debug/Instrumentor.h>
+#include <Core/Log.h>
 
-#include "stb_image.h"
-
-
-#include "Log.h"
+/* Third-Party Libraries & Co*/
+#include <stb_image.h>
 
 namespace CaelumRex
 {
     OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
         : m_Width(width), m_Height(height)
     {
+        CR_PROFILE_FUNCTION();
+
         m_InternalFormat = GL_RGBA8, m_DataFormat = GL_RGBA;
 
         glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
@@ -22,6 +25,8 @@ namespace CaelumRex
     OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
         : m_Path(path)
     {
+        CR_PROFILE_FUNCTION();
+
         // Output parameters
         int width, height, channels;
         stbi_set_flip_vertically_on_load(1);

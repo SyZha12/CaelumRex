@@ -1,9 +1,11 @@
 #ifndef LINUXWINDOW_H
 #define LINUXWINDOW_H
 
-#include "Core/Window.h"
-#include "Renderer/GraphicsContext.h"
+/* CaelumRex Libraries */
+#include <Core/Window.h>
+#include <Renderer/GraphicsContext.h>
 
+/* Third-Party Libraries & Co*/
 #include <GLFW/glfw3.h>
 
 namespace CaelumRex

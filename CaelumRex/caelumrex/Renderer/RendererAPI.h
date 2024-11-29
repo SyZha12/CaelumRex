@@ -7,10 +7,10 @@
  *         or in the future Vulkan API
  */
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Renderer/VertexArray.h>
 
-/** Third-Party Libraries & Co **/
+/* Third-Party Libraries & Co*/
 #include <glm/glm.hpp>
 
 namespace CaelumRex

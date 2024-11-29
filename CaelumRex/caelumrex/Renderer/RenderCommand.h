@@ -5,7 +5,7 @@
  *  @brief RenderCommands should only do one thing at a time and draws from the Renderer class itself
  */
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Renderer/RendererAPI.h>
 
 namespace CaelumRex

@@ -1,7 +1,8 @@
 #ifndef OPENGLRENDERERAPI_H
 #define OPENGLRENDERERAPI_H
 
-#include "Renderer/RendererAPI.h"
+/* CaelumRex Libraries */
+#include <Renderer/RendererAPI.h>
 
 namespace CaelumRex
 {

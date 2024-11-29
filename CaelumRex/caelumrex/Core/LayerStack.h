@@ -7,7 +7,7 @@
  *        and will be updated on events etc. for each layer that is on the LayerStack.
  */
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Core/Layer.h>
 
 namespace CaelumRex

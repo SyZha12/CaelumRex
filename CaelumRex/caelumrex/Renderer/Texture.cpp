@@ -1,4 +1,4 @@
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Renderer/Texture.h>
 #include <Renderer/Renderer.h>
 #include <OpenGL/OpenGLTexture.h>

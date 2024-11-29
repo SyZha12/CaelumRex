@@ -7,7 +7,7 @@
  *         windows.
  */
 
-/** CaelumRex Libraries **/
+/* CaelumRex Libraries */
 #include <Events/Event.h>
 #include <Core/Log.h>
 

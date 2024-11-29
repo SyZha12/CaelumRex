@@ -1,4 +1,4 @@
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Renderer/GraphicsContext.h>
 #include <Core/Core.h>
 #include <OpenGL/OpenGLContext.h>

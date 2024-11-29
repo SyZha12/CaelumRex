@@ -14,7 +14,7 @@ generate_export_header(${PROJECT_NAME})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/caelumrex_export.h DESTINATION include)
 
 set(FILES "")
-set(SUBDIRECTORIES Core Events ImGui Renderer)
+set(SUBDIRECTORIES Core Events ImGui Renderer Debug)
 set(RELATIVE_PATH caelumrex)
 
 #[Add all subdirectories]

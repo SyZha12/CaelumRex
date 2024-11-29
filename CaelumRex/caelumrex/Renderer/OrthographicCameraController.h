@@ -1,7 +1,7 @@
 #ifndef ORTHOGRAPHICCAMERACONTROLLER_H
 #define ORTHOGRAPHICCAMERACONTROLLER_H
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Events/ApplicationEvent.h>
 #include <Renderer/Camera.h>
 #include <Events/MouseEvent.h>

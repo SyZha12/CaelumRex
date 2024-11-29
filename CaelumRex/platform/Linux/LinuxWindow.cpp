@@ -1,53 +1,71 @@
-#include "Linux/LinuxWindow.h"
-
-#include "Renderer.h"
-#include "Events/ApplicationEvent.h"
-#include "Events/KeyEvent.h"
-#include "Events/MouseEvent.h"
-#include "OpenGL/OpenGLContext.h"
+/* CaelumRex Libraries */
+#include <Linux/LinuxWindow.h>
+#include <Debug/Instrumentor.h>
+#include <Renderer/Renderer.h>
+#include <Events/ApplicationEvent.h>
+#include <Events/KeyEvent.h>
+#include <Events/MouseEvent.h>
+#include <OpenGL/OpenGLContext.h>
 
 namespace CaelumRex
 {
     LinuxWindow::LinuxWindow(const WindowProperties& props)
         : m_Window(nullptr)
     {
+        CR_PROFILE_FUNCTION();
+
         Init(props);
     }
 
     LinuxWindow::~LinuxWindow()
     {
+        CR_PROFILE_FUNCTION();
+
         ShutDown();
     }
 
     void LinuxWindow::Init(const WindowProperties& props)
     {
+        CR_PROFILE_FUNCTION();
+
         m_WindowData.Title = props.Title;
         m_WindowData.Width = props.Width;
         m_WindowData.Height = props.Height;
         CR_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
-        if(!s_GLFWInitialized)
         {
-            // Initialize the glfw library
-            if(!glfwInit())
-                CR_CORE_ERROR("Could not initialize GLFW!");
-            glfwSetErrorCallback(GLFWErrorCallBack);
+            CR_PROFILE_SCOPE("LinuxWindow - GLFWInit");
 
-            s_GLFWInitialized = true;
+            if(!s_GLFWInitialized)
+            {
+                // Initialize the glfw library
+                if(!glfwInit())
+                    CR_CORE_ERROR("Could not initialize GLFW!");
+                glfwSetErrorCallback(GLFWErrorCallBack);
+
+                s_GLFWInitialized = true;
+            }
         }
 
-        // Create GLFW window
-        m_Window = glfwCreateWindow(
-            static_cast<int>(props.Width),
-            static_cast<int>(props.Height),
-            props.Title.c_str(),
-            nullptr,
-            nullptr
-            );
+        {
+            CR_PROFILE_SCOPE("LinuxWindow - WindowCreate");
+            // Create GLFW window
+            m_Window = glfwCreateWindow(
+                static_cast<int>(props.Width),
+                static_cast<int>(props.Height),
+                props.Title.c_str(),
+                nullptr,
+                nullptr
+                );
+        }
 
-        // Create new OpenGL context
-        m_Context = GraphicsContext::Create(m_Window);
-        m_Context->Init();
+        {
+            CR_PROFILE_SCOPE("LinuxWindow - GraphicsContext Init");
+
+            // Create new OpenGL context
+            m_Context = GraphicsContext::Create(m_Window);
+            m_Context->Init();
+        }
 
         // Sets the user-defined pointer of the specified window. The current value is retained until the window is destroyed
         // What this means is on that GLFWwindow is a struct that has a place for any data we want and set it to the m_WindowData struct
@@ -64,6 +82,8 @@ namespace CaelumRex
 
     void LinuxWindow::OnUpdate()
     {
+        CR_PROFILE_FUNCTION();
+
         glfwPollEvents();
         m_Context->SwapBuffers();
         RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1.0f});
@@ -72,6 +92,8 @@ namespace CaelumRex
 
     void LinuxWindow::SetCallBacks() const
     {
+        CR_PROFILE_FUNCTION();
+
         // typedef void(*GLFWwindowsizefun)(GLFWwindow * window, int width, int height)
         // value: void(*) (GLFWwindow *, int, int)
         glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, const int width, const int height)
@@ -184,6 +206,8 @@ namespace CaelumRex
 
     void LinuxWindow::SetVSync(const bool enabled)
     {
+        CR_PROFILE_FUNCTION();
+
         if(enabled)
             glfwSwapInterval(1);
         else

@@ -7,13 +7,13 @@
  *        will be able to apply its functionalities. For use; start by calling the external CreateApplication function.
  */
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <caelumrex_export.h>
 #include <Core/LayerStack.h>
 #include <Core/Window.h>
 #include <Events/ApplicationEvent.h>    // For window closed event (for now)
 
-/** Third-Party Libraries & Co **/
+/* Third-Party Libraries & Co*/
 #include <ImGui/ImGuiLayer.h>
 
 namespace CaelumRex

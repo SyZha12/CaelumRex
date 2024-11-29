@@ -5,7 +5,7 @@
  *  @brief Renderer class is used as the most top level class for rendering the environment, camera, light, objects, etc.
  */
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Renderer/Camera.h>
 #include <Renderer/Shader.h>
 #include <Renderer/RenderCommand.h>

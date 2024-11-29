@@ -1,6 +1,7 @@
 #ifndef OPENGLCONTEXT_H
 #define OPENGLCONTEXT_H
 
+/* CaelumRex Libraries */
 #include "Renderer/GraphicsContext.h"
 class GLFWwindow;
 

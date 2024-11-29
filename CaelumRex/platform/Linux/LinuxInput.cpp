@@ -1,8 +1,8 @@
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Linux/LinuxInput.h>
 #include <Core/Application.h>
 
-/** Third-Party Libraries & Co **/
+/* Third-Party Libraries & Co*/
 #include <GLFW/glfw3.h>
 
 namespace CaelumRex

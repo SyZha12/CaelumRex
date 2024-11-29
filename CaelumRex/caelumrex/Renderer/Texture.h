@@ -1,9 +1,10 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Core/Core.h>
-/** Third-Party Libraries & Co **/
+
+/* Third-Party Libraries & Co*/
 #include <cstdint>
 
 namespace CaelumRex

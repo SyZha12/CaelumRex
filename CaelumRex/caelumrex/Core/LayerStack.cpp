@@ -1,4 +1,4 @@
-/** CaelumRex libraries **/
+/* CaelumRex Libraries */
 #include <Core/LayerStack.h>
 
 namespace CaelumRex
