@@ -11,9 +11,9 @@ namespace CaelumRex
 {
     struct DataStorage
     {
-        Ref<VertexArray> QuadVertexArray;
-        Ref<Shader> QuadShader;
-        Ref<Shader> TextureShader;
+        Ref<VertexArray> vertexArray;
+        Ref<Shader> shader;
+        Ref<Texture2D> whiteTexture;
     };
 
     static DataStorage* s_DataStorage;
@@ -22,7 +22,7 @@ namespace CaelumRex
     {
         s_DataStorage = new DataStorage();
 
-        s_DataStorage->QuadVertexArray = VertexArray::Create();
+        s_DataStorage->vertexArray = VertexArray::Create();
         float vertices[] = {
             -0.5f,  0.5f, 0.0f, 0.0f,  1.0f,
              0.5f,  0.5f, 0.0f, 1.0f,  1.0f,
@@ -34,16 +34,18 @@ namespace CaelumRex
             { ShaderDataType::Float3, "a_Position" },
             { ShaderDataType::Float2, "a_TexCoord"}
         });
-        s_DataStorage->QuadVertexArray->AddVertexBuffer(m_2DVertexBuffer);
+        s_DataStorage->vertexArray->AddVertexBuffer(m_2DVertexBuffer);
 
         uint32_t indices[] = { 0, 1, 2, 1, 2, 3 };
         Ref<IndexBuffer> m_2DIndexBuffer = IndexBuffer::Create(indices, sizeof(indices));
-        s_DataStorage->QuadVertexArray->SetIndexBuffer(m_2DIndexBuffer);
-        s_DataStorage->QuadShader = Shader::Create("assets/shaders/BasicShader.glsl");
+        s_DataStorage->vertexArray->SetIndexBuffer(m_2DIndexBuffer);
 
-        s_DataStorage->TextureShader = Shader::Create("assets/shaders/TextureShader.glsl");
-        s_DataStorage->TextureShader->Bind();
-        s_DataStorage->TextureShader->SetInt("u_Texture", 0);
+        s_DataStorage->whiteTexture = Texture2D::Create(1, 1);
+        uint32_t whiteTextureData = 0xffffffff;
+        s_DataStorage->whiteTexture->SetData(&whiteTextureData, sizeof(whiteTextureData));
+        s_DataStorage->shader = Shader::Create("assets/shaders/BasicShader.glsl");
+        s_DataStorage->shader->Bind();
+        s_DataStorage->shader->SetInt("u_Texture", 0);
     }
 
     void Renderer2D::Shutdown()
@@ -53,11 +55,8 @@ namespace CaelumRex
 
     void Renderer2D::Begin(const OrthographicCamera& camera)
     {
-        s_DataStorage->QuadShader->Bind();
-        s_DataStorage->QuadShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
-
-        s_DataStorage->TextureShader->Bind();
-        s_DataStorage->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+        s_DataStorage->shader->Bind();
+        s_DataStorage->shader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
     }
 
     void Renderer2D::End()
@@ -71,14 +70,15 @@ namespace CaelumRex
 
     void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
     {
-        s_DataStorage->QuadShader->Bind();
-        s_DataStorage->QuadShader->SetFloat4("u_Color", color);
-
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f}) /* rotation */;
-        s_DataStorage->QuadShader->SetMat4("u_Transform", transform);
 
-        s_DataStorage->QuadVertexArray->Bind();
-        RenderCommand::DrawIndexed(s_DataStorage->QuadVertexArray);
+        s_DataStorage->shader->SetMat4("u_Transform", transform);
+        s_DataStorage->shader->SetFloat4("u_Color", color);
+
+        s_DataStorage->whiteTexture->Bind();
+
+        s_DataStorage->vertexArray->Bind();
+        RenderCommand::DrawIndexed(s_DataStorage->vertexArray);
     }
 
     void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture)
@@ -88,15 +88,15 @@ namespace CaelumRex
 
     void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
     {
-        s_DataStorage->TextureShader->Bind();
-
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f}) /* rotation */;
-        s_DataStorage->TextureShader->SetMat4("u_Transform", transform);
+
+        s_DataStorage->shader->SetMat4("u_Transform", transform);
+        s_DataStorage->shader->SetFloat4("u_Color", glm::vec4(1.0f));
 
         texture->Bind();
 
-        s_DataStorage->QuadVertexArray->Bind();
-        RenderCommand::DrawIndexed(s_DataStorage->QuadVertexArray);
+        s_DataStorage->vertexArray->Bind();
+        RenderCommand::DrawIndexed(s_DataStorage->vertexArray);
     }
 
     void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const Ref<Texture2D>& texture)
@@ -106,14 +106,14 @@ namespace CaelumRex
 
     void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, const Ref<Texture2D>& texture)
     {
-        s_DataStorage->TextureShader->Bind();
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f}) /* rotation */;
-        s_DataStorage->TextureShader->SetMat4("u_Transform", transform);
-        s_DataStorage->TextureShader->SetFloat4("u_Color", color);
+
+        s_DataStorage->shader->SetMat4("u_Transform", transform);
+        s_DataStorage->shader->SetFloat4("u_Color", color);
 
         texture->Bind();
 
-        s_DataStorage->QuadVertexArray->Bind();
-        RenderCommand::DrawIndexed(s_DataStorage->QuadVertexArray);
+        s_DataStorage->vertexArray->Bind();
+        RenderCommand::DrawIndexed(s_DataStorage->vertexArray);
     }
 }

@@ -71,7 +71,7 @@ public:
 		m_ColorShader = CaelumRex::Shader::Create("assets/shaders/FlatColorShader.glsl");
 
     	// Load into Shader Library
-		auto textureShader = m_ShaderLibrary.Load("assets/shaders/TextureShader.glsl");
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/BasicShader.glsl");
 
     	// Create Textures
 		m_Texture = CaelumRex::Texture2D::Create("assets/textures/Checkerboard.png");
