@@ -6,14 +6,14 @@
 
 namespace CaelumRex
 {
-    VertexArray* VertexArray::Create()
+    Ref<VertexArray> VertexArray::Create()
     {
         switch(Renderer::getCurrentAPI())
         {
         case RendererAPI::API::None:
             CR_CORE_ERROR("VertexArray: RendererAPI::None is currently not supported."); return nullptr;
         case RendererAPI::API::OpenGL:
-            return new OpenGLVertexArray();
+            return CreateRef<OpenGLVertexArray>();
         }
 
         CR_CORE_ERROR("VertexArray: Unknown RendererAPI.");

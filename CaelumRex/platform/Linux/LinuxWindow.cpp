@@ -66,6 +66,8 @@ namespace CaelumRex
     {
         glfwPollEvents();
         m_Context->SwapBuffers();
+        RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1.0f});
+        RenderCommand::Clear();
     }
 
     void LinuxWindow::SetCallBacks() const

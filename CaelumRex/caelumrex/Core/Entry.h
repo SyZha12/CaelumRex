@@ -1,5 +1,5 @@
-#ifndef ENTRYAPPLICATION_H
-#define ENTRYAPPLICATION_H
+#ifndef Entry_H
+#define Entry_H
 
 /**
  *  @author Symen Zhang
@@ -22,4 +22,4 @@ int main(int argc, char ** argv)
 }
 #endif //CR_PLATFORM_LINUX
 
-#endif //ENTRYAPPLICATION_H
+#endif //Entry_H

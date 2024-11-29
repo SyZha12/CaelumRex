@@ -1,6 +1,8 @@
 #ifndef CORE_H
 #define CORE_H
 
+#include <csignal>
+
 //====================== DEFINITIONS ======================//
 // Bind for Application functions
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -9,13 +11,7 @@
 #define CR_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 #define BIT(x) (1 << x)
 
-
-// TODO In Core.h; how to set breakpoint during debugging?
-#define EMBED_BREAKPOINT \
-asm("0:"                              \
-".pushsection embed-breakpoints;" \
-EMBED_BREAKPOINT_PTR " 0b;"       \
-".popsection;")
+#define EMBED_BREAKPOINT raise(SIGABRT)
 
 #ifdef CR_ENABLE_ASSERTS
     #define CR_ASSERT(x, ...) {if(!(x)) {CR_ERROR("Assertion Failed: {0}", __VA_ARGS__); EMBED_BREAKPOINT;}}

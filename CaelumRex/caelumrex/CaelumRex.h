@@ -14,8 +14,4 @@
 
 #include "OrthographicCameraController.h"
 
-// ---Entry point of the application
-#include "Core/EntryApplication.h"
-//----------------------------------
-
 #endif //CAELUMREX_H

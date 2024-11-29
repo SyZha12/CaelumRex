@@ -29,8 +29,7 @@ namespace CaelumRex
         virtual void OnEvent(Event& event) {}
 
         // Only for debug purposes
-        [[nodiscard]]
-        const std::string& GetName() const { return m_DebugName; }
+        [[nodiscard]] const std::string& GetName() const { return m_DebugName; }
     private:
         std::string m_DebugName;
     };
