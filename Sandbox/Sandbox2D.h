@@ -15,6 +15,8 @@ public:
     void OnEvent(CaelumRex::Event& event) override;
 private:
     CaelumRex::OrthographicCameraController m_CameraController;
+
+    CaelumRex::Ref<CaelumRex::Texture2D> m_Texture;
 };
 
 #endif //SANDBOX2D_H

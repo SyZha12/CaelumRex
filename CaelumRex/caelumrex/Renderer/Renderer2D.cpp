@@ -13,6 +13,7 @@ namespace CaelumRex
     {
         Ref<VertexArray> QuadVertexArray;
         Ref<Shader> QuadShader;
+        Ref<Shader> TextureShader;
     };
 
     static DataStorage* s_DataStorage;
@@ -23,22 +24,26 @@ namespace CaelumRex
 
         s_DataStorage->QuadVertexArray = VertexArray::Create();
         float vertices[] = {
-            -0.5f,  0.5f, 0.0f,
-             0.5f,  0.5f, 0.0f,
-            -0.5f, -0.5f, 0.0f,
-             0.5f, -0.5f, 0.0f
+            -0.5f,  0.5f, 0.0f, 0.0f,  1.0f,
+             0.5f,  0.5f, 0.0f, 1.0f,  1.0f,
+            -0.5f, -0.5f, 0.0f, 0.0f,  0.0f,
+             0.5f, -0.5f, 0.0f, 1.0f,  0.0f
         };
         Ref<VertexBuffer> m_2DVertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
         m_2DVertexBuffer->SetLayout({
-            { ShaderDataType::Float3, "v_Position" }
+            { ShaderDataType::Float3, "a_Position" },
+            { ShaderDataType::Float2, "a_TexCoord"}
         });
         s_DataStorage->QuadVertexArray->AddVertexBuffer(m_2DVertexBuffer);
 
         uint32_t indices[] = { 0, 1, 2, 1, 2, 3 };
         Ref<IndexBuffer> m_2DIndexBuffer = IndexBuffer::Create(indices, sizeof(indices));
         s_DataStorage->QuadVertexArray->SetIndexBuffer(m_2DIndexBuffer);
-
         s_DataStorage->QuadShader = Shader::Create("assets/shaders/BasicShader.glsl");
+
+        s_DataStorage->TextureShader = Shader::Create("assets/shaders/TextureShader.glsl");
+        s_DataStorage->TextureShader->Bind();
+        s_DataStorage->TextureShader->SetInt("u_Texture", 0);
     }
 
     void Renderer2D::Shutdown()
@@ -50,6 +55,9 @@ namespace CaelumRex
     {
         s_DataStorage->QuadShader->Bind();
         s_DataStorage->QuadShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+
+        s_DataStorage->TextureShader->Bind();
+        s_DataStorage->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
     }
 
     void Renderer2D::End()
@@ -80,11 +88,30 @@ namespace CaelumRex
 
     void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
     {
-        s_DataStorage->QuadShader->Bind();
-        s_DataStorage->QuadShader->SetFloat4("u_Color", texture);
+        s_DataStorage->TextureShader->Bind();
 
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f}) /* rotation */;
-        s_DataStorage->QuadShader->SetMat4("u_Transform", transform);
+        s_DataStorage->TextureShader->SetMat4("u_Transform", transform);
+
+        texture->Bind();
+
+        s_DataStorage->QuadVertexArray->Bind();
+        RenderCommand::DrawIndexed(s_DataStorage->QuadVertexArray);
+    }
+
+    void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const Ref<Texture2D>& texture)
+    {
+        DrawQuad({position.x, position.y, 0.0f}, size, color, texture);
+    }
+
+    void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, const Ref<Texture2D>& texture)
+    {
+        s_DataStorage->TextureShader->Bind();
+        glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f}) /* rotation */;
+        s_DataStorage->TextureShader->SetMat4("u_Transform", transform);
+        s_DataStorage->TextureShader->SetFloat4("u_Color", color);
+
+        texture->Bind();
 
         s_DataStorage->QuadVertexArray->Bind();
         RenderCommand::DrawIndexed(s_DataStorage->QuadVertexArray);
