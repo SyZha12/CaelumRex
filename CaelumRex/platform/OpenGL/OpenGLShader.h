@@ -20,6 +20,10 @@ namespace CaelumRex
         void Bind() const override;
         void Unbind() const override;
 
+        void SetFloat3(const std::string& name, const glm::vec3& value) override;
+        void SetFloat4(const std::string& name, const glm::vec4& value) override;
+        void SetMat4(const std::string& name, const glm::mat4& value) override;
+
         const std::string& GetName() const override { return m_Name; }
 
         void SetUniformInt(const std::string& name, int value);

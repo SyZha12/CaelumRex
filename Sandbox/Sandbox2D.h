@@ -15,10 +15,6 @@ public:
     void OnEvent(CaelumRex::Event& event) override;
 private:
     CaelumRex::OrthographicCameraController m_CameraController;
-
-    CaelumRex::Ref<CaelumRex::VertexArray> m_2DVertexArray;l
-
-    CaelumRex::ShaderLibrary m_ShaderLibrary;
 };
 
 #endif //SANDBOX2D_H
@@ -29,11 +25,6 @@ private:
 //=== INCLUDES ===//
 // CaelumRex
 // Layer
-// VertexArray
-// VertexBuffer
-// IndexBuffer
 // OrthographicCameraController
 // Timestep
 // Event
-// Core
-// ShaderDataType

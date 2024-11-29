@@ -19,6 +19,8 @@ set(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/Texture.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/OrthographicCameraController.h
         ${CMAKE_CURRENT_SOURCE_DIR}/OrthographicCameraController.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Renderer2D.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Renderer2D.cpp
 )
 set(SUBDIRECTORIES "")
 set(RELATIVE_PATH caelumrex)

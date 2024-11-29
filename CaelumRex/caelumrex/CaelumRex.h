@@ -6,12 +6,13 @@
 
 // ---Header(s) used for other applications using this engine
 // ---Core--------------------------------------------------
-#include "Core/Application.h"
-#include "Core/Log.h"
+#include <Core/Application.h>
+#include <Core/Log.h>
 // ---Renderer----------------------------------------------
-#include "Renderer/Renderer.h"
-#include "Renderer/Texture.h"
+#include <Renderer/Renderer.h>
+#include <Renderer/Renderer2D.h>
+#include <Renderer/Texture.h>
 
-#include "OrthographicCameraController.h"
+#include <OrthographicCameraController.h>
 
 #endif //CAELUMREX_H

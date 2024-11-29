@@ -1,14 +1,16 @@
 /** CaelumRex Libraries **/
 #include <Renderer/Renderer.h>
 #include <OpenGL/OpenGLShader.h>
+#include <Renderer/Renderer2D.h>
 
 namespace CaelumRex
 {
-    Renderer::SceneData* Renderer::m_SceneData = new SceneData;
+    Scope<Renderer::SceneData> Renderer::m_SceneData = CreateScope<SceneData>();
 
     void Renderer::Init()
     {
         RenderCommand::Init();
+        Renderer2D::Init();
     }
 
     void Renderer::OnWindowResize(uint32_t width, uint32_t height)
