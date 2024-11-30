@@ -6,6 +6,20 @@
 
 namespace CaelumRex
 {
+    Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
+    {
+        switch(Renderer::getCurrentAPI())
+        {
+        case RendererAPI::API::None:
+            CR_CORE_ERROR("VertexBuffer: RendererAPI::None is currently not supported."); return nullptr;
+        case RendererAPI::API::OpenGL:
+            return CreateRef<OpenGLVertexBuffer>(size);
+        }
+
+        CR_CORE_ERROR("VertexBuffer: Unknown RendererAPI.");
+        return nullptr;
+    }
+
     Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
     {
         switch(Renderer::getCurrentAPI())

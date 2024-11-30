@@ -19,6 +19,8 @@ namespace CaelumRex
 
         OrthographicCamera& GetCamera() { return m_Camera; }
         const OrthographicCamera& GetCamera() const { return m_Camera; }
+
+        void EnableRotation(const bool enable) { m_Rotation = enable; }
     private:
         bool OnMouseScrolled(MouseScrolledEvent& e);
         bool OnWindowResized(WindowResizeEvent& e);

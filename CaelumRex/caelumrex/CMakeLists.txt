@@ -13,23 +13,27 @@ include(GenerateExportHeader)
 generate_export_header(${PROJECT_NAME})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/caelumrex_export.h DESTINATION include)
 
-set(FILES "")
-set(SUBDIRECTORIES Core Events ImGui Renderer Debug)
+#======================================================================
+set(CR_SUBDIRS_CAELUMREX
+        Core
+        Events
+        ImGui
+        Renderer
+        Debug
+)
 set(RELATIVE_PATH caelumrex)
 
-#[Add all subdirectories]
-foreach(VAR ${SUBDIRECTORIES})
+foreach (DIR ${CR_SUBDIRS_CAELUMREX})
+    file(GLOB CR_FILES CONFIGURE_DEPENDS "${DIR}/*.cpp" "${DIR}/*.h")
+
+    if(CR_FILES)
+        target_sources(${PROJECT_NAME} PRIVATE ${CR_FILES})
+        install(FILES ${CR_FILES} DESTINATION ${RELATIVE_PATH})
+    endif ()
+
     target_include_directories(
             ${PROJECT_NAME} PUBLIC
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${VAR}>
-            $<INSTALL_INTERFACE:${VAR}>
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${DIR}>
+            $<INSTALL_INTERFACE:${DIR}>
     )
-    add_subdirectory(${VAR})
-endforeach()
-
-if(FILES)
-    #[Add source files to target]
-    target_sources(${PROJECT_NAME} PRIVATE ${FILES})
-    #[Install source files]
-    install(FILES ${FILES} DESTINATION ${RELATIVE_PATH})
-endif()
+endforeach ()

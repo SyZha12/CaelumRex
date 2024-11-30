@@ -26,6 +26,12 @@ set_target_properties(
 
 #======================GO TO SUBDIRECTORIES======================
 #[Go to subdirectories when the next CMakeLists.txt will be executed]
-add_subdirectory(caelumrex)
-add_subdirectory(platform)
-add_subdirectory(vendor)
+set(CR_SUBDIRS
+        caelumrex
+        platform
+        vendor
+)
+
+foreach (CRDIR ${CR_SUBDIRS})
+    add_subdirectory(${CRDIR})
+endforeach ()

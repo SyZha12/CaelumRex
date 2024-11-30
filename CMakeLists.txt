@@ -17,7 +17,7 @@ set(CMAKE_CXX_FLAGS -g)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
 #[Set global cache variables]
 #[Default is ON for shared library; users can overwrite this with cmake -D to choose static or shared library]
@@ -25,10 +25,15 @@ option(BUILD_SHARED_LIBS "This evaluates to true when it is a shared library" OF
 
 #======================GO TO SUBDIRECTORIES======================
 #[Go to subdirectories when the next CMakeLists.txt will be executed]
-add_subdirectory(CaelumRex)
+set(ROOTDIRECTORIES
+        CaelumRex
+        Sandbox
+)
 
-#[Example subdirectory]
-add_subdirectory(Sandbox)
+foreach (ROOTDIR ${ROOTDIRECTORIES})
+    set(RootFolder ${ROOTDIR})
+    add_subdirectory(${ROOTDIR})
+endforeach ()
 
 #======================LINK AND INCLUDE======================
 #[Sometimes a library needs to be linked, which can be done here]
@@ -36,8 +41,9 @@ target_link_libraries(
     ${PROJECT_NAME} PRIVATE
         glfw
         GLAD::GLAD
-#        IMGUI::IMGUI
         IMGUIDOCK::IMGUIDOCK
+        glm::glm
+        spdlog::spdlog
 )
 
 #[This subdirectory is added for including the CaelumRex.h header file; More main files could be added to this directory]

@@ -55,8 +55,8 @@ public:
 
 		CaelumRex::Ref<CaelumRex::VertexBuffer> squareVB = CaelumRex::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		squareVB->SetLayout({
-			{ CaelumRex::ShaderDataType::Float3, "a_Position" },
-			{ CaelumRex::ShaderDataType::Float2, "a_TexCoord" }
+			{ CaelumRex::ShaderDataType::Float3     , "a_Position" },
+			{ CaelumRex::ShaderDataType::Float2     , "a_TexCoord" }
 		});
 		m_SquareVertexArray->AddVertexBuffer(squareVB);
 
@@ -75,7 +75,6 @@ public:
 
     	// Create Textures
 		m_Texture = CaelumRex::Texture2D::Create("assets/textures/Checkerboard.png");
-		m_ChernoLogoTexture = CaelumRex::Texture2D::Create("assets/textures/ChernoLogo.png");
 			// TODO Set texture uniforms in different way
 		std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(textureShader)->Bind();
 		std::dynamic_pointer_cast<CaelumRex::OpenGLShader>(textureShader)->SetUniformInt("u_Texture", 0);
@@ -107,11 +106,9 @@ public:
             }
         }
 
-    	auto textureShader = m_ShaderLibrary.Get("TextureShader");
+    	auto textureShader = m_ShaderLibrary.Get("BasicShader");
 
         m_Texture->Bind();
-        CaelumRex::Renderer::Dispatch(textureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
-        m_ChernoLogoTexture->Bind();
         CaelumRex::Renderer::Dispatch(textureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
 
         CaelumRex::Renderer::End();
@@ -143,7 +140,7 @@ private:
     CaelumRex::Ref<CaelumRex::Shader> m_ColorShader;
     CaelumRex::Ref<CaelumRex::VertexArray> m_SquareVertexArray;
 
-    CaelumRex::Ref<CaelumRex::Texture2D> m_Texture, m_ChernoLogoTexture;
+    CaelumRex::Ref<CaelumRex::Texture2D> m_Texture;
 
     CaelumRex::OrthographicCameraController m_CameraController;
 

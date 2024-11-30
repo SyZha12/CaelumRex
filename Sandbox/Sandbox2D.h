@@ -21,7 +21,7 @@ private:
 
     CaelumRex::Ref<CaelumRex::Texture2D> m_Texture;
 
-    glm::vec4 m_Color = {0.0f, 0.0f, 0.0f, 1.0f};
+    glm::vec4 m_Color = {0.8f, 0.2f, 0.2f, 1.0f};
 
 };
 

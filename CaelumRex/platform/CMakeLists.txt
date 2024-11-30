@@ -1,23 +1,23 @@
 #[Main entry point for the CaelumRex engine files (vendor/third-party will be in a different directory)]
 #[PLATFORM]
 
-set(FILES "")
-set(SUBDIRECTORIES Linux OpenGL)
+set(CR_SUBDIRS_PLATFORM
+        Linux
+        OpenGL
+)
 set(RELATIVE_PATH platform)
 
-#[Add all subdirectories]
-foreach(VAR ${SUBDIRECTORIES})
+foreach (DIR ${CR_SUBDIRS_PLATFORM})
+    file(GLOB CR_FILES CONFIGURE_DEPENDS "${DIR}/*.cpp" "${DIR}/*.h")
+
+    if(CR_FILES)
+        target_sources(${PROJECT_NAME} PRIVATE ${CR_FILES})
+        install(FILES ${CR_FILES} DESTINATION ${RELATIVE_PATH})
+    endif ()
+
     target_include_directories(
             ${PROJECT_NAME} PUBLIC
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${VAR}>
-            $<INSTALL_INTERFACE:${VAR}>
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${DIR}>
+            $<INSTALL_INTERFACE:${DIR}>
     )
-    add_subdirectory(${VAR})
-endforeach()
-
-if(FILES)
-    #[Add source files to target]
-    target_sources(${PROJECT_NAME} PRIVATE ${FILES})
-    #[Install source files]
-    install(FILES ${FILES} DESTINATION ${RELATIVE_PATH})
-endif()
+endforeach ()
