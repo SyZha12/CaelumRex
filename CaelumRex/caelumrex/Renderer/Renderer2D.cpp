@@ -15,7 +15,7 @@ namespace CaelumRex
         glm::vec3 Position;
         glm::vec4 Color;
         glm::vec2 TextureCoordination;
-        // TODO TextureId
+        float TextureIndex;
     };
 
     struct DataStorage
@@ -23,6 +23,7 @@ namespace CaelumRex
         const uint32_t MaxQuads =  10000;
         const uint32_t MaxVertices = MaxQuads * 4;
         const uint32_t MaxIndices = MaxQuads * 6;
+        static constexpr uint32_t MaxTextureSlots = 32; // TODO: RenderCaps
 
         Ref<VertexArray> QuadVertexArray;
         Ref<VertexBuffer> QuadVertexBuffer;
@@ -32,6 +33,9 @@ namespace CaelumRex
         uint32_t QuadIndexCount = 0;
         QuadVertex* QuadVertexBufferBase = nullptr;
         QuadVertex* QuadVertexBufferPtr = nullptr;
+
+        std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
+        uint32_t TextureSlotIndex = 1;  // 0 is white texture
     };
 
     static DataStorage s_DataStorage;
@@ -46,7 +50,8 @@ namespace CaelumRex
         s_DataStorage.QuadVertexBuffer->SetLayout({
             { ShaderDataType::Float3, "a_Position" },
             { ShaderDataType::Float4, "a_Color" },
-            { ShaderDataType::Float2, "a_TexCoord"}
+            { ShaderDataType::Float2, "a_TexCoord"},
+            { ShaderDataType::Float , "a_TexIndex"}
         });
         s_DataStorage.QuadVertexArray->AddVertexBuffer(s_DataStorage.QuadVertexBuffer);
 
@@ -76,13 +81,21 @@ namespace CaelumRex
             delete[] quadIndices;
         }
 
+        // Set standard white texture, if no texture was set; white texture is always TextureSlot[0]
         s_DataStorage.WhiteTexture = Texture2D::Create(1, 1);
         uint32_t WhiteTextureData = 0xffffffff;
         s_DataStorage.WhiteTexture->SetData(&WhiteTextureData, sizeof(WhiteTextureData));
 
+        int32_t samplers[s_DataStorage.MaxTextureSlots];
+        for(uint32_t i = 0; i < s_DataStorage.MaxTextureSlots; i++)
+            samplers[i] = i;
+
         s_DataStorage.BasicShader = Shader::Create("Sandbox/assets/shaders/BasicShader.glsl");
         s_DataStorage.BasicShader->Bind();
-        s_DataStorage.BasicShader->SetInt("u_Texture", 0);
+        s_DataStorage.BasicShader->SetIntArray("u_Textures", samplers, s_DataStorage.MaxTextureSlots);
+
+        // Initialize texture slot to 0
+        s_DataStorage.TextureSlots[0] = s_DataStorage.WhiteTexture;
     }
 
     void Renderer2D::Shutdown()
@@ -99,6 +112,8 @@ namespace CaelumRex
 
         s_DataStorage.QuadIndexCount = 0;
         s_DataStorage.QuadVertexBufferPtr = s_DataStorage.QuadVertexBufferBase;
+
+        s_DataStorage.TextureSlotIndex = 1;
     }
 
     void Renderer2D::End()
@@ -113,6 +128,9 @@ namespace CaelumRex
 
     void Renderer2D::Flush()
     {
+        for(uint32_t i = 0; i < s_DataStorage.TextureSlotIndex; i++)
+            s_DataStorage.TextureSlots[i]->Bind(i);
+
         RenderCommand::DrawIndexed(s_DataStorage.QuadVertexArray, s_DataStorage.QuadIndexCount);
     }
 
@@ -125,24 +143,30 @@ namespace CaelumRex
     {
         CR_PROFILE_FUNCTION();
 
+        const float textureIndex = 0.0f; // White Texture
+
         s_DataStorage.QuadVertexBufferPtr->Position = position;
         s_DataStorage.QuadVertexBufferPtr->Color = color;
         s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureIndex = textureIndex;
         s_DataStorage.QuadVertexBufferPtr++;
 
         s_DataStorage.QuadVertexBufferPtr->Position = { position.x + size.x, position.y, 0.0f };
         s_DataStorage.QuadVertexBufferPtr->Color = color;
         s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureIndex = textureIndex;
         s_DataStorage.QuadVertexBufferPtr++;
 
         s_DataStorage.QuadVertexBufferPtr->Position = { position.x + size.x, position.y + size.y, 0.0f };
         s_DataStorage.QuadVertexBufferPtr->Color = color;
         s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureIndex = textureIndex;
         s_DataStorage.QuadVertexBufferPtr++;
 
         s_DataStorage.QuadVertexBufferPtr->Position = { position.x, position.y + size.y, 0.0f };
         s_DataStorage.QuadVertexBufferPtr->Color = color;
         s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureIndex = textureIndex;
         s_DataStorage.QuadVertexBufferPtr++;
 
         s_DataStorage.QuadIndexCount += 6;
@@ -166,26 +190,49 @@ namespace CaelumRex
     {
         CR_PROFILE_FUNCTION();
 
-        constexpr glm::vec4 color = glm::vec4(1.0f);
+        constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+        float textureIndex = 0.0f;
+
+        // Loop through all the set TextureSlotIndex numbers;
+        for(uint32_t i = 0; i < s_DataStorage.TextureSlotIndex; i++)
+        {
+            if(*s_DataStorage.TextureSlots[i].get() == *texture.get())
+            {
+                textureIndex = (float)i;
+                break;
+            }
+        }
+
+        if(textureIndex == 0.0f)
+        {
+            textureIndex = (float)s_DataStorage.TextureSlotIndex;
+            s_DataStorage.TextureSlots[s_DataStorage.TextureSlotIndex] = texture;
+            s_DataStorage.TextureSlotIndex++;
+        }
 
         s_DataStorage.QuadVertexBufferPtr->Position = position;
         s_DataStorage.QuadVertexBufferPtr->Color = color;
         s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureIndex = textureIndex;
         s_DataStorage.QuadVertexBufferPtr++;
 
         s_DataStorage.QuadVertexBufferPtr->Position = { position.x + size.x, position.y, 0.0f };
         s_DataStorage.QuadVertexBufferPtr->Color = color;
-        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 1.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureIndex = textureIndex;
         s_DataStorage.QuadVertexBufferPtr++;
 
         s_DataStorage.QuadVertexBufferPtr->Position = { position.x + size.x, position.y + size.y, 0.0f };
         s_DataStorage.QuadVertexBufferPtr->Color = color;
-        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 1.0f, 1.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureIndex = textureIndex;
         s_DataStorage.QuadVertexBufferPtr++;
 
         s_DataStorage.QuadVertexBufferPtr->Position = { position.x, position.y + size.y, 0.0f };
         s_DataStorage.QuadVertexBufferPtr->Color = color;
-        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 1.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureIndex = textureIndex;
         s_DataStorage.QuadVertexBufferPtr++;
 
         s_DataStorage.QuadIndexCount += 6;

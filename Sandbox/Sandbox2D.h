@@ -20,6 +20,7 @@ private:
     CaelumRex::OrthographicCameraController m_CameraController;
 
     CaelumRex::Ref<CaelumRex::Texture2D> m_Texture;
+    CaelumRex::Ref<CaelumRex::Texture2D> m_TextureLogo;
 
     glm::vec4 m_Color = {0.8f, 0.2f, 0.2f, 1.0f};
 

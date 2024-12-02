@@ -14,6 +14,7 @@ void Sandbox2D::OnAttach()
     CR_PROFILE_FUNCTION();
 
     m_Texture = CaelumRex::Texture2D::Create("Sandbox/assets/textures/Checkerboard.png");
+    m_TextureLogo = CaelumRex::Texture2D::Create("Sandbox/assets/textures/c++.png");
 }
 
 void Sandbox2D::OnDetach()
@@ -36,12 +37,12 @@ void Sandbox2D::OnUpdate(CaelumRex::Timestep ts)
         {
             CR_PROFILE_SCOPE("Sandbox2D - DrawQuad");
             CaelumRex::Renderer2D::DrawQuad({0.8f, 0.8f}, {0.3f, 0.3f}, {0.9f, 0.6f, 0.2f, 1.0f});
-            CaelumRex::Renderer2D::DrawQuad({-0.9f, -0.9f}, {0.9f, 1.1f}, {0.15f, 0.7f, 0.8f, 1.0f});
+            CaelumRex::Renderer2D::DrawQuad({-0.9f, -0.9f}, {0.9f, 1.1f}, m_TextureLogo);
             CaelumRex::Renderer2D::DrawQuad({-0.9f, 0.9f}, {0.5f, 0.5f}, m_Color);
         }
         // m_CameraController.EnableRotation(true);
         // CaelumRex::Renderer2D::DrawRotationQuad({-1.0f, -0.8f, 0.0f}, {0.8f, 0.8f}, true, m_Color);
-        // CaelumRex::Renderer2D::DrawQuad({0.0f, 0.1f, -0.1f}, {2.0f, 2.0f}, m_Texture);
+        CaelumRex::Renderer2D::DrawQuad({0.0f, 0.1f}, {0.8f, 0.8f}, m_Texture);
         CaelumRex::Renderer2D::End();
     }
 }

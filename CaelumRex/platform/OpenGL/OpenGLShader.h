@@ -23,6 +23,7 @@ namespace CaelumRex
         void Unbind() const override;
 
         void SetInt(const std::string& name, int value) override;
+        void SetIntArray(const std::string& name, int* values, uint32_t count) override;
         void SetFloat3(const std::string& name, const glm::vec3& value) override;
         void SetFloat4(const std::string& name, const glm::vec4& value) override;
         void SetMat4(const std::string& name, const glm::mat4& value) override;
@@ -30,7 +31,7 @@ namespace CaelumRex
         const std::string& GetName() const override { return m_Name; }
 
         void SetUniformInt(const std::string& name, int value);
-
+        void SetUniformIntArray(const std::string& name, int* values, uint32_t count);
         void SetUniformFloat(const std::string& name, float value);
         void SetUniformFloat2(const std::string& name, const glm::vec2& value);
         void SetUniformFloat3(const std::string& name, const glm::vec3& value);
@@ -46,6 +47,7 @@ namespace CaelumRex
         uint32_t m_ProgramID;
         std::string m_Name;
     };
+
 }
 
 #endif //OPENGLSHADER_H
