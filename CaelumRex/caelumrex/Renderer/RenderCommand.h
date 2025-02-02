@@ -19,6 +19,7 @@ namespace CaelumRex
             s_RendererAPI->Init();
         }
 
+        // Used for setWindowResize
         static void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
         {
             s_RendererAPI->SetViewport(x, y, width, height);
@@ -38,7 +39,7 @@ namespace CaelumRex
             s_RendererAPI->DrawIndexed(vertexArray, indexCount);
         }
     private:
-        static RendererAPI* s_RendererAPI;
+        static Ref<RendererAPI> s_RendererAPI;
     };
 
 }

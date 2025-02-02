@@ -12,7 +12,6 @@
 #include <Renderer/Renderer.h>
 #include <Renderer/Renderer2D.h>
 #include <Renderer/Texture.h>
-
-#include <OrthographicCameraController.h>
+#include <Renderer/OrthographicCameraController.h>
 
 #endif //CAELUMREX_H

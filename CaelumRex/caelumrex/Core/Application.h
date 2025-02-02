@@ -26,6 +26,7 @@ namespace CaelumRex
 
         void Run();
         void OnEvent(Event& e);
+        void RunEvents(Event& e);
 
         void PushLayer(Layer* layer);
         void PushOverlay(Layer* layer);
@@ -44,15 +45,19 @@ namespace CaelumRex
 
         Scope<Window> m_Window;
         ImGuiLayer* m_ImGuiLayer;
+        // All layers are saved in this variable
         LayerStack m_LayerStack;
 
+        // Flags for 'Application'
         bool m_Running = true;
         bool m_Minimized = false;
-        float m_LastFrameTime = 0.0f;
 
+        // Object instance
         static Application* s_Instance;
     };
 
+    // Declare the "global" function here during compilation without being told that it is undefined
+    // Returns a pointer to an 'Application' object
     extern Application* CreateApplication();
 }
 

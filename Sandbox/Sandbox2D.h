@@ -2,9 +2,9 @@
 #define SANDBOX2D_H
 
 #include <CaelumRex.h>
-#include <iostream>
+
 #include <ImGui/ImGuiLayer.h>
-#include <imgui-docking/imgui.h>
+
 
 class Sandbox2D : public CaelumRex::Layer
 {
@@ -23,7 +23,7 @@ private:
     CaelumRex::Ref<CaelumRex::Texture2D> m_TextureLogo;
 
     glm::vec4 m_Color = {0.8f, 0.2f, 0.2f, 1.0f};
-
+    glm::vec2 m_Position = { -1.0f, 1.0f };
 };
 
 #endif //SANDBOX2D_H

@@ -3,7 +3,7 @@
 
 /**
  *  @author Symen Zhang
- *  @brief Main entry point for the application; CreateApplication is called from the engine, so that initializing the
+ *  @brief Main entry point for the application; CreateApplication is called from the engine, so that initializing
  *         starts from here. The application doesn't start, if the platform detected is not supported.
  */
 

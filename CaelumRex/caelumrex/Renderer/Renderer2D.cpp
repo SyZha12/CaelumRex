@@ -96,11 +96,14 @@ namespace CaelumRex
 
         // Initialize texture slot to 0
         s_DataStorage.TextureSlots[0] = s_DataStorage.WhiteTexture;
+
+
     }
 
     void Renderer2D::Shutdown()
     {
-
+        delete[] s_DataStorage.QuadVertexBufferBase;
+        delete[] s_DataStorage.QuadVertexBufferPtr;
     }
 
     void Renderer2D::Begin(const OrthographicCamera& camera)
@@ -120,7 +123,7 @@ namespace CaelumRex
     {
         CR_PROFILE_FUNCTION();
 
-        uint32_t dataSize = reinterpret_cast<uint8_t*>(s_DataStorage.QuadVertexBufferPtr) - reinterpret_cast<uint8_t*>(s_DataStorage.QuadVertexBufferBase);
+        const uint32_t dataSize = reinterpret_cast<uint8_t*>(s_DataStorage.QuadVertexBufferPtr) - reinterpret_cast<uint8_t*>(s_DataStorage.QuadVertexBufferBase);
         s_DataStorage.QuadVertexBuffer->SetData(s_DataStorage.QuadVertexBufferBase, dataSize);
 
         Flush();
@@ -143,42 +146,34 @@ namespace CaelumRex
     {
         CR_PROFILE_FUNCTION();
 
-        const float textureIndex = 0.0f; // White Texture
+        constexpr glm::vec2 textureCoordination = { 0.0f, 0.0f };
+        constexpr float textureIndex = 0.0f; // White Texture
 
         s_DataStorage.QuadVertexBufferPtr->Position = position;
         s_DataStorage.QuadVertexBufferPtr->Color = color;
-        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = textureCoordination;
         s_DataStorage.QuadVertexBufferPtr->TextureIndex = textureIndex;
         s_DataStorage.QuadVertexBufferPtr++;
 
         s_DataStorage.QuadVertexBufferPtr->Position = { position.x + size.x, position.y, 0.0f };
         s_DataStorage.QuadVertexBufferPtr->Color = color;
-        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = textureCoordination;
         s_DataStorage.QuadVertexBufferPtr->TextureIndex = textureIndex;
         s_DataStorage.QuadVertexBufferPtr++;
 
         s_DataStorage.QuadVertexBufferPtr->Position = { position.x + size.x, position.y + size.y, 0.0f };
         s_DataStorage.QuadVertexBufferPtr->Color = color;
-        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = textureCoordination;
         s_DataStorage.QuadVertexBufferPtr->TextureIndex = textureIndex;
         s_DataStorage.QuadVertexBufferPtr++;
 
         s_DataStorage.QuadVertexBufferPtr->Position = { position.x, position.y + size.y, 0.0f };
         s_DataStorage.QuadVertexBufferPtr->Color = color;
-        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = { 0.0f, 0.0f };
+        s_DataStorage.QuadVertexBufferPtr->TextureCoordination = textureCoordination;
         s_DataStorage.QuadVertexBufferPtr->TextureIndex = textureIndex;
         s_DataStorage.QuadVertexBufferPtr++;
 
         s_DataStorage.QuadIndexCount += 6;
-
-        // glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f}) /* rotation */;
-        //
-        // s_DataStorage.BasicShader->SetMat4("u_Transform", transform);
-        //
-        // s_DataStorage.WhiteTexture->Bind();
-        //
-        // s_DataStorage.QuadVertexArray->Bind();
-        // RenderCommand::DrawIndexed(s_DataStorage.QuadVertexArray);
     }
 
     void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture)
@@ -237,15 +232,6 @@ namespace CaelumRex
 
         s_DataStorage.QuadIndexCount += 6;
 
-        // glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f}) /* rotation */;
-        //
-        // s_DataStorage.BasicShader->SetMat4("u_Transform", transform);
-        // s_DataStorage.BasicShader->SetFloat4("u_Color", glm::vec4(1.0f));
-        //
-        // texture->Bind();
-        //
-        // s_DataStorage.QuadVertexArray->Bind();
-        // RenderCommand::DrawIndexed(s_DataStorage.QuadVertexArray);
     }
 
     void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const Ref<Texture2D>& texture)

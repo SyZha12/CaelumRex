@@ -18,6 +18,7 @@ namespace CaelumRex
     class RendererAPI
     {
     public:
+        // enum of different APIs
         enum class API
         {
             None = 0, OpenGL = 1

@@ -1,6 +1,11 @@
 #ifndef OPENGLBUFFER_H
 #define OPENGLBUFFER_H
 
+/**
+ *  @author Symen Zhang
+ *  @brief OpenGLBuffer class that inherits from the VertexBuffer base class in the Buffer file.
+ */
+
 /* CaelumRex Libraries */
 #include <Renderer/Buffer.h>
 

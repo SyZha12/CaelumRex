@@ -2,9 +2,7 @@
 #include <Core/Application.h>
 #include <Renderer/Renderer.h>
 #include <Debug/Instrumentor.h>
-
-/* Third-Party Libraries & Co*/
-#include <GLFW/glfw3.h>
+#include <Core/FrameRate.h>
 
 namespace CaelumRex
 {
@@ -24,6 +22,7 @@ namespace CaelumRex
         {
             CR_PROFILE_SCOPE("Application - Window Create");
             // Create render window
+            // First initializes the WindowProperties struct callable
             m_Window = Window::Create();
             m_Window->SetEventCallBack(BIND_EVENTS(OnEvent));
         }
@@ -48,11 +47,6 @@ namespace CaelumRex
         {
             CR_PROFILE_FUNCTION();
 
-            // TODO This is for consistent frames; move to another class
-            auto const time = static_cast<float>(glfwGetTime());
-            Timestep const timestep = time - m_LastFrameTime;
-            m_LastFrameTime = time;
-
             // Updates every layer (core window layer as well)
             if(!m_Minimized)
             {
@@ -60,7 +54,7 @@ namespace CaelumRex
                     CR_PROFILE_SCOPE("Application - Minimized Layer");
 
                     for(Layer* layer : m_LayerStack)
-                        layer->OnUpdate(timestep);
+                        layer->OnUpdate(FrameRate::GetCalculatedTimestep());
                 }
             }
 
@@ -79,11 +73,7 @@ namespace CaelumRex
     {
         CR_PROFILE_FUNCTION();
 
-        // EventDispatcher is used to determine when certain events occur like WindowCloseEvent
-        EventDispatcher dispatcher(e);
-        dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENTS_DISPATCH(OnWindowClose));
-        dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENTS_DISPATCH(OnWindowResize));
-        dispatcher.Dispatch<WindowMinimizedEvent>(BIND_EVENTS_DISPATCH(OnWindowMinimized));
+        RunEvents(e);
 
         // Call back each event that occurs on a layer
         for(auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
@@ -92,6 +82,15 @@ namespace CaelumRex
             if(e.m_Handled)
                 break;
         }
+    }
+
+    void Application::RunEvents(Event& e)
+    {
+        // EventDispatcher is used to determine when certain events occur like WindowCloseEvent
+        EventDispatcher dispatcher(e);
+        dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENTS_DISPATCH(OnWindowClose));
+        dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENTS_DISPATCH(OnWindowResize));
+        dispatcher.Dispatch<WindowMinimizedEvent>(BIND_EVENTS_DISPATCH(OnWindowMinimized));
     }
 
     void Application::PushLayer(Layer* layer)

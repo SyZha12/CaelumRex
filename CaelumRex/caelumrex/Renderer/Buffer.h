@@ -16,7 +16,6 @@
 #include <utility>
 #include <vector>
 
-
 namespace CaelumRex
 {
     enum class ShaderDataType

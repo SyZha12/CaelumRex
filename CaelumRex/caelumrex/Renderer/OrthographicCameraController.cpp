@@ -1,7 +1,7 @@
 /* CaelumRex Libraries */
 #include <Renderer/OrthographicCameraController.h>
 #include <Core/Input.h>
-#include <Core/KeyCodes.h>
+#include <KeyBinding/KeyCodes.h>
 
 namespace CaelumRex
 {
